@@ -1,0 +1,391 @@
+/home/srivasta/Work/devel/QMS/Instrumentation/Probes/OneShot/Simple/Generic_OneShot_Probe.h:38: Warning: group OneShot already documented. Skipping documentation.
+/home/srivasta/Work/devel/QMS/Utilities/Parse_Duration.cpp:61: Warning: namespace STDC already has a brief description. Skipping the documentation found here.
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/Remos_Sensor.h:48: Warning: file Generic_Sensor.idl already documented. Skipping documentation.
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_Sensor.h:48: Warning: file Generic_Sensor.idl already documented. Skipping documentation.
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/CallBack_Remos.cpp:60: Warning: class pack_args already has a brief description
+         skipping the one found here.
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/Message_Format_Remos.h:69: Warning: class helloWorld already has a brief description
+         skipping the one found here.
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/remos_sensor.cpp:92: Warning: class sensor_error_handler already has a detailed description. Skipping the one found here.
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/remos_sensor.cpp:92: Warning: class sensor_error_handler already has a brief description
+         skipping the one found here.
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/test/Client_Remos.h:104: Warning: class Test_Client already has a detailed description. Skipping the one found here.
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/test/Client_Remos.h:104: Warning: class Test_Client already has a brief description
+         skipping the one found here.
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/test/remos_client.cpp:105: Warning: class client_error_handler already has a detailed description. Skipping the one found here.
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/test/remos_client.cpp:105: Warning: class client_error_handler already has a brief description
+         skipping the one found here.
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/CallBack.cpp:60: Warning: class pack_args already has a brief description
+         skipping the one found here.
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/generic_sensor.cpp:94: Warning: class sensor_error_handler already has a detailed description. Skipping the one found here.
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/generic_sensor.cpp:94: Warning: class sensor_error_handler already has a brief description
+         skipping the one found here.
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Message_Format.h:58: Warning: class Request already has a brief description
+         skipping the one found here.
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Message_Format.h:69: Warning: class helloWorld already has a brief description
+         skipping the one found here.
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Message_Format.h:76: Warning: class payload_data already has a brief description
+         skipping the one found here.
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Message_Format.h:96: Warning: class probe_info already has a brief description
+         skipping the one found here.
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Message_Format.h:107: Warning: class query_info already has a brief description
+         skipping the one found here.
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/test/Client.h:92: Warning: class Test_Client already has a detailed description. Skipping the one found here.
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/test/Client.h:92: Warning: class Test_Client already has a brief description
+         skipping the one found here.
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/test/generic_client.cpp:93: Warning: class client_error_handler already has a detailed description. Skipping the one found here.
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/test/generic_client.cpp:93: Warning: class client_error_handler already has a brief description
+         skipping the one found here.
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/test/Payload.h:60: Warning: class Payload_Data already has a brief description
+         skipping the one found here.
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/test/receiver_client.cpp:104: Warning: class client_error_handler already has a detailed description. Skipping the one found here.
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/test/receiver_client.cpp:104: Warning: class client_error_handler already has a brief description
+         skipping the one found here.
+/home/srivasta/Work/devel/QMS/Core/Trader/QMS_Trader_ECInfo_Impl.cpp:238: Warning: no matching class member found for
+  void STDC::QMS::Citizen::QMS_Trader_ECInfo_Impl::pause(const char *reason, const char *credentials, short &ack)
+/home/srivasta/Work/devel/QMS/Core/Trader/QMS_Trader_ECInfo_Impl.cpp:267: Warning: no matching class member found for
+  void STDC::QMS::Citizen::QMS_Trader_ECInfo_Impl::resume(const char *reason, const char *credentials, short &ack)
+/home/srivasta/Work/devel/QMS/Core/Trader/QMS_Trader_ECInfo_Impl.cpp:295: Warning: no matching class member found for
+  void STDC::QMS::Citizen::QMS_Trader_ECInfo_Impl::stop(const char *reason, const char *credentials, short &ack)
+/home/srivasta/Work/devel/QMS/Core/Trader/QMS_Trader_ECInfo_Impl.h:428: Warning: member `type_structs_' of class `QMS_Trader_ECInfo_Impl' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorC.cpp:42: Warning: member `_tao_class_id' of class `Generic_Sensor' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorC.cpp:93: Warning: member `Generic_Sensor_var' of class `Generic_Sensor_var' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorC.cpp:97: Warning: member `ptr' of class `Generic_Sensor_var' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorC.cpp:104: Warning: member `Generic_Sensor_var' of class `Generic_Sensor_var' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorC.cpp:107: Warning: member `~Generic_Sensor_var' of class `Generic_Sensor_var' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorC.cpp:113: Warning: no matching class member found for
+  STDC::QMS::Citizen::Generic_Sensor_var & STDC::QMS::Citizen::Generic_Sensor_var::operator=(Generic_Sensor_ptr p)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorC.cpp:121: Warning: no matching class member found for
+  STDC::QMS::Citizen::Generic_Sensor_var & STDC::QMS::Citizen::Generic_Sensor_var::operator=(const::STDC::QMS::Citizen::Generic_Sensor_var &p)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorC.cpp:131: Warning: member `operator const ::STDC::QMS::Citizen::Generic_Sensor_ptr &' of class `Generic_Sensor_var' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorC.cpp:310: Warning: member `the_TAO_Generic_Sensor_Remote_Proxy_Broker' of class `_TAO_Generic_Sensor_Remote_Proxy_Broker' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorC.cpp:316: Warning: member `_TAO_Generic_Sensor_Remote_Proxy_Broker' of class `_TAO_Generic_Sensor_Remote_Proxy_Broker' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorC.cpp:320: Warning: member `~_TAO_Generic_Sensor_Remote_Proxy_Broker' of class `_TAO_Generic_Sensor_Remote_Proxy_Broker' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorC.cpp:328: Warning: member `select_proxy' of class `_TAO_Generic_Sensor_Remote_Proxy_Broker' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorC.cpp:340: Warning: member `Generic_Sensor' of class `Generic_Sensor' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorC.cpp:346: Warning: member `~Generic_Sensor' of class `Generic_Sensor' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorC.cpp:350: Warning: member `STDC_QMS_Citizen_Generic_Sensor_setup_collocation' of class `Generic_Sensor' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorC.cpp:362: Warning: member `_tao_any_destructor' of class `Generic_Sensor' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorC.cpp:371: Warning: member `_narrow' of class `Generic_Sensor' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorC.cpp:388: Warning: member `_unchecked_narrow' of class `Generic_Sensor' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorC.cpp:449: Warning: member `_duplicate' of class `Generic_Sensor' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorC.cpp:456: Warning: member `_is_a' of class `Generic_Sensor' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorC.cpp:468: Warning: member `_tao_QueryInterface' of class `Generic_Sensor' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorC.cpp:508: Warning: member `_interface_repository_id' of class `Generic_Sensor' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorC.i:33: Warning: member `Generic_Sensor' of class `Generic_Sensor' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorS.cpp:172: Warning: member `the_TAO_Generic_Sensor_Strategized_Proxy_Broker' of class `POA_STDC::QMS::Citizen::_TAO_Generic_Sensor_Strategized_Proxy_Broker' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorS.cpp:178: Warning: member `_TAO_Generic_Sensor_Strategized_Proxy_Broker' of class `POA_STDC::QMS::Citizen::_TAO_Generic_Sensor_Strategized_Proxy_Broker' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorS.cpp:185: Warning: member `~_TAO_Generic_Sensor_Strategized_Proxy_Broker' of class `POA_STDC::QMS::Citizen::_TAO_Generic_Sensor_Strategized_Proxy_Broker' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorS.cpp:196: Warning: member `select_proxy' of class `POA_STDC::QMS::Citizen::_TAO_Generic_Sensor_Strategized_Proxy_Broker' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorS.cpp:216: Warning: member `create_proxy' of class `POA_STDC::QMS::Citizen::_TAO_Generic_Sensor_Strategized_Proxy_Broker' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorS.cpp:278: Warning: member `_TAO_Generic_Sensor_ThruPOA_Proxy_Impl' of class `POA_STDC::QMS::Citizen::_TAO_Generic_Sensor_ThruPOA_Proxy_Impl' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorS.cpp:288: Warning: member `Generic_Sensor' of class `POA_STDC::QMS::Citizen::Generic_Sensor' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorS.cpp:297: Warning: member `Generic_Sensor' of class `POA_STDC::QMS::Citizen::Generic_Sensor' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorS.cpp:301: Warning: member `~Generic_Sensor' of class `POA_STDC::QMS::Citizen::Generic_Sensor' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorS.cpp:310: Warning: member `_is_a_skel' of class `POA_STDC::QMS::Citizen::Generic_Sensor' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorS.cpp:333: Warning: member `_non_existent_skel' of class `POA_STDC::QMS::Citizen::Generic_Sensor' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorS.cpp:350: Warning: member `_interface_skel' of class `POA_STDC::QMS::Citizen::Generic_Sensor' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorS.cpp:396: Warning: member `_is_a' of class `POA_STDC::QMS::Citizen::Generic_Sensor' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorS.cpp:413: Warning: member `_downcast' of class `POA_STDC::QMS::Citizen::Generic_Sensor' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorS.cpp:426: Warning: member `_dispatch' of class `POA_STDC::QMS::Citizen::Generic_Sensor' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorS.cpp:435: Warning: member `_interface_repository_id' of class `POA_STDC::QMS::Citizen::Generic_Sensor' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorS.cpp:441: Warning: member `_this' of class `POA_STDC::QMS::Citizen::Generic_Sensor' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorS.i:28: Warning: member `disconnect_EC_skel' of class `POA_STDC::QMS::Citizen::Generic_Sensor' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorS.i:43: Warning: member `reconnect_EC_skel' of class `POA_STDC::QMS::Citizen::Generic_Sensor' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorS.i:58: Warning: member `show_operating_level_skel' of class `POA_STDC::QMS::Citizen::Generic_Sensor' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorS.i:73: Warning: member `set_operating_level_skel' of class `POA_STDC::QMS::Citizen::Generic_Sensor' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorS.i:88: Warning: member `stats_skel' of class `POA_STDC::QMS::Citizen::Generic_Sensor' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorS.i:103: Warning: member `ping_skel' of class `POA_STDC::QMS::Citizen::Generic_Sensor' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorS.i:118: Warning: member `pause_skel' of class `POA_STDC::QMS::Citizen::Generic_Sensor' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorS.i:133: Warning: member `resume_skel' of class `POA_STDC::QMS::Citizen::Generic_Sensor' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_SensorS.i:148: Warning: member `stop_skel' of class `POA_STDC::QMS::Citizen::Generic_Sensor' cannot be found
+/home/srivasta/Work/devel/QMS/Instrumentation/Probes/Continuous/Simple/Generic/Generic_Continuous_Probe.cpp:393: Warning: argument `None' of command @param is not found in the argument list of listener(void *args)
+/home/srivasta/Work/devel/QMS/Instrumentation/Probes/Continuous/Simple/Generic/Generic_Continuous_Probe.cpp:393: Warning: The following parameters of listener(void *args) are not documented:
+  parameter args
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_Sensor_Impl.cpp:2174: Warning: argument `request_data' of command @param is not found in the argument list of print_message_data(STDC::QMS::QMSMessage &config)
+/home/srivasta/Work/devel/QMS/Instrumentation/Probes/Continuous/Simple/DLL_Intercept/Generic_Wrapper_Probe.cpp:287: Warning: argument `None' of command @param is not found in the argument list of listener(void *args)
+/home/srivasta/Work/devel/QMS/Instrumentation/Probes/Continuous/Simple/DLL_Intercept/Generic_Wrapper_Probe.cpp:287: Warning: The following parameters of listener(void *args) are not documented:
+  parameter args
+/home/srivasta/Work/devel/QMS/Instrumentation/Probes/Continuous/Simple/Linux_Perf_Mon/Linux_Perf_Mon_Probe.cpp:415: Warning: argument `None' of command @param is not found in the argument list of listener(void *args)
+/home/srivasta/Work/devel/QMS/Instrumentation/Probes/Continuous/Simple/Linux_Perf_Mon/Linux_Perf_Mon_Probe.cpp:415: Warning: The following parameters of listener(void *args) are not documented:
+  parameter args
+/home/srivasta/Work/devel/QMS/Core/Trader/ListOffers.cpp:248: Warning: argument `handles' of command @param is not found in the argument list of print_offers(CosTrading::Lookup_ptr lookup_if, char *type_name, char *category_p, CORBA_Environment &ACE_TRY_ENV)
+/home/srivasta/Work/devel/QMS/Core/Trader/ListOffers.cpp:248: Warning: argument `qun_category' of command @param is not found in the argument list of print_offers(CosTrading::Lookup_ptr lookup_if, char *type_name, char *category_p, CORBA_Environment &ACE_TRY_ENV)
+/home/srivasta/Work/devel/QMS/Core/Trader/ListOffers.cpp:248: Warning: The following parameters of print_offers(CosTrading::Lookup_ptr lookup_if, char *type_name, char *category_p, CORBA_Environment &ACE_TRY_ENV) are not documented:
+  parameter lookup_if
+  parameter category_p
+/home/srivasta/Work/devel/QMS/Core/Trader/ListOffers.cpp:248: Warning: argument `handles' of command @param is not found in the argument list of print_offers(CosTrading::Lookup_ptr lookup_if, char *type_name, char *category_p, CORBA_Environment &ACE_TRY_ENV)
+/home/srivasta/Work/devel/QMS/Core/Trader/ListOffers.cpp:248: Warning: argument `qun_category' of command @param is not found in the argument list of print_offers(CosTrading::Lookup_ptr lookup_if, char *type_name, char *category_p, CORBA_Environment &ACE_TRY_ENV)
+/home/srivasta/Work/devel/QMS/Core/Trader/ListOffers.cpp:248: Warning: The following parameters of print_offers(CosTrading::Lookup_ptr lookup_if, char *type_name, char *category_p, CORBA_Environment &ACE_TRY_ENV) are not documented:
+  parameter lookup_if
+  parameter category_p
+/home/srivasta/Work/devel/QMS/Instrumentation/Probes/Continuous/Simple/NT_Perf_Mon/NT_Perf_Mon_Probe.cpp:427: Warning: argument `None' of command @param is not found in the argument list of listener(void *args)
+/home/srivasta/Work/devel/QMS/Instrumentation/Probes/Continuous/Simple/NT_Perf_Mon/NT_Perf_Mon_Probe.cpp:427: Warning: The following parameters of listener(void *args) are not documented:
+  parameter args
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/test/Payload.cpp:397: Warning: The following parameters of payload_Handler(IDOM_Node *node_p, void *arg_p) are not documented:
+  parameter node_p
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Hello_World/test/Payload_HW.cpp:227: Warning: The following parameters of payload_Handler(IDOM_Node *node_p, void *arg_p) are not documented:
+  parameter node_p
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/test/Payload_Remos.cpp:324: Warning: The following parameters of payload_Handler(IDOM_Node *node_p, void *arg_p) are not documented:
+  parameter node_p
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/test/Payload.cpp:397: Warning: The following parameters of payload_Handler(IDOM_Node *node_p, void *arg_p) are not documented:
+  parameter node_p
+/home/srivasta/Work/devel/QMS/Instrumentation/Probes/Continuous/Simple/Remos/Remos_Flow_Probe.cpp:75: Warning: argument `None' of command @param is not found in the argument list of handler(Remos_Error err, Remos_Ptr ptr)
+/home/srivasta/Work/devel/QMS/Instrumentation/Probes/Continuous/Simple/Remos/Remos_Flow_Probe.cpp:75: Warning: The following parameters of handler(Remos_Error err, Remos_Ptr ptr) are not documented:
+  parameter err
+  parameter ptr
+/home/srivasta/Work/devel/QMS/Instrumentation/Probes/Continuous/Simple/Remos/Remos_Flow_Probe.cpp:453: Warning: argument `None' of command @param is not found in the argument list of listener(void *args)
+/home/srivasta/Work/devel/QMS/Instrumentation/Probes/Continuous/Simple/Remos/Remos_Flow_Probe.cpp:453: Warning: The following parameters of listener(void *args) are not documented:
+  parameter args
+/home/srivasta/Work/devel/QMS/Instrumentation/Probes/OneShot/Simple/Remos/Remos_Flow_Probe_Oneshot.cpp:70: Warning: argument `None' of command @param is not found in the argument list of handler(Remos_Error err, Remos_Ptr ptr)
+/home/srivasta/Work/devel/QMS/Instrumentation/Probes/OneShot/Simple/Remos/Remos_Flow_Probe_Oneshot.cpp:70: Warning: The following parameters of handler(Remos_Error err, Remos_Ptr ptr) are not documented:
+  parameter err
+  parameter ptr
+/home/srivasta/Work/devel/QMS/Instrumentation/Probes/Continuous/Simple/Remos/Remos_Graph_Probe.cpp:75: Warning: argument `None' of command @param is not found in the argument list of handler(Remos_Error err, Remos_Ptr ptr)
+/home/srivasta/Work/devel/QMS/Instrumentation/Probes/Continuous/Simple/Remos/Remos_Graph_Probe.cpp:75: Warning: The following parameters of handler(Remos_Error err, Remos_Ptr ptr) are not documented:
+  parameter err
+  parameter ptr
+/home/srivasta/Work/devel/QMS/Instrumentation/Probes/Continuous/Simple/Remos/Remos_Graph_Probe.cpp:453: Warning: argument `None' of command @param is not found in the argument list of listener(void *args)
+/home/srivasta/Work/devel/QMS/Instrumentation/Probes/Continuous/Simple/Remos/Remos_Graph_Probe.cpp:453: Warning: The following parameters of listener(void *args) are not documented:
+  parameter args
+/home/srivasta/Work/devel/QMS/Instrumentation/Probes/OneShot/Simple/Remos/Remos_Graph_Probe_Oneshot.cpp:70: Warning: argument `None' of command @param is not found in the argument list of handler(Remos_Error err, Remos_Ptr ptr)
+/home/srivasta/Work/devel/QMS/Instrumentation/Probes/OneShot/Simple/Remos/Remos_Graph_Probe_Oneshot.cpp:70: Warning: The following parameters of handler(Remos_Error err, Remos_Ptr ptr) are not documented:
+  parameter err
+  parameter ptr
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/Remos_Sensor_Impl.cpp:2189: Warning: argument `request_data' of command @param is not found in the argument list of print_message_data(STDC::QMS::QMSMessage &config)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/test/test_exec.cpp:234: Warning: argument `argc' of command @param is not found in the argument list of main(void)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/test/test_exec.cpp:234: Warning: argument `argv' of command @param is not found in the argument list of main(void)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/test/test_probe.cpp:235: Warning: argument `argc' of command @param is not found in the argument list of main(void)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/test/test_probe.cpp:235: Warning: argument `argv' of command @param is not found in the argument list of main(void)
+/home/srivasta/Work/devel/QMS/Core/Trader/ECInfo.cpp:47: Warning: argument `None' of command @param is not found in the argument list of ECInfo::ECInfo(void)
+/home/srivasta/Work/devel/QMS/Core/Trader/ECInfo.cpp:58: Warning: argument `None' of command @param is not found in the argument list of ECInfo::~ECInfo(void)
+/home/srivasta/Work/devel/QMS/Core/Trader/ECInfo.cpp:145: Warning: argument `None' of command @param is not found in the argument list of ECInfo::getId(void)
+/home/srivasta/Work/devel/QMS/Core/Trader/ECInfo.cpp:133: Warning: argument `None' of command @param is not found in the argument list of ECInfo::getName(void)
+/home/srivasta/Work/devel/QMS/Utilities/Multi_Level_Data/QMS_Linked_List.cpp:363: Warning: argument `copy' of command @param is not found in the argument list of QMS_Linked_List< NodeType, KeyType, Lock >::delete_nodes(void)
+/home/srivasta/Work/devel/QMS/Utilities/Multi_Level_Data/QMS_Linked_List_Iterators.cpp:391: Warning: argument `List' of command @param is not found in the argument list of QMS_Linked_List_Iterator< NodeType, KeyType, Lock >::QMS_Linked_List_Iterator(QMS_Linked_List< NodeType, KeyType, Lock > *list_p)
+/home/srivasta/Work/devel/QMS/Utilities/Multi_Level_Data/QMS_Linked_List_Iterators.cpp:391: Warning: The following parameters of QMS_Linked_List_Iterator< NodeType, KeyType, Lock >::QMS_Linked_List_Iterator(QMS_Linked_List< NodeType, KeyType, Lock > *list_p) are not documented:
+  parameter list_p
+/home/srivasta/Work/devel/QMS/Utilities/Multi_Level_Data/QMS_Linked_List_Iterators.cpp:427: Warning: argument `iter' of command @param is not found in the argument list of QMS_Linked_List_Iterator< NodeType, KeyType, Lock >::operator=(QMS_Linked_List_Iterator< NodeType, KeyType, Lock > &rhs)
+/home/srivasta/Work/devel/QMS/Utilities/Multi_Level_Data/QMS_Linked_List_Iterators.cpp:427: Warning: The following parameters of QMS_Linked_List_Iterator< NodeType, KeyType, Lock >::operator=(QMS_Linked_List_Iterator< NodeType, KeyType, Lock > &rhs) are not documented:
+  parameter rhs
+/home/srivasta/Work/devel/QMS/Utilities/Multi_Level_Data/QMS_Linked_List_Iterators.cpp:446: Warning: argument `List' of command @param is not found in the argument list of QMS_Linked_List_Iterator< NodeType, KeyType, Lock >::reset(QMS_Linked_List< NodeType, KeyType, Lock > *list_p)
+/home/srivasta/Work/devel/QMS/Utilities/Multi_Level_Data/QMS_Linked_List_Iterators.cpp:446: Warning: The following parameters of QMS_Linked_List_Iterator< NodeType, KeyType, Lock >::reset(QMS_Linked_List< NodeType, KeyType, Lock > *list_p) are not documented:
+  parameter list_p
+/home/srivasta/Work/devel/QMS/Utilities/Multi_Level_Data/QMS_Linked_List_Iterators.cpp:63: Warning: argument `List' of command @param is not found in the argument list of QMS_Linked_List_Iterator_Base< NodeType, KeyType, Lock >::QMS_Linked_List_Iterator_Base(QMS_Linked_List< NodeType, KeyType, Lock > *list_p)
+/home/srivasta/Work/devel/QMS/Utilities/Multi_Level_Data/QMS_Linked_List_Iterators.cpp:63: Warning: The following parameters of QMS_Linked_List_Iterator_Base< NodeType, KeyType, Lock >::QMS_Linked_List_Iterator_Base(QMS_Linked_List< NodeType, KeyType, Lock > *list_p) are not documented:
+  parameter list_p
+/home/srivasta/Work/devel/QMS/Utilities/Multi_Level_Data/QMS_Linked_List_Iterators.cpp:92: Warning: argument `iter' of command @param is not found in the argument list of QMS_Linked_List_Iterator_Base< NodeType, KeyType, Lock >::operator=(QMS_Linked_List_Iterator_Base< NodeType, KeyType, Lock > &rhs)
+/home/srivasta/Work/devel/QMS/Utilities/Multi_Level_Data/QMS_Linked_List_Iterators.cpp:92: Warning: The following parameters of QMS_Linked_List_Iterator_Base< NodeType, KeyType, Lock >::operator=(QMS_Linked_List_Iterator_Base< NodeType, KeyType, Lock > &rhs) are not documented:
+  parameter rhs
+/home/srivasta/Work/devel/QMS/Utilities/Multi_Level_Data/QMS_Linked_List_Iterators.cpp:111: Warning: argument `List' of command @param is not found in the argument list of QMS_Linked_List_Iterator_Base< NodeType, KeyType, Lock >::reset(QMS_Linked_List< NodeType, KeyType, Lock > *list_p)
+/home/srivasta/Work/devel/QMS/Utilities/Multi_Level_Data/QMS_Linked_List_Iterators.cpp:111: Warning: The following parameters of QMS_Linked_List_Iterator_Base< NodeType, KeyType, Lock >::reset(QMS_Linked_List< NodeType, KeyType, Lock > *list_p) are not documented:
+  parameter list_p
+/home/srivasta/Work/devel/QMS/Utilities/Multi_Level_Data/QMS_Linked_List_Iterators.cpp:606: Warning: argument `List' of command @param is not found in the argument list of QMS_Linked_List_Reverse_Iterator< NodeType, KeyType, Lock >::QMS_Linked_List_Reverse_Iterator(QMS_Linked_List< NodeType, KeyType, Lock > *list_p)
+/home/srivasta/Work/devel/QMS/Utilities/Multi_Level_Data/QMS_Linked_List_Iterators.cpp:606: Warning: The following parameters of QMS_Linked_List_Reverse_Iterator< NodeType, KeyType, Lock >::QMS_Linked_List_Reverse_Iterator(QMS_Linked_List< NodeType, KeyType, Lock > *list_p) are not documented:
+  parameter list_p
+/home/srivasta/Work/devel/QMS/Utilities/Multi_Level_Data/QMS_Linked_List_Iterators.cpp:639: Warning: argument `iter' of command @param is not found in the argument list of QMS_Linked_List_Reverse_Iterator< NodeType, KeyType, Lock >::operator=(QMS_Linked_List_Reverse_Iterator< NodeType, KeyType, Lock > &rhs)
+/home/srivasta/Work/devel/QMS/Utilities/Multi_Level_Data/QMS_Linked_List_Iterators.cpp:639: Warning: The following parameters of QMS_Linked_List_Reverse_Iterator< NodeType, KeyType, Lock >::operator=(QMS_Linked_List_Reverse_Iterator< NodeType, KeyType, Lock > &rhs) are not documented:
+  parameter rhs
+/home/srivasta/Work/devel/QMS/Utilities/Multi_Level_Data/QMS_Linked_List_Iterators.cpp:657: Warning: argument `List' of command @param is not found in the argument list of QMS_Linked_List_Reverse_Iterator< NodeType, KeyType, Lock >::reset(QMS_Linked_List< NodeType, KeyType, Lock > *list_p)
+/home/srivasta/Work/devel/QMS/Utilities/Multi_Level_Data/QMS_Linked_List_Iterators.cpp:657: Warning: The following parameters of QMS_Linked_List_Reverse_Iterator< NodeType, KeyType, Lock >::reset(QMS_Linked_List< NodeType, KeyType, Lock > *list_p) are not documented:
+  parameter list_p
+/home/srivasta/Work/devel/QMS/Utilities/Multi_Level_Data/QMS_MLD_Containers.cpp:181: Warning: argument `eve' of command @param is not found in the argument list of QMS_MLD_Containers< NodeType, KeyType, Lock >::set_sublevel(ACE_Double_Linked_List< QMS_Sub_Type_Element< NodeType, KeyType, Lock > > *levels_p)
+/home/srivasta/Work/devel/QMS/Utilities/Multi_Level_Data/QMS_MLD_Containers.cpp:181: Warning: The following parameters of QMS_MLD_Containers< NodeType, KeyType, Lock >::set_sublevel(ACE_Double_Linked_List< QMS_Sub_Type_Element< NodeType, KeyType, Lock > > *levels_p) are not documented:
+  parameter levels_p
+/home/srivasta/Work/devel/QMS/Utilities/Multi_Level_Data/QMS_Nodes.cpp:110: Warning: argument `key_P' of command @param is not found in the argument list of QMS_Node< NodeType, KeyType, Lock >::QMS_Node(NodeType *node_p, KeyType *key_p, QMS_MLD_Containers< NodeType, KeyType, Lock > *root_p, QMS_Node< NodeType, KeyType, Lock > *parent_p=0)
+/home/srivasta/Work/devel/QMS/Utilities/Multi_Level_Data/QMS_Nodes.cpp:110: Warning: The following parameters of QMS_Node< NodeType, KeyType, Lock >::QMS_Node(NodeType *node_p, KeyType *key_p, QMS_MLD_Containers< NodeType, KeyType, Lock > *root_p, QMS_Node< NodeType, KeyType, Lock > *parent_p=0) are not documented:
+  parameter key_p
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/QMS_Sensor.h:178: Warning: The following parameters of QMS_Sensor::get_attributes(string credentials, string &attributes, CORBA::Environment &ACE_TRY_ENV) are not documented:
+  parameter attributes
+  parameter ACE_TRY_ENV
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/QMS_Sensor.h:167: Warning: The following parameters of QMS_Sensor::get_security_policy(string credentials, string &policy, CORBA::Environment &ACE_TRY_ENV) are not documented:
+  parameter policy
+  parameter ACE_TRY_ENV
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/QMS_Sensor.h:127: Warning: The following parameters of QMS_Sensor::pause(string reason, string credentials, short &ack, CORBA::Environment &ACE_TRY_ENV) are not documented:
+  parameter ack
+  parameter ACE_TRY_ENV
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/QMS_Sensor.h:157: Warning: The following parameters of QMS_Sensor::reload_configuration(string reason, string credentials, CORBA::Environment &ACE_TRY_ENV) are not documented:
+  parameter ACE_TRY_ENV
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/QMS_Sensor.h:135: Warning: The following parameters of QMS_Sensor::resume(string reason, string credentials, short &ack, CORBA::Environment &ACE_TRY_ENV) are not documented:
+  parameter ack
+  parameter ACE_TRY_ENV
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/QMS_Sensor.h:183: Warning: The following parameters of QMS_Sensor::set_attributes(string attributes, string credentials, CORBA::Environment &ACE_TRY_ENV) are not documented:
+  parameter ACE_TRY_ENV
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/QMS_Sensor.h:172: Warning: The following parameters of QMS_Sensor::set_security_policy(string policy, string credentials, CORBA::Environment &ACE_TRY_ENV) are not documented:
+  parameter ACE_TRY_ENV
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/QMS_Sensor.h:122: Warning: The following parameters of QMS_Sensor::start(string credentials, CORBA::Environment &ACE_TRY_ENV) are not documented:
+  parameter ACE_TRY_ENV
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/QMS_Sensor.h:143: Warning: The following parameters of QMS_Sensor::stop(string reason, string credentials, short &ack, CORBA::Environment &ACE_TRY_ENV) are not documented:
+  parameter ack
+  parameter ACE_TRY_ENV
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/QMS_Sensor.h:150: Warning: The following parameters of QMS_Sensor::update_registration(string reason, string credentials, CORBA::Environment &ACE_TRY_ENV) are not documented:
+  parameter ACE_TRY_ENV
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Hello_World/test/Client_HW.cpp:224: Warning: The following parameters of Test_Client::handle_offers(CosTrading::OfferSeq *offer_seq_ptr, CosTrading::OfferIterator_var iterator, CORBA::Environment &ACE_TRY_ENV=TAO_default_environment()) are not documented:
+  parameter offer_seq_ptr
+  parameter iterator
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/test/Benchmark_Remos.cpp:187: Warning: The following parameters of Test_Client::init(STDC::QMS::CORBA_Handles &handles, char *identity_p, char *filename_p, char *category_name_p, CORBA::Environment &ACE_TRY_ENV=TAO_default_environment()) are not documented:
+  parameter filename_p
+  parameter category_name_p
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Hello_World/test/Client_HW.cpp:166: Warning: The following parameters of Test_Client::init(STDC::QMS::CORBA_Handles &handles, char *identity_p, char *category_name_p, CORBA::Environment &ACE_TRY_ENV=TAO_default_environment()) are not documented:
+  parameter category_name_p
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/test/Receiver.cpp:171: Warning: The following parameters of Test_Receiver::handle_offers(CosTrading::OfferSeq *offer_seq_ptr, CosTrading::OfferIterator_var iterator, CORBA::Environment &ACE_TRY_ENV=TAO_default_environment()) are not documented:
+  parameter offer_seq_ptr
+  parameter iterator
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/test/Receiver.cpp:118: Warning: The following parameters of Test_Receiver::init(STDC::QMS::CORBA_Handles &handles, char *identity_p, char *category_name_p, char *limiter_p, CORBA::Environment &ACE_TRY_ENV=TAO_default_environment()) are not documented:
+  parameter category_name_p
+  parameter limiter_p
+/home/srivasta/Work/devel/QMS/Documentation/README.install:165: Warning: example file in is not found. Check your EXAMPLE_PATH
+/home/srivasta/Work/devel/QMS/Documentation/README.install:165: Warning: example file is is not found. Check your EXAMPLE_PATH
+/home/srivasta/Work/devel/QMS/Instrumentation/Probes/OneShot/Simple/get_data_O.cpp:52: Warning: argument `request_id' of command @param is not found in the argument list of get_data(char *src, char *dest)
+/home/srivasta/Work/devel/QMS/Instrumentation/Probes/OneShot/Simple/get_data_O.cpp:52: Warning: argument `data_id' of command @param is not found in the argument list of get_data(char *src, char *dest)
+/home/srivasta/Work/devel/QMS/Instrumentation/Probes/OneShot/Simple/get_data_O.cpp:52: Warning: argument `sleep_interval' of command @param is not found in the argument list of get_data(char *src, char *dest)
+/home/srivasta/Work/devel/QMS/Instrumentation/Probes/OneShot/Simple/get_data_O.cpp:52: Warning: The following parameters of get_data(char *src, char *dest) are not documented:
+  parameter src
+  parameter dest
+/home/srivasta/Work/devel/QMS/Instrumentation/Probes/Continuous/Simple/Remos/get_data_flow.cpp:25: Warning: argument `node_names' of command @param is not found in the argument list of get_data(void *args)
+/home/srivasta/Work/devel/QMS/Instrumentation/Probes/Continuous/Simple/Remos/get_data_flow.cpp:25: Warning: argument `num_nodes' of command @param is not found in the argument list of get_data(void *args)
+/home/srivasta/Work/devel/QMS/Instrumentation/Probes/Continuous/Simple/Remos/get_data_flow.cpp:25: Warning: argument `request_id' of command @param is not found in the argument list of get_data(void *args)
+/home/srivasta/Work/devel/QMS/Instrumentation/Probes/Continuous/Simple/Remos/get_data_flow.cpp:25: Warning: argument `data_id' of command @param is not found in the argument list of get_data(void *args)
+/home/srivasta/Work/devel/QMS/Instrumentation/Probes/Continuous/Simple/Remos/get_data_flow.cpp:25: Warning: argument `sleep_interval' of command @param is not found in the argument list of get_data(void *args)
+/home/srivasta/Work/devel/QMS/Instrumentation/Probes/Continuous/Simple/Remos/get_data_flow.cpp:25: Warning: The following parameters of get_data(void *args) are not documented:
+  parameter args
+/home/srivasta/Work/devel/QMS/Utilities/CORBA_Handles.cpp:728: Warning: The following parameters of STDC::QMS::CORBA_Handles::add_event_channel(const char *event_channel_name_p, CORBA_Environment &ACE_TRY_ENV=TAO_default_environment()) are not documented:
+  parameter ACE_TRY_ENV
+/home/srivasta/Work/devel/QMS/Utilities/CORBA_Handles.cpp:335: Warning: The following parameters of STDC::QMS::CORBA_Handles::get_event_channel(const char *event_channel_name_p, RtecEventChannelAdmin::EventChannel_var &event_channel, CORBA_Environment &ACE_TRY_ENV=TAO_default_environment()) are not documented:
+  parameter ACE_TRY_ENV
+/home/srivasta/Work/devel/QMS/Utilities/EC_Adapter/EC_Adapter.cpp:64: Warning: argument `None' of command @param is not found in the argument list of STDC::QMS::EC_Adapter::EC_Adapter(void)
+/home/srivasta/Work/devel/QMS/Utilities/EC_Adapter/EC_Adapter.cpp:615: Warning: The following parameters of STDC::QMS::EC_Adapter::connect_consumer(unsigned int which_consumer=0, CORBA_Environment &ACE_TRY_ENV=TAO_default_environment()) are not documented:
+  parameter ACE_TRY_ENV
+/home/srivasta/Work/devel/QMS/Utilities/EC_Adapter/EC_Adapter.cpp:570: Warning: The following parameters of STDC::QMS::EC_Adapter::connect_supplier(unsigned int which_supplier=0, CORBA_Environment &ACE_TRY_ENV=TAO_default_environment()) are not documented:
+  parameter ACE_TRY_ENV
+/home/srivasta/Work/devel/QMS/Utilities/EC_Adapter/EC_Adapter.cpp:536: Warning: The following parameters of STDC::QMS::EC_Adapter::disconnect_consumer(unsigned int which_consumer=0, CORBA_Environment &ACE_TRY_ENV=TAO_default_environment()) are not documented:
+  parameter ACE_TRY_ENV
+/home/srivasta/Work/devel/QMS/Utilities/EC_Adapter/EC_Adapter.cpp:503: Warning: The following parameters of STDC::QMS::EC_Adapter::disconnect_supplier(unsigned int which_supplier=0, CORBA_Environment &ACE_TRY_ENV=TAO_default_environment()) are not documented:
+  parameter ACE_TRY_ENV
+/home/srivasta/Work/devel/QMS/Utilities/Parse_XML.cpp:919: Warning: argument `node_p' of command @param is not found in the argument list of STDC::QMS::Parse_XML::genericSensorProbeProperties_handler(IDOM_Node *child_p, genericSensorProbeProperties &results)
+/home/srivasta/Work/devel/QMS/Utilities/Parse_XML.cpp:919: Warning: The following parameters of STDC::QMS::Parse_XML::genericSensorProbeProperties_handler(IDOM_Node *child_p, genericSensorProbeProperties &results) are not documented:
+  parameter child_p
+/home/srivasta/Work/devel/QMS/Utilities/Parse_XML.cpp:1016: Warning: argument `node_p' of command @param is not found in the argument list of STDC::QMS::Parse_XML::mandatoryCorbaOfferProperties_handler(IDOM_Node *child_p, mandatoryCorbaOfferProperties &results)
+/home/srivasta/Work/devel/QMS/Utilities/Parse_XML.cpp:1016: Warning: The following parameters of STDC::QMS::Parse_XML::mandatoryCorbaOfferProperties_handler(IDOM_Node *child_p, mandatoryCorbaOfferProperties &results) are not documented:
+  parameter child_p
+/home/srivasta/Work/devel/QMS/Utilities/Parse_XML.cpp:1064: Warning: argument `node_p' of command @param is not found in the argument list of STDC::QMS::Parse_XML::mandatorySchemaOfferProperties_handler(IDOM_Node *child_p, mandatorySchemaOfferProperties &results)
+/home/srivasta/Work/devel/QMS/Utilities/Parse_XML.cpp:1064: Warning: The following parameters of STDC::QMS::Parse_XML::mandatorySchemaOfferProperties_handler(IDOM_Node *child_p, mandatorySchemaOfferProperties &results) are not documented:
+  parameter child_p
+/home/srivasta/Work/devel/QMS/Utilities/Parse_XML.cpp:979: Warning: argument `node_p' of command @param is not found in the argument list of STDC::QMS::Parse_XML::mandatoryServiceOfferProperties_handler(IDOM_Node *child_p, mandatoryServiceOfferProperties &results)
+/home/srivasta/Work/devel/QMS/Utilities/Parse_XML.cpp:979: Warning: The following parameters of STDC::QMS::Parse_XML::mandatoryServiceOfferProperties_handler(IDOM_Node *child_p, mandatoryServiceOfferProperties &results) are not documented:
+  parameter child_p
+/home/srivasta/Work/devel/QMS/Utilities/Parse_XML.cpp:1826: Warning: The following parameters of STDC::QMS::Parse_XML::parse_message(MemBufInputSource &message, QMSMessage &results, bool(*)(IDOM_Node *doc_p, void *arg_p) payload_handler=0, void *payload_arg_p=0, void(*)(IDOM_Node *doc_p, void *arg_p) error_handler=0, void *error_arg_p=0) are not documented:
+  parameter message
+  parameter results
+/home/srivasta/Work/devel/QMS/Utilities/EC_Adapter/Push_Consumer.cpp:602: Warning: argument `ACE_TRY_ENV' of command @param is not found in the argument list of STDC::QMS::Push_Consumer::disconnect_push_consumer(CORBA::Environment &)
+/home/srivasta/Work/devel/QMS/Utilities/EC_Adapter/Push_Consumer.cpp:159: Warning: The following parameters of STDC::QMS::Push_Consumer::init(STDC::QMS::CORBA_Handles Handles, RtecEventComm::EventType get_event_type, const char *ec_name_p="QMS_Channel", CORBA_Environment &ACE_TRY_ENV=TAO_default_environment()) are not documented:
+  parameter ec_name_p
+  parameter ACE_TRY_ENV
+/home/srivasta/Work/devel/QMS/Utilities/EC_Adapter/Push_Supplier.cpp:515: Warning: The following parameters of STDC::QMS::Push_Supplier::disconnect(long etype=DEFAULT_PUSH_SUPPLIER_DISCONNECT, CORBA::Environment &ACE_TRY_ENV=TAO_default_environment()) are not documented:
+  parameter etype
+/home/srivasta/Work/devel/QMS/Utilities/EC_Adapter/Push_Supplier.cpp:148: Warning: The following parameters of STDC::QMS::Push_Supplier::init(STDC::QMS::CORBA_Handles Handles, RtecEventComm::EventType send_event_type, RtecEventComm::EventSourceID my_id, const char *ec_name_p="QMS_Channel", CORBA_Environment &ACE_TRY_ENV=TAO_default_environment()) are not documented:
+  parameter ec_name_p
+  parameter ACE_TRY_ENV
+/home/srivasta/Work/devel/QMS/Utilities/EC_Adapter/Push_Supplier.cpp:210: Warning: The following parameters of STDC::QMS::Push_Supplier::send(const string &data, CORBA_Environment &ACE_TRY_ENV=TAO_default_environment()) are not documented:
+  parameter ACE_TRY_ENV
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Continuous_Pipe_Proxy.cpp:60: Warning: argument `argc' of command @param is not found in the argument list of STDC::QMS::Citizen::Continuous_Pipe_Proxy::Continuous_Pipe_Proxy(const char *file_name_p, char *const argv[], Meta_Data &parent, string &key)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Continuous_Pipe_Proxy.cpp:60: Warning: argument `envp' of command @param is not found in the argument list of STDC::QMS::Citizen::Continuous_Pipe_Proxy::Continuous_Pipe_Proxy(const char *file_name_p, char *const argv[], Meta_Data &parent, string &key)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Continuous_Pipe_Proxy.cpp:60: Warning: The following parameters of STDC::QMS::Citizen::Continuous_Pipe_Proxy::Continuous_Pipe_Proxy(const char *file_name_p, char *const argv[], Meta_Data &parent, string &key) are not documented:
+  parameter argv
+  parameter key
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Continuous_Pipe_Proxy.cpp:89: Warning: argument `data_p' of command @param is not found in the argument list of STDC::QMS::Citizen::Continuous_Pipe_Proxy::send_command(const string command)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Continuous_Pipe_Proxy.cpp:89: Warning: The following parameters of STDC::QMS::Citizen::Continuous_Pipe_Proxy::send_command(const string command) are not documented:
+  parameter command
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/Continuous_Pipe_Proxy_Remos.cpp:57: Warning: argument `argc' of command @param is not found in the argument list of STDC::QMS::Citizen::Continuous_Pipe_Proxy_Remos::Continuous_Pipe_Proxy_Remos(const char *file_name_p, char *const argv[], Meta_Data_Remos &parent, string &key)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/Continuous_Pipe_Proxy_Remos.cpp:57: Warning: argument `envp' of command @param is not found in the argument list of STDC::QMS::Citizen::Continuous_Pipe_Proxy_Remos::Continuous_Pipe_Proxy_Remos(const char *file_name_p, char *const argv[], Meta_Data_Remos &parent, string &key)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/Continuous_Pipe_Proxy_Remos.cpp:57: Warning: The following parameters of STDC::QMS::Citizen::Continuous_Pipe_Proxy_Remos::Continuous_Pipe_Proxy_Remos(const char *file_name_p, char *const argv[], Meta_Data_Remos &parent, string &key) are not documented:
+  parameter argv
+  parameter key
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/Continuous_Pipe_Proxy_Remos.cpp:82: Warning: argument `data_p' of command @param is not found in the argument list of STDC::QMS::Citizen::Continuous_Pipe_Proxy_Remos::send_command(const string command)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/Continuous_Pipe_Proxy_Remos.cpp:82: Warning: The following parameters of STDC::QMS::Citizen::Continuous_Pipe_Proxy_Remos::send_command(const string command) are not documented:
+  parameter command
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_Sensor_Impl.cpp:850: Warning: argument `reason' of command @param is not found in the argument list of STDC::QMS::Citizen::Generic_Sensor_Impl::connect_EC(string credentials)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_Sensor_Impl.cpp:850: Warning: argument `ACE_TRY_ENV' of command @param is not found in the argument list of STDC::QMS::Citizen::Generic_Sensor_Impl::connect_EC(string credentials)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_Sensor_Impl.cpp:921: Warning: argument `ACE_TRY_ENV' of command @param is not found in the argument list of STDC::QMS::Citizen::Generic_Sensor_Impl::disconnect_EC(const char *reason, const char *credentials)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_Sensor_Impl.cpp:119: Warning: The following parameters of STDC::QMS::Citizen::Generic_Sensor_Impl::init(STDC::QMS::CORBA_Handles *handles_p, string credentials, char *config_file_p, CORBA::Environment &ACE_TRY_ENV=TAO_default_environment()) are not documented:
+  parameter handles_p
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_Sensor_Impl.cpp:890: Warning: argument `reason' of command @param is not found in the argument list of STDC::QMS::Citizen::Generic_Sensor_Impl::probe_offers(string credentials)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_Sensor_Impl.cpp:890: Warning: argument `ACE_TRY_ENV' of command @param is not found in the argument list of STDC::QMS::Citizen::Generic_Sensor_Impl::probe_offers(string credentials)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_Sensor_Impl.cpp:960: Warning: argument `ACE_TRY_ENV' of command @param is not found in the argument list of STDC::QMS::Citizen::Generic_Sensor_Impl::reconnect_EC(const char *reason, const char *EC_Name, const char *credentials)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_Sensor_Impl.cpp:1102: Warning: argument `name_p' of command @param is not found in the argument list of STDC::QMS::Citizen::Generic_Sensor_Impl::register_with_naming(CORBA::Environment &ACE_TRY_ENV=TAO_default_environment())
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_Sensor_Impl.cpp:763: Warning: The following parameters of STDC::QMS::Citizen::Generic_Sensor_Impl::resume(const char *reason, const char *credentials, CORBA::Short_out ack) are not documented:
+  parameter ack
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_Sensor_Impl.cpp:1017: Warning: argument `ACE_TRY_ENV' of command @param is not found in the argument list of STDC::QMS::Citizen::Generic_Sensor_Impl::set_operating_level(CORBA::Short level, const char *credentials)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_Sensor_Impl.cpp:1000: Warning: argument `ACE_TRY_ENV' of command @param is not found in the argument list of STDC::QMS::Citizen::Generic_Sensor_Impl::show_operating_level(CORBA::Short_out level)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_Sensor_Impl.cpp:1054: Warning: argument `ACE_TRY_ENV' of command @param is not found in the argument list of STDC::QMS::Citizen::Generic_Sensor_Impl::stats(const char *credentials, CORBA::String_out stats)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_Sensor_Impl.cpp:804: Warning: The following parameters of STDC::QMS::Citizen::Generic_Sensor_Impl::stop(const char *reason, const char *credentials, CORBA::Short_out ack) are not documented:
+  parameter ack
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Hello_World/Hello_World_Impl.cpp:946: Warning: argument `reason' of command @param is not found in the argument list of STDC::QMS::Citizen::Hello_World_Impl::connect_EC(string credentials)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Hello_World/Hello_World_Impl.cpp:946: Warning: argument `ACE_TRY_ENV' of command @param is not found in the argument list of STDC::QMS::Citizen::Hello_World_Impl::connect_EC(string credentials)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Hello_World/Hello_World_Impl.cpp:1016: Warning: argument `ACE_TRY_ENV' of command @param is not found in the argument list of STDC::QMS::Citizen::Hello_World_Impl::disconnect_EC(const char *reason, const char *credentials)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Hello_World/Hello_World_Impl.cpp:268: Warning: The following parameters of STDC::QMS::Citizen::Hello_World_Impl::init(STDC::QMS::CORBA_Handles *handles_p, string credentials, char *config_file_p, const char *criticality_p, const char *importance_p, CORBA::Environment &ACE_TRY_ENV=TAO_default_environment()) are not documented:
+  parameter handles_p
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Hello_World/Hello_World_Impl.cpp:986: Warning: argument `reason' of command @param is not found in the argument list of STDC::QMS::Citizen::Hello_World_Impl::probe_offers(string credentials)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Hello_World/Hello_World_Impl.cpp:986: Warning: argument `ACE_TRY_ENV' of command @param is not found in the argument list of STDC::QMS::Citizen::Hello_World_Impl::probe_offers(string credentials)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Hello_World/Hello_World_Impl.cpp:1055: Warning: argument `ACE_TRY_ENV' of command @param is not found in the argument list of STDC::QMS::Citizen::Hello_World_Impl::reconnect_EC(const char *reason, const char *EC_Name, const char *credentials)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Hello_World/Hello_World_Impl.cpp:1197: Warning: argument `name_p' of command @param is not found in the argument list of STDC::QMS::Citizen::Hello_World_Impl::register_with_naming(CORBA::Environment &ACE_TRY_ENV=TAO_default_environment())
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Hello_World/Hello_World_Impl.cpp:859: Warning: The following parameters of STDC::QMS::Citizen::Hello_World_Impl::resume(const char *reason, const char *credentials, CORBA::Short_out ack) are not documented:
+  parameter ack
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Hello_World/Hello_World_Impl.cpp:1112: Warning: argument `ACE_TRY_ENV' of command @param is not found in the argument list of STDC::QMS::Citizen::Hello_World_Impl::set_operating_level(CORBA::Short level, const char *credentials)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Hello_World/Hello_World_Impl.cpp:1095: Warning: argument `ACE_TRY_ENV' of command @param is not found in the argument list of STDC::QMS::Citizen::Hello_World_Impl::show_operating_level(CORBA::Short_out level)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Hello_World/Hello_World_Impl.cpp:1149: Warning: argument `ACE_TRY_ENV' of command @param is not found in the argument list of STDC::QMS::Citizen::Hello_World_Impl::stats(const char *credentials, CORBA::String_out stats)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Hello_World/Hello_World_Impl.cpp:900: Warning: The following parameters of STDC::QMS::Citizen::Hello_World_Impl::stop(const char *reason, const char *credentials, CORBA::Short_out ack) are not documented:
+  parameter ack
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Hello_World/Meta_Data_HW.cpp:229: Warning: The following parameters of STDC::QMS::Citizen::Hello_World_Meta_Data::init(STDC::QMS::sensorServiceType &config, CORBA::Long supplier_id, string &QMS_Schema, const char *criticality_p, const char *importance_p) are not documented:
+  parameter criticality_p
+  parameter importance_p
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Hello_World/Meta_Data_HW.cpp:1244: Warning: The following parameters of STDC::QMS::Citizen::Hello_World_Meta_Data::make_offer(CORBA::Object_ptr obj, STDC::QMS::CORBA_Handles *handles_p, CORBA::Environment &ACE_TRY_ENV=TAO_default_environment()) are not documented:
+  parameter obj
+  parameter handles_p
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Meta_Data.cpp:1704: Warning: The following parameters of STDC::QMS::Citizen::Meta_Data::make_offer(CORBA::Object_ptr obj, STDC::QMS::CORBA_Handles *handles_p, CORBA::Environment &ACE_TRY_ENV=TAO_default_environment()) are not documented:
+  parameter obj
+  parameter handles_p
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Meta_Data.cpp:1521: Warning: The following parameters of STDC::QMS::Citizen::Meta_Data::send_error(const string &error, STDC::QMS::QMSMessage &config, CORBA::Environment &ACE_TRY_ENV=TAO_default_environment()) are not documented:
+  parameter config
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/Meta_Data_Remos.cpp:2135: Warning: The following parameters of STDC::QMS::Citizen::Meta_Data_Remos::make_offer(CORBA::Object_ptr obj, STDC::QMS::CORBA_Handles *handles_p, CORBA::Environment &ACE_TRY_ENV=TAO_default_environment()) are not documented:
+  parameter obj
+  parameter handles_p
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/Meta_Data_Remos.cpp:1952: Warning: The following parameters of STDC::QMS::Citizen::Meta_Data_Remos::send_error(const string &error, STDC::QMS::QMSMessage &config, CORBA::Environment &ACE_TRY_ENV=TAO_default_environment()) are not documented:
+  parameter config
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/One_Shot_Pipe_Proxy.cpp:62: Warning: argument `argc' of command @param is not found in the argument list of STDC::QMS::Citizen::One_Shot_Pipe_Proxy::One_Shot_Pipe_Proxy(const char *file_name_p, char *const argv[], Meta_Data &parent, string &key, double refresh_rate=DEFAULT_SLEEP, int iterations=9999)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/One_Shot_Pipe_Proxy.cpp:62: Warning: argument `envp' of command @param is not found in the argument list of STDC::QMS::Citizen::One_Shot_Pipe_Proxy::One_Shot_Pipe_Proxy(const char *file_name_p, char *const argv[], Meta_Data &parent, string &key, double refresh_rate=DEFAULT_SLEEP, int iterations=9999)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/One_Shot_Pipe_Proxy.cpp:62: Warning: The following parameters of STDC::QMS::Citizen::One_Shot_Pipe_Proxy::One_Shot_Pipe_Proxy(const char *file_name_p, char *const argv[], Meta_Data &parent, string &key, double refresh_rate=DEFAULT_SLEEP, int iterations=9999) are not documented:
+  parameter argv
+  parameter key
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/One_Shot_Pipe_Proxy_Remos.cpp:60: Warning: argument `argc' of command @param is not found in the argument list of STDC::QMS::Citizen::One_Shot_Pipe_Proxy_Remos::One_Shot_Pipe_Proxy_Remos(const char *file_name_p, char *const argv[], Meta_Data_Remos &parent, string &key, double refresh_rate=DEFAULT_SLEEP, int iterations=9999)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/One_Shot_Pipe_Proxy_Remos.cpp:60: Warning: argument `envp' of command @param is not found in the argument list of STDC::QMS::Citizen::One_Shot_Pipe_Proxy_Remos::One_Shot_Pipe_Proxy_Remos(const char *file_name_p, char *const argv[], Meta_Data_Remos &parent, string &key, double refresh_rate=DEFAULT_SLEEP, int iterations=9999)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/One_Shot_Pipe_Proxy_Remos.cpp:60: Warning: The following parameters of STDC::QMS::Citizen::One_Shot_Pipe_Proxy_Remos::One_Shot_Pipe_Proxy_Remos(const char *file_name_p, char *const argv[], Meta_Data_Remos &parent, string &key, double refresh_rate=DEFAULT_SLEEP, int iterations=9999) are not documented:
+  parameter argv
+  parameter key
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Pipe_Proxy.cpp:56: Warning: argument `envp' of command @param is not found in the argument list of STDC::QMS::Citizen::Pipe_Proxy::init(const char *file_name_p, char *const argv[])
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/Pipe_Proxy_Remos.cpp:56: Warning: argument `envp' of command @param is not found in the argument list of STDC::QMS::Citizen::Pipe_Proxy_Remos::init(const char *file_name_p, char *const argv[])
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/Remos_Sensor_Impl.cpp:874: Warning: argument `reason' of command @param is not found in the argument list of STDC::QMS::Citizen::Remos_Sensor_Impl::connect_EC(string credentials)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/Remos_Sensor_Impl.cpp:874: Warning: argument `ACE_TRY_ENV' of command @param is not found in the argument list of STDC::QMS::Citizen::Remos_Sensor_Impl::connect_EC(string credentials)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/Remos_Sensor_Impl.cpp:944: Warning: argument `ACE_TRY_ENV' of command @param is not found in the argument list of STDC::QMS::Citizen::Remos_Sensor_Impl::disconnect_EC(const char *reason, const char *credentials)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/Remos_Sensor_Impl.cpp:119: Warning: The following parameters of STDC::QMS::Citizen::Remos_Sensor_Impl::init(STDC::QMS::CORBA_Handles *handles_p, string credentials, char *config_file_p, CORBA::Environment &ACE_TRY_ENV=TAO_default_environment()) are not documented:
+  parameter handles_p
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/Remos_Sensor_Impl.cpp:914: Warning: argument `reason' of command @param is not found in the argument list of STDC::QMS::Citizen::Remos_Sensor_Impl::probe_offers(string credentials)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/Remos_Sensor_Impl.cpp:914: Warning: argument `ACE_TRY_ENV' of command @param is not found in the argument list of STDC::QMS::Citizen::Remos_Sensor_Impl::probe_offers(string credentials)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/Remos_Sensor_Impl.cpp:983: Warning: argument `ACE_TRY_ENV' of command @param is not found in the argument list of STDC::QMS::Citizen::Remos_Sensor_Impl::reconnect_EC(const char *reason, const char *EC_Name, const char *credentials)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/Remos_Sensor_Impl.cpp:1125: Warning: argument `name_p' of command @param is not found in the argument list of STDC::QMS::Citizen::Remos_Sensor_Impl::register_with_naming(CORBA::Environment &ACE_TRY_ENV=TAO_default_environment())
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/Remos_Sensor_Impl.cpp:787: Warning: The following parameters of STDC::QMS::Citizen::Remos_Sensor_Impl::resume(const char *reason, const char *credentials, CORBA::Short_out ack) are not documented:
+  parameter ack
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/Remos_Sensor_Impl.cpp:1040: Warning: argument `ACE_TRY_ENV' of command @param is not found in the argument list of STDC::QMS::Citizen::Remos_Sensor_Impl::set_operating_level(CORBA::Short level, const char *credentials)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/Remos_Sensor_Impl.cpp:1023: Warning: argument `ACE_TRY_ENV' of command @param is not found in the argument list of STDC::QMS::Citizen::Remos_Sensor_Impl::show_operating_level(CORBA::Short_out level)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/Remos_Sensor_Impl.cpp:1077: Warning: argument `ACE_TRY_ENV' of command @param is not found in the argument list of STDC::QMS::Citizen::Remos_Sensor_Impl::stats(const char *credentials, CORBA::String_out stats)
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Remos/Remos_Sensor_Impl.cpp:828: Warning: The following parameters of STDC::QMS::Citizen::Remos_Sensor_Impl::stop(const char *reason, const char *credentials, CORBA::Short_out ack) are not documented:
+  parameter ack
+/home/srivasta/Work/devel/QMS/Core/Trader/QMS_Trader_ECInfo_Impl.h:178: Warning: argument `ACE_TRY_ENV' of command @param is not found in the argument list of STDC::QMS::Citizen::QMS_Trader_ECInfo_Impl::disconnect_EC(const char *reason, const char *credentials)
+/home/srivasta/Work/devel/QMS/Core/Trader/QMS_Trader_ECInfo_Impl.h:188: Warning: argument `ACE_TRY_ENV' of command @param is not found in the argument list of STDC::QMS::Citizen::QMS_Trader_ECInfo_Impl::reconnect_EC(const char *reason, const char *EC_Name, const char *credentials)
+/home/srivasta/Work/devel/QMS/Core/Trader/QMS_Trader_ECInfo_Impl.h:158: Warning: The following parameters of STDC::QMS::Citizen::QMS_Trader_ECInfo_Impl::resume(const char *reason, const char *credentials, CORBA::Short_out ack) are not documented:
+  parameter ack
+/home/srivasta/Work/devel/QMS/Core/Trader/QMS_Trader_ECInfo_Impl.h:208: Warning: argument `ACE_TRY_ENV' of command @param is not found in the argument list of STDC::QMS::Citizen::QMS_Trader_ECInfo_Impl::set_operating_level(CORBA::Short level, const char *credentials)
+/home/srivasta/Work/devel/QMS/Core/Trader/QMS_Trader_ECInfo_Impl.h:200: Warning: argument `ACE_TRY_ENV' of command @param is not found in the argument list of STDC::QMS::Citizen::QMS_Trader_ECInfo_Impl::show_operating_level(CORBA::Short_out level)
+/home/srivasta/Work/devel/QMS/Core/Trader/QMS_Trader_ECInfo_Impl.h:218: Warning: argument `ACE_TRY_ENV' of command @param is not found in the argument list of STDC::QMS::Citizen::QMS_Trader_ECInfo_Impl::stats(const char *credentials, CORBA::String_out stats)
+/home/srivasta/Work/devel/QMS/Core/Trader/QMS_Trader_ECInfo_Impl.h:169: Warning: The following parameters of STDC::QMS::Citizen::QMS_Trader_ECInfo_Impl::stop(const char *reason, const char *credentials, CORBA::Short_out ack) are not documented:
+  parameter ack

@@ -1,0 +1,32 @@
+Generic Sensor starting up
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_Sensor_Impl.cpp(149): DEBUG: STDC::QMS::Citizen::Generic_Sensor_Impl::init
+
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_Sensor_Impl.cpp(1608): DEBUG: STDC::QMS::Citizen::Generic_Sensor_Impl::yp_offer
+
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_Sensor_Impl.cpp(1901): DEBUG: STDC::QMS::Citizen::Generic_Sensor_Impl::get_supplier_id
+
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_Sensor_Impl.cpp(2085): DEBUG:STDC::QMS::Citizen::Generic_Sensor_Impl::parse_config
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_Sensor_Impl.cpp(347): DEBUG:STDC::QMS::Citizen::Generic_Sensor_Impl::external_probes
+
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_Sensor_Impl.cpp(868): DEBUG: STDC::QMS::Citizen::Generic_Sensor_Impl::probe_offers
+
+DEBUG: Initialized the sensor
+DEBUG: Starting the loop
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_Sensor_Impl.cpp(1041): DEBUG: STDC::QMS::Citizen::Generic_Sensor_Impl::ping
+
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/CallBack.cpp(122): DEBUG: CallBack
+
+DEBUG: Command line arguments: ./Generic_Continuous_Probe -r 200 -i PT5.0S 
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/CallBack.cpp(122): DEBUG: CallBack
+
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_Sensor_Impl.cpp(2269): DEBUG: asking metadata to handle query, key = 20001 1
+Received signal17
+ Ignoring SIGCHLD
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/CallBack.cpp(98): DEBUG: Finished Handling Query
+
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/CallBack.cpp(98): DEBUG: Finished Handling Query
+
+Received signal2
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_Sensor_Impl.cpp(307): DEBUG:STDC::QMS::Citizen::Generic_Sensor_Impl::cleanup
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_Sensor_Impl.cpp(308): withdrawing offers
+/home/srivasta/Work/devel/QMS/Instrumentation/Sensors/Generic/Generic_Sensor_Impl.cpp(1238): DEBUG:STDC::QMS::Citizen::Generic_Sensor_Impl::unregister_with_naming

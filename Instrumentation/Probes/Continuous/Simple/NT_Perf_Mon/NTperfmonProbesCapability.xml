@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- *****************************************************************
+ *** Copyright (c) 2001-2002, System/Technology Development Corporation .
+ ***                
+ *** Filename:      NTperfmonProbesCapability.xml
+ *** Version:       1.0
+ *** Description:   NT_Perf_Mon_Probe Capability Fragment
+ ***                
+ *** Author:        Amarendranath Vadlamudi <amar.vadlamudi@stdc.com>
+ *** Created at:    Fri Dec  7 13:07:00 2001
+ *** Modified by:   Amarendranath Vadlamudi <nath@vedam>
+ *** Modified at:   Fri Jan 11 16:11:07 2002
+ *** Status:        Experimental, do not distribute.
+ *** Update count:  5
+ ***************************************************************** -->
+
+  <!-- This is the capability fragment introduced by the installation
+  of the NT_Perf_Mon Probe. -->
+
+  <!-- NOTE: This file is just a capability fragment file. This needs
+  to be placed in a complete sensorCapability file for it to be
+  useful. See the documentation for more information -->
+
+  <!-- Since this probe is capable of reading any Windows NT system
+  counter the number of capability fragments is limited only by the
+  number of counters available in NT. We include a sample few to
+  illustrate their use. Feel free to add to this list as necessary -->
+
+<Probe>
+  <probeType>continuous</probeType>
+  <dataReusable>false</dataReusable>
+  <QMSUniqueName>
+    <category>QMS_CPU_Utilization</category>
+  </QMSUniqueName>
+  <probeSchema>perfmonProbes.xsd</probeSchema>
+  <schemaVersion>1.0</schemaVersion>
+  <Offer>
+    <variable>
+      <name>Resource</name>
+      <value>\System\% Total Processor Time</value>
+      <searchable/>
+      <maptoProperty>1</maptoProperty>
+    </variable>
+    <variable>
+      <name>Description</name>
+      <value>The average percentage of time that all the processors on
+      the system are busy executing non-idle threads.
+      </value>
+    </variable>
+  </Offer>      
+  <Invoke>
+    <probeExecutable>NT_Perf_Mon.exe</probeExecutable>
+    <probeXSLTFile>perfmonProbes.xsl</probeXSLTFile>
+    <xslParameters>
+      <variable>
+	<name>resource</name>
+	  <value>'"\System\% Total Processor Time"'</value>
+      </variable>
+      </xslParameters>
+    </Invoke>
+</Probe>
+<Probe>
+  <probeType>continuous</probeType>
+  <dataReusable>false</dataReusable>
+  <QMSUniqueName>
+    <category>QMS_Memory_Utilization</category>
+  </QMSUniqueName>
+  <probeSchema>perfmonProbes.xsd</probeSchema>
+  <schemaVersion>1.0</schemaVersion>
+  <Offer>
+    <variable>
+      <name>Resource</name>
+      <value>\Memory\% Committed Bytes In Use</value>
+      <searchable/>
+      <maptoProperty>1</maptoProperty>
+    </variable>
+    <variable>
+      <name>Description</name>
+      <value>The size of virtual memory (in bytes) that has been
+      Committed. Committed memory must have backing storage available.
+      </value>
+    </variable>
+  </Offer>      
+  <Invoke>
+    <probeExecutable>NT_Perf_Mon.exe</probeExecutable>
+    <probeXSLTFile>perfmonProbes.xsl</probeXSLTFile>
+    <xslParameters>
+      <variable>
+	<name>resource</name>
+	  <value>'"\Memory\% Committed Bytes In Use"'</value>
+      </variable>
+      </xslParameters>
+    </Invoke>
+  </Probe>
+<Probe>
+  <probeType>continuous</probeType>
+  <dataReusable>false</dataReusable>
+  <QMSUniqueName>
+    <category>QMS_Disk_Utilization</category>
+  </QMSUniqueName>
+  <probeSchema>perfmonProbes.xsd</probeSchema>
+  <schemaVersion>1.0</schemaVersion>
+  <Offer>
+    <variable>
+      <name>Resource</name>
+      <value>\PhysicalDisk\% Disk Time(Total)</value>
+      <searchable/>
+      <maptoProperty>1</maptoProperty>
+    </variable>
+    <variable>
+      <name>Description</name>
+      <value>The percentage of elapsed time that all the disk
+      drives are busy servicing read or write requests.
+      </value>
+    </variable>
+  </Offer>      
+  <Invoke>
+    <probeExecutable>NT_Perf_Mon.exe</probeExecutable>
+    <probeXSLTFile>perfmonProbes.xsl</probeXSLTFile>
+    <xslParameters>
+      <variable>
+	<name>resource</name>
+	  <value>'"\PhysicalDisk\% Disk Time(Total)"'</value>
+      </variable>
+      </xslParameters>
+    </Invoke>
+  </Probe>
+<Probe>
+  <probeType>continuous</probeType>
+  <dataReusable>false</dataReusable>
+  <QMSUniqueName>
+    <category>QMS_Network</category>
+  </QMSUniqueName>
+  <probeSchema>perfmonProbes.xsd</probeSchema>
+  <schemaVersion>1.0</schemaVersion>
+  <Offer>
+    <variable>
+      <name>Resource</name>
+      <value>\Server\Bytes Total/sec</value>
+      <searchable/>
+      <maptoProperty>1</maptoProperty>
+    </variable>
+    <variable>
+      <name>Description</name>
+      <value>The number of bytes the server has sent to and received
+      from the network. This value provides an overall indication of
+      how busy the server is.
+      </value>
+    </variable>
+  </Offer>      
+  <Invoke>
+    <probeExecutable>NT_Perf_Mon.exe</probeExecutable>
+    <probeXSLTFile>perfmonProbes.xsl</probeXSLTFile>
+    <xslParameters>
+      <variable>
+	<name>resource</name>
+	  <value>'"\Server\Bytes Total/sec"'</value>
+      </variable>
+      </xslParameters>
+    </Invoke>
+  </Probe>
+
+<Probe>
+  <probeType>continuous</probeType>
+  <dataReusable>false</dataReusable>
+  <QMSUniqueName>
+    <category>QMS_Network_Bytes</category>
+  </QMSUniqueName>
+  <probeSchema>perfmonProbes.xsd</probeSchema>
+  <schemaVersion>1.0</schemaVersion>
+  <Offer>
+    <variable>
+      <name>Resource</name>
+      <value>\Network Interface(1)\Bytes Total/sec</value>
+      <searchable/>
+      <maptoProperty>1</maptoProperty>
+    </variable>
+    <variable>
+      <name>Description</name>
+      <value>The rate that bytes are sent and received on this
+      interface, including characters. Note that this is interface 1.
+      </value>
+    </variable>
+  </Offer>      
+  <Invoke>
+    <probeExecutable>NT_Perf_Mon.exe</probeExecutable>
+    <probeXSLTFile>perfmonProbes.xsl</probeXSLTFile>
+    <xslParameters>
+      <variable>
+	<name>resource</name>
+	  <value>'"\Network Interface(1)\Bytes Total/sec"'</value>
+      </variable>
+      </xslParameters>
+    </Invoke>
+  </Probe>

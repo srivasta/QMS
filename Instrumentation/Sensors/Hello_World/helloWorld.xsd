@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--******************************************************************
+ * Copyright (c) 2001, System/Technology Development Corporation
+ *                
+ * Filename:      helloWorld.xsd
+ * Version:       1.0
+ * Description:   Schema Description for the HelloWorld Sensor
+ *                
+ * Author:        Amarendranath Vadlamudi <amar.vadlamudi@stdc.com>
+ * Created at:    Tue Oct 23 10:05:05 2001
+ * Modified by:   Amarendranath Vadlamudi <amar.vadlamudi@stdc.com>
+ * Modified at:   Wed Oct 24 18:54:25 2001
+ * Status:        Experimental, do not distribute.
+ * Update count:  2
+ ******************************************************************-->
+
+  <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://www.stdc.com/2001/QMS/helloWorld"
+    targetNamespace="http://www.stdc.com/2001/QMS/helloWorld"
+    elementFormDefault="qualified"
+    version="$Id: helloWorld.xsd,v 1.5 2001/10/29 15:42:57 nath Exp $" >
+  
+  <xsd:complexType name="helloWorldRequestType">
+    <xsd:annotation>
+      <xsd:documentation>
+	The Request to the HelloWorld Sensor has to have two
+	parameters, name, lastname which implicitly starts a probe. 
+	The action element can have several values and they determine
+	what the sensor does to pause, stop and resume the sensor.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:choice>
+      <xsd:sequence>
+	<xsd:element name="firstname" type="xsd:string"/>
+	<xsd:element name="lastname" type="xsd:string"/>
+      </xsd:sequence>
+      <xsd:element name="action">
+	<xsd:simpleType>
+	  <xsd:restriction base="xsd:string">
+	    <xsd:enumeration value="stop"/>
+	    <xsd:enumeration value="pause"/>
+	    <xsd:enumeration value="resume"/>
+	  </xsd:restriction>
+	</xsd:simpleType>
+      </xsd:element>
+    </xsd:choice>
+  </xsd:complexType>
+
+  <xsd:complexType name="helloWorldDataType">
+    <xsd:annotation>
+      <xsd:documentation>
+	This is the data that is returned by the Hello World sensor.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="dataid" type="xsd:nonNegativeInteger"/>
+      <xsd:element name="salutation" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:element name="helloWorld">
+    <xsd:complexType>
+      <xsd:choice>
+	<xsd:element name="Request" type="helloWorldRequestType"/>
+	<xsd:element name="Data" type="helloWorldDataType"/>
+      </xsd:choice>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>
+

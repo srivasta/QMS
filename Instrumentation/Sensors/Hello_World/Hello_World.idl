@@ -1,0 +1,49 @@
+//                              -*- Mode: Idl -*- 
+// Hello_World.idl --- 
+// Author           : Manoj Srivastava ( srivasta@glaurung.stdc.com ) 
+// Created On       : Fri Aug 17 16:06:14 2001
+// Created On Node  : glaurung.stdc.com
+// Last Modified By : Manoj Srivastava
+// Last Modified On : Wed Oct 24 09:06:56 2001
+// Last Machine Used: glaurung.stdc.com
+// Update Count     : 10
+// Status           : Unknown, Use with caution!
+// HISTORY          : 
+// Description      : 
+// 
+// 
+#ifndef HELLO_WORLD_IDL
+#define HELLO_WORLD_IDL
+
+
+/** @file Hello_World.idl
+ *  @ingroup HelloWorld 
+ *  @brief The implementation of a Sensor interface
+ *
+ *  $Id: Hello_World.idl,v 1.7 2001/12/02 03:30:24 srivasta Exp $
+ */
+
+#include "Command.idl"
+
+module STDC
+{
+  module QMS 
+  {   
+    module Citizen 
+    {
+      /**
+       * The Hello World sensor interface is essentially the
+       * minimalist QMS Citizen comman and control interface. Since it 
+       * is a QMS citizen, it is required to expose some mandatory
+       * Corba interfaces, that will enable a QMS administrator to
+       * control this Sensor causing it to shutdown, pause etc. This
+       * interface is  derived from the Command and Control Interface.
+       */
+      interface Hello_World : Command
+      {
+      };
+    };
+  };
+};
+
+#endif // GENERIC_SENSOR_IDL

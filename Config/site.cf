@@ -1,0 +1,62 @@
+############################ -*- Mode: Makefile -*- ###########################
+## site.cf --- 
+## Author           : Manoj Srivastava ( srivasta@ember.stdc.com ) 
+## Created On       : Fri Aug 10 13:14:30 2001
+## Created On Node  : ember.stdc.com
+## Last Modified By : Manoj Srivastava
+## Last Modified On : Tue Nov 27 20:37:35 2001
+## Last Machine Used: glaurung.stdc.com
+## Update Count     : 6
+## Status           : Unknown, Use with caution!
+## HISTORY          : 
+## Description      : 
+## 
+###############################################################################
+
+##before the vendor config files are loaded:
+ifdef STDC_PRE_VENDOR
+# Warnings etc
+#WARNINGS += -Wall -W -Wno-uninitialized -Wpointer-arith 
+WARNINGS += -Dgets=DONT_USE_GETS -Dlint
+WARNINGS += -Wmissing-prototypes -Wmissing-declarations
+WARNINGS += -fshort-enums -fno-common -Wstrict-prototypes
+WARNINGS += -Woverloaded-virtual -Wnested-externs -Wwrite-strings
+WARNINGS += -Wbad-function-cast -Wcast-align
+WARNINGS += -pedantic -Wno-long-long -Wtraditional
+
+CPPFLAGS += $(WARNINGS)
+C++CPPFLAGS += $(WARNINGS)
+
+# Can't use these since these trigger vast quantties of diagnostics
+# from ACE+TAO. That's a pity, really, for these are useful checks
+# CPPFLAGS += -Wshadow -Winline -Wredundant-decls -Wundef
+
+# I am not sure these should be warnings, really
+# CPPFLAGS += -Wcast-qual -Wconversion -Waggregate-return
+
+ifneq ($(strip $(ACE_ROOT)),)
+VPATH += $(ACE_ROOT)
+endif
+
+ifneq ($(strip $(TAO_ROOT)),)
+VPATH += $(TAO_ROOT):$(TAO_ROOT)/orbsvcs
+endif
+
+ifneq ($(strip $(XERCESCROOT)),)
+VPATH += $(XERCESCROOT)/lib:$(XERCESCROOT)/include
+endif
+
+ifneq ($(strip $(XALANCROOT)),)
+VPATH += $(XALANCROOT)/lib:$(XALANCROOT)/include
+endif
+
+# The TAO makefiles define IDLFLAGS for the orbix orb
+IDL =
+IDLFLAGS =
+endif
+
+
+##after the vendor config files are loaded:
+ifdef STDC_POST_VENDOR
+
+endif

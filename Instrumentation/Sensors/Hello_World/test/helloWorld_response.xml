@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- *****************************************************************
+ *** Copyright (c) 2001, System/Technology Development Corporation .
+ ***                
+ *** Filename:      helloWorld_response.xml
+ *** Version:       1.0
+ *** Description:   Sample File - Response from a Hello World Sensor
+ ***                
+ *** Author:        Amarendranath Vadlamudi <amar.vadlamudi@stdc.com>
+ *** Created at:    Fri Nov 30 12:43:33 2001
+ *** Modified by:   Amarendranath Vadlamudi <nath@vedam>
+ *** Modified at:   Fri Nov 30 13:05:25 2001
+ *** Status:        Experimental, do not distribute.
+ *** Update count:  3
+ ***************************************************************** -->
+<helloWorld xmlns="http://www.stdc.com/2001/QMS/helloWorld"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.stdc.com/2001/QMS/helloWorld helloWorld.xsd">
+
+<!-- This is a sample XML file that is useful to test any parser that -->
+<!-- uses the helloWorld.xsd schema defined for the Hello World sensor -->
+  
+  <Data>
+    <dataid>1</dataid>
+    <salutation>Hello Foo Bar !!</salutation>
+  </Data>
+  
+</helloWorld>           

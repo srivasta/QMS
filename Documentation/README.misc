@@ -1,0 +1,296 @@
+/** @page README.misc Building your own QMS citizens
+ *
+ *  <PRE>
+ *  Copyright (C) 2001 System/Technology Development Corporation
+ *  This file is part of QoS Metric Services
+ * 
+ *  This program is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU General Public License as
+ *  published by the Free Software Foundation; either version 2 of the
+ *  License, or (at your option) any later version.
+ * 
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  General Public License for more details.
+ * 
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ *  02111-1307 USA
+ * 
+ *  You may contact System/Technology Development Corporation at
+ * 
+ *      System/Technology Development Corporation
+ *      Suite 500, Center for Innovative Technology,
+ *      2214 Rock Hill Road,
+ *      Herndon, VA 20170    
+ *      (703) 476-0687
+ *  </PRE>
+
+    Using the documentation and the example of the Hello World Sensor
+    and client, you can build a QMS citizen to provide any kind of
+    data that is useful to your systems.
+
+    - @ref UnderstandingSchemas 
+
+    - @ref UnderstandingXSL
+
+    - @ref BuildSensor
+    
+    - @ref BuildClient
+ 
+    - @ref BuildPlugin
+
+    Congratulations !! You're well on your way to understanding and
+    using the QoS Metrics Services
+
+ **//**
+ @page UnderstandingSchemas Understanding XML in QMS
+
+    XML is used extensively in QMS. It is used to describe the
+    configuration files used to configure the various Sensors and to
+    describe the contents of the messages that flow between the
+    various QMS entities. For a detailed understanding of QMS Messages
+    see the section on @ref QMSMessage in @ref README.background.
+
+    The primary schema QMSSchema.xsd describes the schema used by all
+    QMS entities. This schema defines the format for the Sensor
+    Configuration files, the Probe Capability Fragments and the QMS
+    Message Schemas. Note that the schemas provide very detailed data
+    typing on the contents of the configuration files or the
+    messages. This enables the use of general purpose XML validating
+    parsers to ensure that the messages are accurate and reduces the
+    potential for configuration and data transmission errors to burden
+    the system.
+    @include QMSSchema.xsd
+
+    Additionally, each Sensor defines the schema for the requests it
+    accepts and the message format for the data it
+    provides. Typically, these schemas define their own name space and
+    are included in the Sensor directory. A simple example of such a
+    schema is the helloWorld.xsd file that defines the schema for the
+    Hello_World Sensor and Probe.
+    @include helloWorld.xsd
+
+ ** @ref README.misc **//**
+ @page UnderstandingXSL Understanding XML Stylesheets (XSL) in QMS
+
+    QMS has a clearly defined role for Sensors and Probes. The
+    expectation is that Sensors can have builtin probes or external
+    probes. The Generic Sensor is an example of a Sensor that supports
+    external probes by communicating with them through simple
+    pipes. It is conceivable that there will be other kinds of Sensors
+    that support external probes and communicate with them through
+    mechanisms such as sockets, IPC, shared memory etc.
+
+    Since such a Sensor will have no apriori knowledge of the probes
+    that it will be deploying, it will have no knowledge of the
+    parameters that the probe will require to operate, the format of
+    its requests and its responses and so on. So QMS uses XSL to
+    encapsulate this knowledge for each probe so that the Sensor can
+    deploy these external probes.
+    
+    Each external probe defines a specific XSL file - ProbeSample.xsl
+    that is used in conjunction with its deployment. When the Sensor
+    receives a QMS request that is destined for this probe, the Sensor
+    sends the XML request and the XSL file to the XSLT processor,
+    which will then produce an output that tells the sensor what to
+    do. The output could indicate to the Sensor, that this request
+    requires the sensor to deploy the probe with the following command
+    line parameters. Or it could be telling the Sensor to send a
+    message to the probe telling it to pause.
+
+    In the Continuous Simple Pipe probes that are currently
+    implemented, deploying a probe means the Sensor will exec the
+    probe executable with the appropriate command line parameters. Any
+    modification requests are commands that are fed to the probe via
+    the simple pipes. The primary XSL file defined for use by these
+    Simple Pipe probes is  QMSMessage.xsl. It defines the various
+    templates that will be used by the Sensor in determining what
+    actions to undertake.
+    @dontinclude QMSMessage.xsl
+    @line xml @until text @skipline Check @until /xsl:template
+
+    In the Documentation/XML/SensorCapability.xml file we see that the
+    probe executable is /usr/local/bin/qms/remosProbe and the XSLT
+    file that should be used for this probe is remosProbe.xsl. 
+
+    In the Documentation/XML/ProbeSample.xml file that is written for
+    the same probe that supports Documentation/XML/ProbeSchema.xsd, we
+    see that the Probe supports on its input, commands such as
+    "start,stop,pause,resume" and "count 25" and "interval
+    PT200S". The first four are self-explanatory, the last two
+    indicate to the probe to deliver 25 messages at an interval of 200
+    seconds. The XSL file is written to deliver all these messages
+    appropriately from the Sensor to the probe.
+
+    The Sensor performs the following steps when it receives a
+    message. First it calls a getAction template which tells it
+    whether this is request requires the deployment of a new probe or
+    a modification command to an existing probe. Depending on the
+    output of the first command, the Sensor then calls the templates
+    getExecString or getProbeString, which will again give the Sensor
+    the command to fork/exec (deploying the probe) or the command to
+    write to the input of the already deployed probe. Another template
+    that is useful to the Sensor for its cleanup activities is whether
+    the request will terminate the probe (getIsTerminate). The XSL
+    files have comments that will further clarify the above.
+    @include ProbeSample.xsl
+    
+
+ ** @ref README.misc **//**
+ @page BuildSensor Building your own QMS Sensor
+
+    Now let us walk through the process of building your own
+    sensor. We'll use the Hello_World Sensor as an example to ground
+    the discussion. It involves a certain amount of planning, some
+    amount of design and a lot of cut-and-paste code. First we define
+    what this Sensor should do. In our example, we want the Sensor to
+    listen for a request that contains a first name and a last name
+    and then we want it to send back a response that says "Hello
+    firstname lastname". This is simple enough so lets run through the
+    steps .
+
+
+    -# Define the QMSUniqueName 
+       - Explore the various probes available in QMS and the
+       documentation to determine if the kind of data stream that you
+       are generating already has a well-known
+       QMSUniqueName/Category. In our case, it does not, so let's come
+       up with a name. Since the Hello_World Sensor will have a
+       conceptual probe built into it whose job is to produce Hello
+       World messages, lets name it "HelloWorldProbe".
+    -# Define the actions the Sensor must perform
+       - Determine the actions that you'd like the Sensor to
+         perform. Let us say that we would like to be able to tell the
+         Sensor to accept a request and send us data for 20 iterations
+         at an interval of 5 seconds. We would also like to be able
+         tell the Sensor to "pause", "resume" and "stop" when it is
+         actively responding to a request.
+     -# Define the message format
+        - Specify a format for the request that the Sensor will
+          receive and a format for the output that the Sensor will
+          send. In our example, we want the request to contain a
+          <firstname> and a <lastname> and the response will have the
+          string <salutation>.
+	- The QMS Message format already allows us to specify if we'd
+	  like the Sensor to execute the request for a specific number
+	  of iterations with a specific interval. So our request does
+	  not need to include this information. However, the request
+	  should support the definition of an <action> which will tell
+	  the Sensor to "pause" or "resume" etc. We do all of this
+	  specification using XML Schemas and save it in an XML Schema
+	  file - <em>helloWorld.xsd</em>.
+      -# Create a Sensor Configuration File
+         - Now we have to create a configuration file that will give
+           the Sensor relevant information that it will publish in the
+           YPOffer. This could be any kind of information that we
+           think may be useful for the clients of our Sensor's
+           data. Since the Sensor is a QMS Citizen, it already
+           supports the Command and Control CORBA interface. This
+           needs to be specified in the configuration file. The
+           Hello_World Sensor uses this information to make a YP Offer
+           for its Command and Control Interface. This offer will be
+           used in later evolutions of QMS.
+	 - Also our Sensor has exactly one builtin probe - the
+           Hello_World Probe. So we specify parameters that are
+           specific to this probe. We specify where the Sensor will
+           find the Schema file that corresponds to the messages used
+           by the Probe. We also choose to publish a couple of
+           variable that we think will be useful to the clients that
+           use our HelloWorldProbe data. A <description> variable and
+           a <author> variable. All of this information will be
+           published in the YPOffer that is made by the Hello_World
+           Sensor on behalf of the HelloWorld Probe. See
+           helloWorldConfig.xml for the format.
+         - If you had more than one probe, you would specify multiple
+           <sensorService> sections in the configuration file.
+      -# Use the Hello_World Sensor as a template
+         - You need to go through a process similar to the one
+	   described above to create a message format and a sensor
+	   configuration file. Once that is done, you need to do two
+	   things:
+	   -# Handle the incoming request.  This is done by editing
+	      the <tt>handle_query</tt> method in the file
+	      <em>Hello_World_Impl.cpp</em>. In the example, we use a
+	      callback function to the <tt>parse_message</tt> utility
+	      function to walk the DOM tree nodes and fill in a struct
+	      with the values from the message
+	   -# Generate a response to the request. This is done by
+	      editing the <tt>handle_query</tt> method in the file
+	      editing the <tt>handle_query</tt> method in the file
+	      <em>Meta_Data.cpp</em>. In the example, we use a
+	      <tt>snprintf</tt> statement and pull in data from
+	      several places to generate a response.
+         - Note that the Sensor code has to do different things based
+           on the request. If the request specified multiple
+           iterations, or a specific action, such as "pause", the
+           Sensor code <em>handle_query</em> has to be changed to
+           reflect the appropriate behaviour.
+
+    @include helloWorld.xsd     
+
+ ** @ref README.misc **//**
+ @page BuildClient Building your own QMS Client
+
+    The Client has a simple role. In our example, we wish the client
+    to be able to tell the Sensor how many iterations to perform and
+    at what interval. Additionally, we wish to tell the Sensor when to
+    "pause", "resume" etc. This of course, assumes that we already
+    know what features the Sensor supports in a request. If we did not
+    know this ahead of time, we would query the QMS Trader for the
+    QMSUniqueName/Category we are interested in - "HelloWorldProbe" in
+    this case. We would look at the offer and see that the
+    &lt;probeSchema&gt; element gives us the location of the XML
+    Schema file that defines the messages that the HelloWorld Probe
+    supports. So if we were new to this QMS environment, we would
+    execute the following
+    
+
+   -# Identify Message Format
+    - We know that the QMSUniqueName/Category of the data stream we
+      want to use is "HelloWorldProbe". So we use the "listOffers"
+      tool with the following command: <quote>ListOffers -q
+      HelloWorldProbe</quote>. This will print the offers in the
+      Trader that correspond to the data stream
+      "HelloWorldProbe". Reading the Schema file identified in the
+      Offer, we know the message format to use for the requests and
+      the responses.
+   -# Use the Hello_World test Client as a template
+    - The client queries the QMS Trader to find the "HelloWorldProbe"
+      offer of interest. Note that there may be several sensors
+      advertising that they provide "HelloWorldProbe" data
+      streams. The client should be able to use the Offer information
+      to determine which specific one it wishes to address. It may
+      choose to address all of them as well. Formulate a request as
+      specified in the message format and the responses will be
+      delivered in the callback function.
+
+ ** @ref README.misc **//**
+ @page BuildPlugin Building your own QMS Plugins
+
+      Plugins are a special form of QMS citizens that provide valuable
+      services in the QMS environment. Good examples of plugins are the 
+      Data Recording Plugin implemented currently as the Simple_Logger 
+      plugin. Additional plugins could provide data visualization services.
+ 
+      Plugins that consume data, process it and then send it back as a 
+      data stream are an extremely powerful form of plugins. Tasks of this
+      nature could include statistical analysis plugins, time-based prediction
+      plugins etc.
+    
+      The rest of this section is yet to be written.
+
+ ** @ref README.misc **/
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- *****************************************************************
+ *** Copyright (c) 2001, System/Technology Development Corporation .
+ ***                
+ *** Filename:      helloWorld_request_modify.xml
+ *** Version:       1.0
+ *** Description:   Sample File - Request modification to HelloWorld Sensor
+ ***                
+ *** Author:        Amarendranath Vadlamudi <amar.vadlamudi@stdc.com>
+ *** Created at:    Fri Nov 30 12:43:33 2001
+ *** Modified by:   Amarendranath Vadlamudi <nath@vedam>
+ *** Modified at:   Fri Nov 30 13:03:19 2001
+ *** Status:        Experimental, do not distribute.
+ *** Update count:  3
+ ***************************************************************** -->
+
+<!-- This is a sample XML file that is useful to test any parser that -->
+<!-- uses the helloWorld.xsd schema defined for the Hello World sensor -->
+
+<helloWorld xmlns="http://www.stdc.com/2001/QMS/helloWorld"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.stdc.com/2001/QMS/helloWorld helloWorld.xsd">
+
+  <!-- The Hello World Sensor schema (helloWorld.xsd) permits the
+  modification of requests by sending a Request element that contains
+  a single element with an "action" element with values of "stop",
+  "pause" "resume" -->
+  
+  <Request>
+    <action>pause</action>
+  </Request>
+
+</helloWorld>           

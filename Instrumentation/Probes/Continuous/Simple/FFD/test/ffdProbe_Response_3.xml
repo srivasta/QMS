@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- *****************************************************************
+ *** Copyright (c) 2001, System/Technology Development Corporation .
+ ***                
+ *** Filename:      ffdProbe_Response_3.xml
+ *** Version:       1.0
+ *** Description:   Sample XML File
+ ***                
+ *** Author:        Amarendranath Vadlamudi <nath@vedam>
+ *** Created at:    Fri Dec  7 20:27:59 2001
+ *** Modified by:   Amarendranath Vadlamudi <nath@vedam>
+ *** Modified at:   Fri Dec  7 20:38:18 2001
+ *** Status:        Experimental, do not distribute.
+ *** Update count:  6
+ ***************************************************************** -->
+
+<!-- This is a sample XML file that is useful to test any parser that -->
+<!-- uses the ffdProbe.xsd schema defined for the Fast Failure Detector -->
+<!-- Continuous Probe -->
+
+
+<ffdProbe xmlns="http://www.stdc.com/2001/QMS/Probes/Continuous/FFDProbe"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.stdc.com/2001/QMS/Probes/Continuous/FFDProbe 
+  ffdProbe.xsd">
+  <ffd_report>
+    <ffd_host>130.105.2.32</ffd_host>
+    <ffd_instance>FFD</ffd_instance>
+    <ffd_message>
+      <ffd_config>
+	<version>1</version>
+	<host_list>
+	  <host_ip>130.105.2.32</host_ip>
+	  <host_state>up</host_state>
+	  <host_ip>130.105.2.33</host_ip>
+	  <host_state>down</host_state>
+	  <host_ip>130.105.2.34</host_ip>
+	  <host_state>up</host_state>
+	  <host_ip>130.105.2.35</host_ip>
+	  <host_state>down</host_state>
+	</host_list>
+	<reportInterval>25.045231</reportInterval>
+	<time>999811615.704724</time>
+      </ffd_config>
+    </ffd_message>
+  </ffd_report>
+  
+</ffdProbe>
+  

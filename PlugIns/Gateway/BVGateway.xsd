@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:qms="http://www.stdc.com/2001/QMSSchema"
+  xmlns="http://www.stdc.com/2001/QMS/Plugins/BVGateway"
+  targetNamespace="http://www.stdc.com/2001/QMS/Plugins/BVGateway"
+  elementFormDefault="qualified">
+  
+  <xsd:import namespace="http://www.stdc.com/2001/QMSSchema"
+    schemaLocation="QMSSchema.xsd"/>
+
+  <xsd:annotation>
+    <xsd:documentation>
+      This schema defines the protocol that is used by the BVGateway
+      which serves as the Basic Validation Gateway to the QMS
+      infrastructure. The BVGateway provides a socket based interface
+      to the Basic Validation Controller at one end and uses the CORBA
+      based interface to QMS at the other end.
+
+      The schema here desribes the messages that flow between the
+      BVGateway and the Basic Validation Controller over the socket
+      interface. The BVGateway uses the well known QMS Schemas to
+      define its messages in QMS.
+    </xsd:documentation>
+  </xsd:annotation>
+
+  <xsd:element name="BVTlistenAddress">
+    <xsd:annotation>
+      <xsd:documentation>
+	This will be used by the Gateway to know where to
+	communicate back its data in a socket based world.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+	<xsd:element name="host" type="qms:ipv4AddressType"/>
+	<xsd:element name="port" type="qms:positiveInteger"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:complexType name="QMSUniqueNameType">
+    <xsd:complexContent>
+      <xsd:restriction base="qms:uniqueNameType">
+	<xsd:sequence>
+	  <xsd:element name="category">
+	    <xsd:simpleType>
+	      <xsd:restriction base="xsd:string">
+		<xsd:minLength value="6"/>
+	      </xsd:restriction>
+	    </xsd:simpleType>
+	  </xsd:element>
+	  <xsd:element name="host" type="qms:ipv4AddressType"
+	    minOccurs="1" maxOccurs="1"/>
+	  <xsd:element name="uuid" type="qms:positiveInteger"
+	    minOccurs="1" maxOccurs="1"/>
+	</xsd:sequence>
+      </xsd:restriction>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <xsd:complexType name="discoverRequestType">
+    <xsd:annotation>
+      <xsd:documentation>
+	When the controller initializes, it sends out a discovery
+	request to the gateway, which then uses the request contents
+	to obtain appropriate offers from the QMSTrader. The offer
+	data is passed back to the controller for use in the GUI. 
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element ref="BVTlistenAddress"/>
+      <xsd:element name="resource">
+	<xsd:complexType>
+	  <xsd:annotation>
+	    <xsd:documentation>
+	      The BVT controller specifies all the
+	      QMSUniqueName/Categories that it is interested in. It
+	      could specify things more specifically if desired by
+	      using all the fields of the QMSUniqueName
+	    </xsd:documentation>
+	  </xsd:annotation>
+	  <xsd:sequence>
+	    <xsd:element name="QMSUniqueName" type="qms:uniqueNameType"
+	      maxOccurs="unbounded"/>
+	  </xsd:sequence>
+	</xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+  <xsd:complexType name="discoverResponseType">
+    <xsd:annotation>
+      <xsd:documentation>
+	This message is returned to the controller when a new resource offer
+	has been discovered. The message could indicate that the
+	resource is to be removed or to be added to the known lists.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="msgDate" type="xsd:string"/>
+      <xsd:element name="msgTime" type="xsd:string"/>
+      <xsd:element ref="BVTlistenAddress"/>
+      <xsd:element name="resource" type="resourceType"
+	maxOccurs="unbounded" />
+      <xsd:element name="action">
+	<xsd:simpleType>
+	  <xsd:restriction base="xsd:string">
+	    <xsd:enumeration value="add"/>
+	    <xsd:enumeration value="remove"/>
+	  </xsd:restriction>
+	</xsd:simpleType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="resourceType">
+    <xsd:annotation>
+      <xsd:documentation>
+	Each resource offer has information that needs to be passed
+	back to the BVT controller. The QMSUniqueName, a descriptive
+	string for the GUI, whether the data is plottable and units
+	for the data being provided are of specific interest to the
+	GUI. All of this information is obtained by reading the
+	offers.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="QMSUniqueName" type="QMSUniqueNameType"/>
+      <xsd:element name="offerInfo" type="qms:variableType"
+	minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+  <xsd:complexType name="componentMsgType">
+    <xsd:annotation>
+      <xsd:documentation>
+	This message is returned to the controller when a new client
+	advertises its list of components that it has available. In
+	QMS speak,this is the list of offers that describe the
+	services being provided by the client.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="errorDataType">
+    <xsd:annotation>
+      <xsd:documentation>
+	If an error message needs to be communicated to the
+	controller, this is the path. May be relevant in displaying
+	pop up messages in the GUI.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="status" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="resourceRequestType">
+    <xsd:annotation>
+      <xsd:documentation>
+	Every message initiated by the controller is destined to be
+	sent to a specific client host for action. This request is in
+	turn translated into the appropriate request that the client
+	probe is expecting by the BVGateway. When the response comes
+	back, the BVGateway converts the QMSMessage response to the
+	formats understood by the Controller. The minRepetitions value
+	is not used directly by the BVT controller. But since it is
+	required for the probe to produce any useful data, it can be
+	set to a default of a very large number, like 86400 for
+	instance.
+	From an automation standpoint, the BVTool will need to execute
+	requests in some timed order. So the sleepbeforenext specifies
+	how much time to sleep before the next request in the list is
+	to be processed.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="requestID" minOccurs="0"/>
+      <xsd:element name="QMSUniqueName" type="QMSUniqueNameType"/>
+      <xsd:element ref="qms:minRepetitions" minOccurs="0"/>
+      <xsd:element ref="qms:minRepeatInterval"/>
+      <xsd:element name="sleepbeforenext" default="PT0S"
+	type="xsd:string" minOccurs="0"/>
+      <xsd:element name="action">
+	<xsd:simpleType>
+	  <xsd:restriction base="xsd:string">
+	    <xsd:enumeration value="start"/>
+	    <xsd:enumeration value="stop"/>
+	  </xsd:restriction>
+	</xsd:simpleType>
+      </xsd:element>
+      <!-- Using the same payload element that QMSMessage uses -->
+      <xsd:element ref="qms:payload"/>
+    </xsd:sequence>
+  </xsd:complexType>        
+
+  <xsd:element name="resource">
+    <xsd:complexType>
+      <xsd:choice>
+	<xsd:element name="request" type="resourceRequestType"/>
+	<xsd:element name="response">
+	  <xsd:complexType>
+	    <xsd:sequence>
+	      <xsd:element name="requestID" minOccurs="0"/>
+	      <xsd:element name="QMSUniqueName" type="QMSUniqueNameType"/>
+	      <xsd:element name="msgDate" type="xsd:string"/>
+	      <xsd:element name="msgTime" type="xsd:string"/>
+	      <xsd:choice>
+		<xsd:element ref="qms:payload"/>
+		<xsd:element name="errorData" type="errorDataType"/>
+	      </xsd:choice>
+	    </xsd:sequence>
+	  </xsd:complexType>
+	</xsd:element>
+      </xsd:choice>
+    </xsd:complexType>
+  </xsd:element>
+	      
+  <xsd:element name="discover">
+    <xsd:complexType>
+      <xsd:choice>
+	<xsd:element name="request" type="discoverRequestType"/>
+	<xsd:element name="response" type="discoverResponseType"/>
+      </xsd:choice>
+    </xsd:complexType>
+  </xsd:element>
+
+</xsd:schema>
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- *****************************************************************
+ *** Copyright (c) 2001, System/Technology Development Corporation .
+ ***                
+ *** Filename:      perfmonProbes.xsd
+ *** Version:       1.0
+ *** Description:   Schema used by the various System Perf_Mon Probes
+ ***                
+ *** Author:        Amarendranath Vadlamudi <amar.vadlamudi@stdc.com>
+ *** Created at:    Mon Nov  5 10:44:11 2001
+ *** Modified by:   Amarendranath Vadlamudi <nath@vedam>
+ *** Modified at:   Tue Dec 11 20:43:39 2001
+ *** Status:        Experimental, do not distribute.
+ *** Update count:  13
+ ***************************************************************** -->
+
+  <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://www.stdc.com/2001/QMS/Probes/perfmonProbes"
+    targetNamespace="http://www.stdc.com/2001/QMS/Probes/perfmonProbes"
+    elementFormDefault="qualified"
+    version="$Id: perfmonProbes.xsd,v 1.4 2001/12/12 02:26:53 nath Exp $">
+  
+  <xsd:complexType name="probeCommand">
+    <xsd:annotation>
+      <xsd:documentation>The Performance Monitor probes support a
+	series of control strings that allow the requestor to control
+	the function of the probe. The supported actions are "start",
+	"stop", "pause" and "resume". Corresponding to these control
+	actions, the probe executes the action. Generally, "start" and
+	"stop" actions for a probe are mandatory.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="action">
+	<xsd:simpleType>
+	  <xsd:restriction base="xsd:string">
+	    <xsd:enumeration value="start"/>
+	    <xsd:enumeration value="stop"/>
+	    <xsd:enumeration value="pause"/>
+	    <xsd:enumeration value="resume"/>
+	  </xsd:restriction>
+	</xsd:simpleType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  
+    <xsd:complexType name="plotDataType">
+    <xsd:annotation>
+      <xsd:documentation>
+        When a performance monitor probe is activated, it sends back a
+        stream of plottable data. This data is plottable and so has a
+        numeric value. And it may also have units defined with it.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="numericData" type="xsd:decimal"/>
+      <xsd:element name="units" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+    <xsd:complexType name="columnDataType">
+    <xsd:annotation>
+      <xsd:documentation>
+        When a perfmon probe is activated, it may send back a stream of
+        text data that is easily represented in columns. Process
+        data is one such data stream with two columns.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="title">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="column" type="xsd:string" maxOccurs="20"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="row" maxOccurs="unbounded">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="column" type="xsd:string" maxOccurs="20"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="textDataType">
+    <xsd:annotation>
+      <xsd:documentation>
+        When a perfmon probe is activated, it may send back a stream of
+        textual data that is best represented as a paragraph with
+        interpretation and form best left to the viewers.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="message" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="perfmonDataType">
+    <xsd:annotation>
+      <xsd:documentation>The performance monitor probes generate data
+	which essentially consists of a multiple values. These values
+	may also have units defined with it. Some examples of this
+	are CPU load, memory utilization, disk utilization etc.
+	Multiple instances of perfmonData are possible in one response
+	from the probe. However, we may also have data like process
+	lists or other textual output. So we should account for all.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="dataid" type="xsd:nonNegativeInteger"/>
+      <xsd:element name="resource" type="xsd:string"/>
+      <xsd:choice>
+	<xsd:element name="plotData" type="plotDataType"/>
+	<xsd:element name="columnData" type="columnDataType"/>
+	<xsd:element name="textData" type="textDataType"/>
+      </xsd:choice>
+    </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:element name="perfmonProbe">
+    <xsd:complexType>
+      <xsd:choice>
+	<xsd:element name="perfmonRequest">
+          <xsd:annotation>
+            <xsd:documentation>
+              If the perfmonRequest element is empty, then the request
+              is essentially changing the minRepetitions or the
+              minRepeatInterval parameters for the active request. So
+              this does not necessitate a probeControl command.
+	    </xsd:documentation>
+	  </xsd:annotation>
+	  <xsd:complexType>
+	    <xsd:sequence>
+	      <xsd:element name="probeControl" type="probeCommand"
+		minOccurs="0" />
+	    </xsd:sequence>
+	  </xsd:complexType>
+	</xsd:element>
+	<xsd:element name="perfmonData" maxOccurs="unbounded" 
+	  type="perfmonDataType"/>
+      </xsd:choice>
+    </xsd:complexType>
+  </xsd:element>
+  
+</xsd:schema>
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,427 @@
+#!/bin/bash
+#                               -*- Mode: Sh -*- 
+# corba_svc --- 
+# Author           : Manoj Srivastava ( srivasta@glaurung.stdc.com ) 
+# Created On       : Tue Jul 31 12:08:19 2001
+# Created On Node  : glaurung.stdc.com
+# Last Modified By : Manoj Srivastava
+# Last Modified On : Wed Oct 10 13:41:44 2001
+# Last Machine Used: ember.stdc.com
+# Update Count     : 42
+# Status           : Unknown, Use with caution!
+# HISTORY          : 
+# Description      : 
+# $Id: corba_svc,v 1.13 2002/01/26 15:51:39 nath Exp $
+# 
+# 
+
+# Make sure we abort on error
+set -e
+
+progname="$(basename \"$0\")"
+pversion='$Revision: 1.13 $'
+
+#DEFAULT_EC_NAMES="QMS_ANN QMS_DAT QMS_REQ QMS_D_ANN QMS_D_DAT QMS_D_REQ QMS_FFD QMS_Channel"
+DEFAULT_EC_NAMES="QMS_D_ANN QMS_D_DAT QMS_D_REQ"
+
+setq() {
+    # Variable Value Doc string
+    if [ "x$2" = "x" ]; then
+        echo >&2 "$progname: Unable to determine $3"
+        exit 1;
+    else
+        if [ ! "x$Verbose" = "x" ]; then
+            echo "$progname: $3 is $2";
+        fi
+        eval "$1=\"\$2\"";
+    fi
+}
+
+withecho () {
+        echo " $@" >&2
+        "$@"
+}
+
+usageversion () {
+        cat >&2 <<END
+Usage: $progname  [options] Action
+Options: 
+  -h                 This help
+  -a</path/to/ace>   The location of ACE on this machine
+  -d                 Turn on Debugging
+  -n                 "Dry-run" mode - No action taken, only print commands.
+  -p<prefix>         Prefix of location for the ior file [/usr]
+  -t</path/to/tao>   The location of TAO on this machine
+  -w<work dir>       Working directory.
+  -NE                Do not stop or start the event service
+  -NN                Do not stop or start the naming service
+  -NT                Do not stop or start the trading service
+Action is one of start|stop|restart
+END
+}
+
+#
+# Long term variables, which may be set in the config file or the
+# environment: 
+# DEBUG rootdir workdir (if all original sources are kept in one dir)
+#
+# 
+
+action='withecho'
+DEBUG=0
+opt_dryrun=''
+TEMPDIR=/tmp/$$
+mkdir $TEMPDIR || exit 1
+TEMPFILE=$TEMPDIR/cl-tmp
+
+# Command line
+while [ $# != 0 ]; do
+    value="$(echo x\"$1\" | sed -e 's/^x\"-.//' | sed -e 's/\"$//')"
+    case "$1" in
+        -h)   usageversion;    exit 0    ;;
+        -a*)  opt_ace_root="$value"      ;;
+        -d)   opt_DEBUG=1                ;;
+        -n)   opt_dryrun=1; action='echo';;
+        -p*)  opt_prefix="$value"        ;;
+        -t*)  opt_tao_root="$value"      ;;
+        -w*)  opt_workdir="$value"       ;;
+	-NE)  opt_no_event=1             ;;
+	-NN)  opt_no_name=1              ;;
+	-NN)  opt_no_trading=1           ;;
+        -*)    usageversion;    exit 0   ;;
+	*)  break; ;;
+    esac
+    shift
+done
+
+# Load site defaults and over rides.
+if [ -f /etc/stdc_start_env.conf ]; then
+    . /etc/stdc_start_env.conf
+fi
+
+# Load user defaults and over rides.
+if [ -f ~/.stdc_start_env.conf ]; then
+    . ~/.stdc_start_env.conf
+fi
+
+
+
+# If asked to debug on command line, that's what we get
+if [ ! "x$opt_DEBUG" = "x" ]; then
+    DEBUG="$opt_DEBUG"
+fi
+
+# Command line, env variable, config file, or default
+# This anomalous position is in case we need to check out the changelog
+# below (anaomalous since we ahve not loaded the config file yet)
+if [ "x$opt_prefix" != "x" ]; then
+    prefix="$opt_prefix"
+elif [ "x$STDC_PREFIX" != "x" ]; then
+    prefix="$STDC_PREFIX"
+elif [ "x$conf_prefix" != "x" ]; then
+    prefix="$conf_prefix"
+else
+    prefix="/"
+fi
+
+# put a slash at the end of the prefix
+if [ "X$prefix" != "X" ]; then
+    prefix="$prefix/";
+    prefix=$(echo $prefix | sed 's://:/:g');
+fi
+
+if [ "x$opt_ace_root" != "x" ]; then
+    ACE_ROOT="$opt_ace_root"
+elif [ "x$ACE_ROOT" == "x" ]; then
+    if [ "x$conf_ace_root" != "x" ]; then
+       ACE_ROOT="$conf_ace_root"
+    else
+       ACE_ROOT="/opt/ACE_wrappers"
+    fi
+fi
+export ACE_ROOT;
+
+
+if [ "x$opt_tao_root" != "x" ]; then
+    TAO_ROOT="$opt_tao_root"
+elif [ "x$TAO_ROOT" == "x" ]; then
+     if [ "x$conf_ace_root" != "x" ]; then
+        TAO_ROOT="$conf_tao_root"
+     else
+        TAO_ROOT="$ACE_ROOT/TAO"
+     fi
+fi
+export TAO_ROOT;
+
+if [ "X$LD_LIBRARY_PATH" = "X" ]; then
+    LD_LIBRARY_PATH=${ACE_ROOT}/ace
+else
+    if [ $(echo $LD_LIBRARY_PATH | grep -v $ACE_ROOT) ]; then
+	LD_LIBRARY_PATH=${ACE_ROOT}/ace:${LD_LIBRARY_PATH}
+    fi
+fi    
+export LD_LIBRARY_PATH
+
+if [ "x$opt_no_event" != "x" ]; then
+    start_no_event="$opt_no_event"
+elif [ "x$STDC_NO_EVENT" != "x" ]; then
+    start_no_event="$STDC_NO_EVENT"
+elif [ "x$conf_no_event" != "x" ]; then
+    start_no_event="$conf_no_event"
+else
+    start_no_event=""
+fi
+STDC_NO_EVENT=$start_no_event
+export STDC_NO_EVENT
+
+if [ "x$opt_no_trading" != "x" ]; then
+    start_no_trading="$opt_no_trading"
+elif [ "x$STDC_NO_TRADING" != "x" ]; then
+    start_no_trading="$STDC_NO_TRADING"
+elif [ "x$conf_no_trading" != "x" ]; then
+    start_no_trading="$conf_no_trading"
+else
+    start_no_trading=""
+fi
+STDC_NO_TRADING=$start_no_trading
+export STDC_NO_TRADING
+
+if [ "x$opt_no_name" != "x" ]; then
+    start_no_name="$opt_no_name"
+elif [ "x$STDC_NO_NAME" != "x" ]; then
+    start_no_name="$STDC_NO_NAME"
+elif [ "x$conf_no_name" != "x" ]; then
+    start_no_name="$conf_no_name"
+else
+    start_no_name=""
+fi
+STDC_NO_NAME=$start_no_name
+export STDC_NO_NAME
+
+# Command line, env variable, config file, or default
+if [ ! "x$opt_workdir" = "x" ]; then
+    workdir="$opt_workdir"
+elif [ ! "x$STDC_WORKDIR" = "x" ]; then
+    workdir="$STDC_WORKDIR"
+elif [ ! "x$conf_workdir" = "x" ]; then
+    workdir="$conf_workdir"
+else
+    workdir="${prefix}var/run/qms"
+fi
+STDC_WORKDIR=$workdir
+export STDC_WORKDIR
+
+# env variable, config file, or default
+if [ ! "x$STDC_EC_NAMES" = "x" ]; then
+    ec_names="$STDC_EC_NAMES"
+elif [ ! "x$conf_ec_names" = "x" ]; then
+    ec_names="$conf_ec_names"
+else
+    ec_names=$DEFAULT_EC_NAMES
+fi
+STDC_EC_NAMES=$ec_names
+export STDC_EC_NAMES
+
+my_base_dir=$(basename $workdir)
+if [ "$my_base_dir" != "$workdir" ]; then
+    case "$workdir" in
+	/*)
+	;;
+	*)
+	    echo  >&2 "working dir needs to be an absolute path"
+	    echo  >&2 "or a local path. I have $workdir"
+	    action exit 5;
+    esac
+fi
+
+
+KNOWN_SERVICES=''
+if [ "X$start_no_event" = "X" ]; then
+    KNOWN_SERVICES="Event_Service $KNOWN_SERVICES"
+fi
+if [ "X$start_no_name" = "X" ]; then
+    KNOWN_SERVICES="Naming_Service $KNOWN_SERVICES"
+fi
+if [ "X$start_no_trading" = "X" ]; then
+    KNOWN_SERVICES="Trading_Service $KNOWN_SERVICES"
+fi
+
+debug_print(){
+
+    if [ $DEBUG -gt 0 ]; then
+	echo >&2 ""
+	echo >&2 "============================================================"
+	echo >&2 ""
+	echo >&2 "prefix             =  $prefix "
+	echo >&2 "ACE_ROOT           = $ACE_ROOT"
+	echo >&2 "TAO_ROOT           = $TAO_ROOT"
+	echo >&2 "LD_LIBRARY_PATH    = $LD_LIBRARY_PATH"
+	echo >&2 "workdir            = $workdir"
+	echo >&2 "KNOWN_SERVICES     = $KNOWN_SERVICES"
+	echo >&2 ""
+	echo >&2 "============================================================"
+	echo >&2 ""    
+    fi
+}
+
+
+kill_services()
+{
+    # Kill old services already running
+    for service in $KNOWN_SERVICES; do
+        set +e
+        service_pid=$(ps -C $service -o pid h) 
+        set -e
+	if [ "X$service_pid" != "X" ]; then
+ 	    echo Killing $service with pid $service_pid
+	    $action kill $service_pid
+	fi
+    done
+
+    # Give the services time to die, before we send a kill -9
+    sleep 1
+
+    # This should be a no-op, unless the service is hung
+    for service in $KNOWN_SERVICES; do
+        set +e
+        service_pid=$(ps -C $service -o pid h) 
+        set -e
+	if [ "X$service_pid" != "X" ]; then
+	    echo  >&2 "$service did not die, killing it"
+ 	    echo Killing $service with pid $service_pid
+	    $action kill -KILL $service_pid
+	fi
+    done
+
+    # Give the services time to die, before we conclude failure and abort
+    sleep 1
+
+    for service in $KNOWN_SERVICES; do
+        set +e
+        service_pid=$(ps -C $service -o pid h) 
+        set -e
+	if [ "X$service_pid" != "X" ]; then
+ 	    echo Killing $service with pid $service_pid
+	    echo  >&2 "$service did not die, aborting"
+	    $action exit 3;
+    	fi
+    done
+}
+
+
+start_naming(){
+    if [ "X$start_no_name" = "X" ]; then
+	service="Naming_Service"
+	if [ $(ps -C $service -o pid h) ]; then
+	    echo  >&2 "$service already alive"
+	    return;
+	fi
+
+	if [ -f "$workdir/naming.ior" ]; then
+	    $action rm $workdir/naming.ior
+	fi
+	
+	if [ -x $ACE_ROOT/Naming_Service ]; then
+	    $action $ACE_ROOT/Naming_Service  -o $workdir/naming.ior &
+	elif [ -x $TAO_ROOT/orbsvcs/Naming_Service/Naming_Service ]; then
+	    $action $TAO_ROOT/orbsvcs/Naming_Service/Naming_Service -m 1 \
+		-o $workdir/naming.ior &
+	else
+	    echo  >&2 "Could not find Naming_Service, aborting"
+	    $action exit 4;
+	fi
+	if [ "X$opt_dryrun" != "X" ]; then
+	    echo ""
+	    echo while [ ! -e $workdir/naming.ior ]\; do
+	    echo     sleep 1;
+	    echo done
+	else
+	    while [ ! -e $workdir/naming.ior ]; do
+		$action sleep 1;
+	    done
+	fi
+	
+    fi
+}
+
+start_event(){
+    if [ "X$start_no_event" = "X" ]; then
+	service="Event_Service"
+	if [ $(ps -C $service -o pid h) ]; then
+	    echo  >&2 "$service already alive"
+	    return;
+	fi
+	
+	if [ -x $ACE_ROOT/Event_Service ]; then
+	    for channel in $ec_names; do
+		$action $ACE_ROOT/Event_Service  -n $channel \
+		    -ORBInitRef NameService=file://$workdir/naming.ior  &
+	    done
+	elif [ -x $TAO_ROOT/orbsvcs/Event_Service/Event_Service ]; then
+	    for channel in $ec_names; do
+		$action $TAO_ROOT/orbsvcs/Event_Service/Event_Service \
+		    -n $channel -ORBInitRef NameService=file://$workdir/naming.ior &
+	    done
+	else
+	    echo  >&2 "Could not find Event_Service, aborting"
+	    $action exit 4;
+	fi
+    fi
+}
+
+start_trading(){
+    if [ "X$start_no_event" = "X" ]; then
+	service="Trading_Service"
+	if [ $(ps -C $service -o pid h) ]; then
+	    echo  >&2 "$service already alive"
+	    return;
+	fi
+	if [ -x $ACE_ROOT/Trading_Service ]; then
+	    $action $ACE_ROOT/Trading_Service &
+	elif [ -x $TAO_ROOT/orbsvcs/Trading_Service/Trading_Service ]; then
+	    $action $TAO_ROOT/orbsvcs/Trading_Service/Trading_Service \
+		-TSthreadsafe -TSconformance standalone \
+		-TSdumpior $workdir/trading.ior \
+		-ORBInitRef NameService=file://$workdir/naming.ior &
+	else
+	    echo  >&2 "Could not find Trading_Service, aborting"
+	    $action exit 4;
+	fi
+    fi
+}
+
+start_services(){
+    if [ -d "$workdir" ]; then
+	start_naming;
+	start_event;
+	start_trading;
+    else
+	echo  >&2 "The working directory, $workdir does not exist. Aborting"
+	$action exit 2;
+    fi
+}
+
+debug_print;
+
+case "$1" in
+  start)
+        echo -n "Starting CORBA Services $KNOWN_SERVICES "
+	start_services;
+        echo "done."
+        ;;
+  stop)
+        echo -n "Stopping CORBA Services $KNOWN_SERVICES "
+	kill_services;
+        echo "done."
+        ;;
+  restart|force-reload)
+        echo -n "Restarting CORBA Services $KNOWN_SERVICES "
+        $0 stop
+        $0 start
+        echo "done."
+        ;;
+  *)
+        echo "Usage: $0 {start|stop|restart|force-reload}" >&2
+        exit 1
+        ;;
+esac

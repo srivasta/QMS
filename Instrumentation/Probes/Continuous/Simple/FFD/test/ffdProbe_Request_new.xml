@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- *****************************************************************
+ *** Copyright (c) 2001, System/Technology Development Corporation .
+ ***                
+ *** Filename:      ffdProbe_Request_new.xml
+ *** Version:       1.0
+ *** Description:   Sample XML File
+ ***                
+ *** Author:        Amarendranath Vadlamudi <nath@vedam>
+ *** Created at:    Fri Dec  7 20:27:59 2001
+ *** Modified by:   Amarendranath Vadlamudi <nath@vedam>
+ *** Modified at:   Fri Dec  7 20:41:47 2001
+ *** Status:        Experimental, do not distribute.
+ *** Update count:  6
+ ***************************************************************** -->
+
+<!-- This is a sample XML file that is useful to test any parser that -->
+<!-- uses the ffdProbe.xsd schema defined for the Fast Failure Detector -->
+<!-- Continuous Probe -->
+
+
+<ffdProbe xmlns="http://www.stdc.com/2001/QMS/Probes/Continuous/FFDProbe"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.stdc.com/2001/QMS/Probes/Continuous/FFDProbe 
+  ffdProbe.xsd">
+  <probeControl>
+    <action>start</action>
+  </probeControl>
+</ffdProbe>
+  

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- *****************************************************************
+ *** Copyright (c) 2001, System/Technology Development Corporation .
+ ***                
+ *** Filename:      dllInterceptCapabilityFragment.xml
+ *** Version:       1.0
+ *** Description:   DLL_Intercept Capability Fragment
+ ***                
+ *** Author:        Amarendranath Vadlamudi <amar.vadlamudi@stdc.com>
+ *** Created at:    Fri Dec  7 12:38:39 2001
+ *** Modified by:   Amarendranath Vadlamudi <nath@vedam>
+ *** Modified at:   Fri Dec  7 19:22:57 2001
+ *** Status:        Experimental, do not distribute.
+ *** Update count:  2
+ ***************************************************************** -->
+
+  <!-- This is the capability fragment introduced by the installation
+  of the DLL_Intercept Continuous Probe. -->
+
+  <!-- NOTE: This file is just a capability fragment file. This needs
+  to be placed in a complete sensorCapability file for it to be
+  useful. See the documentation for more information -->
+
+<Probe>
+  <probeType>continuous</probeType>
+  <dataReusable>false</dataReusable>
+  <QMSUniqueName>
+    <category>DLL_Intercept</category>
+  </QMSUniqueName>
+  <probeSchema>file:///usr/local/QMS/dllInterceptProbe.xsd</probeSchema>
+  <schemaVersion>1.0</schemaVersion>
+  <Offer>
+    <variable>
+      <name>tcpsend_wrap</name>
+      <value>file:///usr/local/wrappers/tcpsend.wrp</value>
+      <searchable/>
+      <maptoProperty>1</maptoProperty>
+    </variable>
+    <variable>
+      <name>desirm_wrap</name>
+      <value>file:///usr/local/wrappers/desirm.wrp</value>
+    </variable>
+      <variable>
+        <name>Description</name>
+        <value>Provides the ability to transparently instrument the indicated 
+               DLL call by the executable being monitored to gather useful
+               data data from Remos as a series of flows.</value>
+      </variable>
+  </Offer>	
+  <Invoke>
+    <probeExecutable>Generic_Wrapper_Probe</probeExecutable>
+    <probeXSLTFile>dllInterceptProbe.xsl</probeXSLTFile>
+    <xslParameters>
+      <variable>
+	<name>NamedPipePrefix</name>
+	<value>'\\.\pipes\probe1'</value>
+      </variable>
+    </xslParameters>
+  </Invoke>
+</Probe>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- *****************************************************************
+ *** Copyright (c) 2001, System/Technology Development Corporation .
+ ***                
+ *** Filename:      linuxperfmonProbesCapability.xml
+ *** Version:       1.0
+ *** Description:   Linux_Perf_Mon_Probe Capability Fragment
+ ***                
+ *** Author:        Amarendranath Vadlamudi <amar.vadlamudi@stdc.com>
+ *** Created at:    Fri Dec  7 13:07:00 2001
+ *** Modified by:   Amarendranath Vadlamudi <nath@vedam>
+ *** Modified at:   Tue Dec 11 23:19:29 2001
+ *** Status:        Experimental, do not distribute.
+ *** Update count:  5
+ ***************************************************************** -->
+
+  <!-- This is the capability fragment introduced by the installation
+  of the Linux_Perf_Mon Probe. -->
+
+  <!-- NOTE: This file is just a capability fragment file. This needs
+  to be placed in a complete sensorCapability file for it to be
+  useful. See the documentation for more information -->
+
+<Probe>
+  <probeType>continuous</probeType>
+  <dataReusable>false</dataReusable>
+  <QMSUniqueName>
+    <category>QMS_Memory_Utilization</category>
+  </QMSUniqueName>
+  <probeSchema>perfmonProbes.xsd</probeSchema>
+  <schemaVersion>1.0</schemaVersion>
+  <Offer>
+    <variable>
+      <name>Resource</name>
+      <value>/proc/meminfo/Mem</value>
+      <searchable/>
+      <maptoProperty>1</maptoProperty>
+    </variable>
+    <variable>
+      <name>Description</name>
+      <value>Percent Memory Utiilization. (Used * 100)/Total 
+      </value>
+    </variable>
+  </Offer>      
+  <Invoke>
+    <probeExecutable>./Linux_Perf_Mon_Probe</probeExecutable>
+    <probeXSLTFile>perfmonProbes.xsl</probeXSLTFile>
+    <xslParameters>
+      <variable>
+	<name>resource</name>
+	  <value>'/proc/meminfo/Mem'</value>
+      </variable>
+      </xslParameters>
+    </Invoke>
+</Probe>
+<Probe>
+  <probeType>continuous</probeType>
+  <dataReusable>false</dataReusable>
+  <QMSUniqueName>
+    <category>QMS_CPU_Utilization</category>
+  </QMSUniqueName>
+  <probeSchema>perfmonProbes.xsd</probeSchema>
+  <schemaVersion>1.0</schemaVersion>
+  <Offer>
+    <variable>
+      <name>Resource</name>
+      <value>/proc/stat/cpu</value>
+      <searchable/>
+      <maptoProperty>1</maptoProperty>
+    </variable>
+    <variable>
+      <name>Description</name>
+      <value>Utilization of CPU in user and system state expressed as
+      a percentage.
+      </value>
+    </variable>
+  </Offer>      
+  <Invoke>
+    <probeExecutable>./Linux_Perf_Mon_Probe</probeExecutable>
+    <probeXSLTFile>perfmonProbes.xsl</probeXSLTFile>
+    <xslParameters>
+      <variable>
+	<name>resource</name>
+	  <value>'/proc/stat/cpu'</value>
+      </variable>
+      </xslParameters>
+    </Invoke>
+  </Probe>
+<Probe>
+  <probeType>continuous</probeType>
+  <dataReusable>false</dataReusable>
+  <QMSUniqueName>
+    <category>QMS_Swap_Utilization</category>
+  </QMSUniqueName>
+  <probeSchema>perfmonProbes.xsd</probeSchema>
+  <schemaVersion>1.0</schemaVersion>
+  <Offer>
+    <variable>
+      <name>Resource</name>
+      <value>/proc/meminfo/swap</value>
+      <searchable/>
+      <maptoProperty>1</maptoProperty>
+    </variable>
+    <variable>
+      <name>Description</name>
+      <value>Percent utilization of total system swap space
+      </value>
+    </variable>
+  </Offer>      
+  <Invoke>
+    <probeExecutable>./Linux_Perf_Mon_Probe</probeExecutable>
+    <probeXSLTFile>perfmonProbes.xsl</probeXSLTFile>
+    <xslParameters>
+      <variable>
+	<name>resource</name>
+	  <value>'/proc/meminfo/swap'</value>
+      </variable>
+      </xslParameters>
+    </Invoke>
+  </Probe>

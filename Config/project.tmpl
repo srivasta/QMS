@@ -1,0 +1,134 @@
+############################ -*- Mode: Makefile -*- ###########################
+## project.tmpl --- 
+## Author           : Manoj Srivastava ( srivasta@ember.stdc.com ) 
+## Created On       : Fri Aug 10 12:32:09 2001
+## Created On Node  : ember.stdc.com
+## Last Modified By : Manoj Srivastava
+## Last Modified On : Mon Oct  8 22:03:30 2001
+## Last Machine Used: ember.stdc.com
+## Update Count     : 30
+## Status           : Unknown, Use with caution!
+## HISTORY          : 
+## Description      : 
+## 
+###############################################################################
+
+DEFAULT_MAKECONFDIR = $(SRCTOP)/Config
+ifndef MAKECONFDIR
+MAKECONFDIR = $(DEFAULT_MAKECONFDIR)
+endif
+
+DEFAULT_GUESSDIR := $(SRCTOP)/Utilities/Scripts
+ifndef GUESSDIR
+GUESSDIR  := $(DEFAULT_GUESSDIR)
+endif
+
+
+DEFAULT_ARCHITECTURE := $(shell $(GUESSDIR)/config.guess)
+ifndef ARCHITECTURE
+ARCHITECTURE = $(DEFAULT_ARCHITECTURE)
+endif
+export ARCHITECTURE
+TMP := $(subst -, ,$(ARCHITECTURE))
+
+DEFAULT_MACHINE := $(word 1, $(TMP))
+ifndef MACHINE
+MACHINE = $(DEFAULT_MACHINE)
+endif
+
+DEFAULT_VENDOR := $(word 2, $(TMP))
+ifndef VENDOR
+VENDOR = $(DEFAULT_VENDOR)
+endif
+
+DEFAULT_SYSTEM := $(word 3, $(TMP))
+ifndef SYSTEM
+SYSTEM = $(DEFAULT_SYSTEM)
+endif
+
+DEFAULT_HOSTNAME_CONFIG := $(shell $(GUESSDIR)/gethostname).cf
+ifndef HOSTNAME_CONFIG
+ifneq ($(strip $(DEFAULT_HOSTNAME_CONFIG)),)
+HOSTNAME_CONFIG := $(strip $(DEFAULT_HOSTNAME_CONFIG))
+endif 
+endif
+
+HAS_HOSTNAME_CONFIG := $(shell \
+                test -f $(MAKECONFDIR)/$(strip $(HOSTNAME_CONFIG)) && echo yes)
+
+DEFAULT_VENDOR_CONFIG := $(ARCHITECTURE).cf
+ifndef VENDOR_CONFIG
+VENDOR_CONFIG = $(DEFAULT_VENDOR_CONFIG)
+endif
+
+STDC_PRE_CONFIG = YES
+ifneq ($(strip $(PROJECTPRECONF)),)
+-include $(strip $(PROJECTPRECONF))
+endif
+STDC_PRE_CONFIG =
+
+
+## Eval the site config file before the vendor stuff is added.
+
+STDC_PRE_VENDOR = Yes
+include $(MAKECONFDIR)/site.cf
+STDC_PRE_VENDOR =
+
+## Eval the vendor file before the defaults are loaded
+STDC_PRE_DEFAULTS = Yes
+LOADED_VENDOR_CONFIG=
+
+ifdef HAS_HOSTNAME_CONFIG
+-include $(MAKECONFDIR)/$(strip $(HOSTNAME_CONFIG))
+endif
+
+ifndef LOADED_VENDOR_CONFIG
+include $(MAKECONFDIR)/$(VENDOR_CONFIG)
+endif
+STDC_PRE_DEFAULTS =
+LOADED_VENDOR_CONFIG=
+
+## load the defaults
+include $(MAKECONFDIR)/project.defaults
+
+
+## load vendor over rides
+STDC_POST_DEFAULTS = Yes
+LOADED_VENDOR_CONFIG=
+
+ifdef HAS_HOSTNAME_CONFIG
+-include $(MAKECONFDIR)/$(strip $(HOSTNAME_CONFIG))
+endif
+
+ifndef LOADED_VENDOR_CONFIG
+include $(MAKECONFDIR)/$(VENDOR_CONFIG)
+endif
+STDC_POST_DEFAULTS =
+LOADED_VENDOR_CONFIG=
+
+## load site over rides
+STDC_POST_VENDOR = Yes
+include $(MAKECONFDIR)/site.cf
+STDC_POST_VENDOR =
+
+## load project overrides
+STDC_POST_CONFIG = YES
+ifneq ($(strip $(PROJECTCONF)),)
+-include $(strip $(PROJECTCONF))
+endif
+STDC_POST_CONFIG =
+
+## and finnaly, the rules and targets
+include $(MAKECONFDIR)/project.rules
+include $(MAKECONFDIR)/project.targets
+
+## the dependencies, if need be.
+ifndef NO_DEPENDS
+ifneq ($(strip $(patsubst %.o,%.d,$(OBJECTS))),)
+-include $(patsubst %.o,%.d,$(OBJECTS))
+endif
+ifneq ($(strip $(patsubst %.o,%.d,$(SHARED_OBJECTS))),)
+-include $(patsubst %.o,%.d,$(SHARED_OBJECTS))
+endif
+endif
+

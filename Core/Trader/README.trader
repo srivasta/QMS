@@ -1,0 +1,150 @@
+/** @page README.Trader The QMS Trader  
+ *  <PRE>
+ *  Copyright (C) 2001 System/Technology Development Corporation
+ *  This file is part of QoS Metric Services
+ *
+ *  This program is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU General Public License as
+ *  published by the Free Software Foundation; either version 2 of the
+ *  License, or (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ *  02111-1307 USA
+ *
+ *  You may contact System/Technology Development Corporation at
+ *
+ *      System/Technology Development Corporation
+ *      Suite 500, Center for Innovative Technology,
+ *      2214 Rock Hill Road,
+ *      Herndon, VA 20170
+ *      (703) 476-0687
+ *  </PRE>
+
+	
+     The QMS Trader is expected to be a collection of components that
+     perform an important function in the QMS infrastructure. The QMS
+     Trader provides the all knowing directory service that is
+     essential for the QMS environment to be operational. At the
+     present time, the QMS Trader consists of two components
+
+	 - @ref QMS_Trader_ECInfo 
+	 - The TAO CORBA Trading Service
+
+     Both these components operating in synchrony provide the
+     functionality of the QMS Trader. For a basic understanding of the
+     QMS Trader, please see the section on @ref QMSTraderOverview in
+     the documentation.
+
+     The rest of this document deals with one of the services of the
+     QMS Trader, the QMS_Trader_ECInfo.
+
+  @section QMS_Trader_ECInfo QMS_Trader_ECInfo - The Event Channel Information Service
+
+  @subsection QMS_Trader_ECInfo_Overview Overview
+
+     The QMS Trader Event Channel Information Service
+     (QMS_Trader_ECInfo) is a well behaved QMS citizen. It inherits
+     from Command.idl in it's IDL file Trader.idl and implements all
+     the interfaces that are required for a QMS citizen. In addition
+     to the citizen interfaces , it also implements four more
+     interfaces that are specific it's design and they are
+
+	- getAnnounceChannels() 
+	- getDataChannels()     
+	- getRequestChannels()  
+	- getSupplierID()        
+
+  @subsection QMS_Trader_ECInfoFunction Functionality
+
+     It serves as the registry for all the QoS information sources
+     operating in the QMS environment. It provides every supplier a
+     unique supplierID and also ensures that it allocates specific
+     event channels for its use as setup by the administrator of the
+     QMS installation. This preconfiguration is done using the
+     Trader.config file. If the site is not preconfigured by the site
+     administrator, the QMS_Trader_ECInfo uses default values for the
+     allocation of event channels.
+
+     The QMS_Trader_ECInfo utilizes the CORBA Trading Service to serve
+     as a registry for the offers it makes. Additionally, it also
+     enables the use of the Trading Service as a directory service for
+     the QMS Citizens and clients by enabling the YellowPages
+     mechanism and activating the appropriate service types.
+
+ @section Running_QMS_Trader_ECInfo Running the QMS_Trader_ECInfo Service 
+
+    -# If you haven't already, please read the @ref README.install file
+       and build QMS.
+    -# Ensure you are in the correct working directory.
+       - % cd Core/Trader
+    -# The first step above automatically builds the QMS_Trader components
+       in the object directory. This step is not really required, but
+       it makes navigation a lot easier. A symbolic link can be
+       created in your current directory by using the following
+       command.
+       -  % ln -s ../../build/i586-pc-linux-gnu/Core/Trader objdir
+    -# Make sure your LD_LIBRARY_PATH is set to contain the path names
+       of the ACE, TAO, and Xerces libraries.  
+       - %LD_LIBRARY_PATH=$ACE_ROOT:$TAO_ROOT:$XERCESCROOT/lib:$XALANROOT/c/lib
+       - % export LD_LIBRARY_PATH
+    -# We are almost ready to run the QMS_Trader_ECInfo
+       service. However, before doing so, you need to start up the
+       various CORBA services including the Naming Service, the Event
+       Service and the Trading Service. You are advised to read the
+       section in @ref README.run to thoroughly understand the process
+       you are undertaking.
+       - Set the ACE_ROOT environment variable to the root of your
+         ACE/TAO installation
+       - Run "Utilities/Scripts/corba_svc start". This will start
+         multiple copies of the Event Channel with the default names as
+         well as the Naming Service and the Trading Service.
+    -# QMS_Trader_ECInfo reads the Trader.config file to obtain its
+       initial configuration. It then exports this initial
+       configuration of the QMS environment as offers to the TAO
+       Trading Service. So make sure that a copy of Trader.config is
+       available in the working directory. Edit it to accurately
+       reflect your environment. If you don't understand this step,
+       leave the default configuration of Trader.config as it is. You
+       can edit Trader.config later. Then execute the following
+       command.
+       - % ./objdir/QMS_Trader_ECInfo -f Trader.config
+       The QMS_Trader_ECInfo service should now be operational.
+
+    - To list the offers currently in the QMS_Trader, use the utility 
+      program "ListOffers" . This program takes a service type name and 
+      lists all the offers available under that service type. This is how
+      you would invoke the program.
+      - List all the offers available under the service type 
+        STDC_QMS_CITIZEN_QMS_TRADER_ECINFO. These offers describe
+        the event channels used by each data stream.
+        -  % ./objdir/ListOffers -t STDC_QMS_CITIZEN_QMS_TRADER_ECINFO
+      - List all offers available under the service type 
+        STDC_QMS_CITIZEN_QMS_TRADER_SUPPLIERID.  These offers
+        describe the various Supplier IDs allocated in the environment.
+        -  % ./objdir/ListOffers -t STDC_QMS_CITIZEN_QMS_TRADER_SUPPLIERID
+      - List the offers available under the QMS Trader Yellow
+        Pages. These offers describe the various active data streams
+        that are provided by all the Sensors in the environment.
+        -  % ./objdir/ListOffers -t STDC_QMS_CITIZEN_QMS_TRADER
+
+   - There is a client utility program that can be used to verify the
+     functionality of the QMS Trader. The following describes how you
+     would exercise this program.
+      - List the Announce, Data and Request event channel names and
+        Event ID's associated with the QMSUniqueName category "QMS_CPU"  
+        - % ./objdir/test/Client -q QMS_CPU
+      - A good exercise would be try a QMSUniqueName category which is 
+        not specified in the Trader.config file . This time the QMS Trader
+        will allocate the default Announce, Data and Request Channels for  
+        this new QMSUniqueName and export the relevant offer to 
+        the TAO Trading_Service.
+        - % ./objdir/test/Client -q QMS_LRM
+
+*/

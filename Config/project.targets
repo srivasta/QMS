@@ -1,0 +1,618 @@
+############################ -*- Mode: Makefile -*- ###########################
+## project.targets --- 
+## Author           : Manoj Srivastava ( srivasta@ember.stdc.com ) 
+## Created On       : Fri Aug 10 13:16:34 2001
+## Created On Node  : ember.stdc.com
+## Last Modified By : Manoj Srivastava
+## Last Modified On : Sat Oct 20 01:27:04 2001
+## Last Machine Used: glaurung.stdc.com
+## Update Count     : 30
+## Status           : Unknown, Use with caution!
+## HISTORY          : 
+## Description      : 
+## 
+###############################################################################
+
+
+.PHONY:all build clean checkoutall
+
+
+
+COMMA = ,
+
+# Genral build
+#######################################################################
+
+ifdef SRC
+all: objdir
+objdir: build_objdir
+build: build_sources build_objects build_shared_objects build_archives \
+       build_shared_archives build_cbin build_c++bin
+
+ifdef SUBDIR_DIRS
+## HAVE sub dirs
+build_sources: subdir_build_sources ${SRC} ${HEADERS} ${CFILES} $(C++FILES) \
+               $(IDL_TARGETS)
+build_objects: subdir_build_objects ${SRC} ${HEADERS} ${OBJECTS} ${CFILES} \
+               $(C++FILES)
+build_shared_objects: subdir_build_shared_objects ${SRC} ${HEADERS} ${CFILES} \
+                      $(C++FILES) $(SHARED_OBJECTS)
+build_archives: subdir_build_archives ${SRC} ${HEADERS} ${ARCHIVES} 
+ifeq ($(strip $(ARCHIVES)),)
+	$(REASON)
+	${ECHO_COM} $(foreach library,${ARCHIVES}, \
+            (echo ranlib ${library}; ranlib ${library};))
+endif
+
+build_shared_archives: subdir_build_shared_archives build_shared_objects \
+                       ${SRC} ${HEADERS} ${SHARED_ARCHIVES} 
+build_cbin: subdir_build_cbin ${SRC} ${HEADERS} ${OBJECTS} $(SHARED_OBJECTS) \
+	    ${ARCHIVES} ${SHARED_ARCHIVES} ${CBINARIES}
+	$(REASON)
+build_c++bin:  subdir_build_c++bin ${SRC} ${HEADERS} ${OBJECTS} \
+	       $(SHARED_OBJECTS) ${ARCHIVES} ${SHARED_ARCHIVES} ${C++BINARIES}
+	$(REASON)
+else
+# NO subdirs
+build_sources: ${SRC} ${HEADERS} ${CFILES} ${C++FILES} $(IDL_TARGETS)
+build_objects: ${SRC} ${HEADERS} ${CFILES} ${C++FILES} ${OBJECTS} 
+build_shared_objects: ${SRC} ${HEADERS} ${CFILES} ${C++FILES} $(SHARED_OBJECTS)
+build_archives: ${SRC} ${HEADERS} ${ARCHIVES} 
+ifeq ($(strip $(ARCHIVES)),)
+	$(REASON)
+	${ECHO_COM} $(foreach library,${ARCHIVES}, \
+                             (echo ranlib ${library}; ranlib ${library};))
+endif
+
+build_shared_archives: ${SRC} ${HEADERS} ${SHARED_ARCHIVES} 
+	$(libreason)
+build_cbin: ${SRC} ${HEADERS} ${OBJECTS} $(SHARED_OBJECTS) ${ARCHIVES} \
+            ${SHARED_ARCHIVES} ${CBINARIES}
+	$(REASON)
+build_c++bin:  ${SRC} ${HEADERS} ${OBJECTS} $(SHARED_OBJECTS) ${ARCHIVES} \
+	    ${SHARED_ARCHIVES} ${C++BINARIES}
+	$(REASON)
+
+endif
+# SUBDIR_DIRS
+else
+# No SRC def!!
+build build_sources build_objects build_shared_objects build_archives \
+      build_shared_archives build_cbin build_c++bin:
+	$(ECHO_COM)echo Please remember that you need to define SRC in your
+	$(ECHO_COM)echo Makefile before you do $(MAKE) $@
+endif
+# SRC
+
+ifdef SUBDIR_DIRS
+## HAVE sub dirs
+build_objdir: subdir_build_objdir
+	-${ECHO_COM} $(MKDIRHIER) $(OBJDIR)
+	-${ECHO_COM} $(MKDIRHIER) $(OBJDIR)/$(VSHDIR) 
+else
+# NO subdirs
+build_objdir:
+	-${ECHO_COM} $(MKDIRHIER) $(OBJDIR)
+	-${ECHO_COM} $(MKDIRHIER) $(OBJDIR)/$(VSHDIR)
+endif
+# SUBDIR_DIRS
+
+objdir: build_objdir
+	-${ECHO_COM}echo " "
+	-${ECHO_COM}echo $(OBJDIR)
+	-${ECHO_COM}echo " is the object directory, and it exists."
+
+all: objdir
+	-${ECHO_COM}echo " "
+	-${ECHO_COM}echo " In order to build the package, type % make build "
+	-${ECHO_COM}echo " (or % make DO_DEBUG=1 build     or "
+	-${ECHO_COM}echo "     % make DO_OPTIMIZE=1 build"
+	-${ECHO_COM}echo " This runs: build_sources  "
+	-${ECHO_COM}echo "            build_objects build_shared_objects"
+	-${ECHO_COM}echo "            build_archives build_shared_archives"
+	-${ECHO_COM}echo "            build_cbin build_c++bin and "
+	-${ECHO_COM}echo "            documentation"
+	-${ECHO_COM}echo " "
+	-${ECHO_COM}echo " To install, type % make install"
+	-${ECHO_COM}echo "    This runs: INSTALL_idl INSTALL_include  "
+	-${ECHO_COM}echo "     INSTALL_lib INSTALL_bin INSTALL_script  "
+	-${ECHO_COM}echo "     INSTALL_data  INSTALL_state INSTALL_etc "
+	-${ECHO_COM}echo "      INSTALL_man[1-8ln] INSTALL_doc and INSTALL_nls"
+	-${ECHO_COM}echo " "
+	-${ECHO_COM}echo " To Clean most non dependency files, type "
+	-${ECHO_COM}echo "     % make clean"
+	-${ECHO_COM}echo " "
+	-${ECHO_COM}echo " To Remove all files from the object directory, type"
+	-${ECHO_COM}echo "      % make NO_DEPENDS=1 realclean"
+	-${ECHO_COM}echo " Note: Be very sure this is what you want to do"
+srcdir:
+	echo $(SRCDIR)
+
+# Installation
+######################################################################
+ifdef SRC
+ifdef SUBDIR_DIRS
+## HAVE sub dirs
+setup: do_setup subdir_setup
+else
+# NO subdirs
+setup: do_setup
+endif
+# HAVE sub dirs
+
+ifeq ($(strip $(STDC_SETUP_INPUT_FILES)),)
+## no  STDC_SETUP_INPUT_FILES
+
+ifeq ($(strip $(SETUP_SCRIPTS)),)
+## nothing. nada. zip.
+do_setup:
+	-${ECHO_COM}echo "Nothing to be done to set up"
+	-$(TOUCH) ${OBJDIR}/${notdir $@};
+else
+## No STDC_SETUP_INPUT_FILES, but we have some SETUP_SCRIPTS
+do_setup: do_local_setup
+	-${ECHO_COM}echo "Done modifying the cell environment"
+	-$(TOUCH) ${OBJDIR}/${notdir $@};
+endif
+## endif SETUP_SCRIPTS
+
+else
+## we have STDC_SETUP_INPUT_FILES
+
+ifeq ($(strip $(SETUP_SCRIPTS)),)
+## we have STDC_SETUP_INPUT_FILES, but no SETUP_SCRIPTS
+do_setup: do_generic_setup
+	-${ECHO_COM}echo "Done modifying the cell environment"
+	-$(TOUCH) ${OBJDIR}/${notdir $@};
+else
+## we have both STDC_SETUP_INPUT_FILES and SETUP_SCRIPTS!!
+do_setup: do_local_setup do_generic_setup
+	-${ECHO_COM}echo "Done modifying the cell environment"
+	-$(TOUCH) ${OBJDIR}/${notdir $@};
+endif
+## endif SETUP_SCRIPTS
+
+endif
+## endif STDC_SETUP_INPUT_FILES
+
+
+ifneq ($(strip $(STDC_SETUP_INPUT_FILES)),)
+do_generic_setup: $(STDC_SETUP_INPUT_FILES)
+	-${ECHO_COM}echo "Modifying the cell environment"
+	$(REASON)
+	${ECHO_COM} \
+	$(foreach script,$?,\
+	    if test ""  != "$($(notdir $(script))_ARGS)" ; then \
+	   echo "Running stdc_setup $($(notdir $(script))_ARGS) $(script)" ; \
+	   $(scriptdir)/stdc_setup $($(notdir $(script))_ARGS) $(script); \
+	    else \
+		echo "Running stdc_setup $(script)" ; \
+		$(scriptdir)/stdc_setup $(script); \
+	    fi; ) \
+	$(TOUCH) ${OBJDIR}/${notdir $@};
+endif
+
+ifneq ($(strip $(SETUP_SCRIPTS)),)
+do_local_setup: $(SETUP_SCRIPTS)
+	-${ECHO_COM}echo "Modifying the cell environment"
+	$(REASON)
+	${ECHO_COM} \
+	$(foreach script,$?,\
+	    if test ""  != "$($(notdir $(script))_ARGS)" ; then \
+		echo "Running $(script)  $($(notdir $(script))_ARGS)" ; \
+		$(script) $($(notdir $(script))_ARGS); \
+	    else \
+		echo "Running $(script)" ; \
+		$(script); \
+	    fi; ) \
+	$(TOUCH) ${OBJDIR}/${notdir $@};
+endif
+
+else
+# No SRC def!!
+setup:
+	$(ECHO_COM)echo Please remember that you need to define SRC in your
+	$(ECHO_COM)echo Makefile before you do $(MAKE) $@
+endif
+# Installation
+######################################################################
+ifdef SRC
+pre_install: PRE_INSTALL
+install: pre_install INSTALL_idl INSTALL_include INSTALL_lib INSTALL_bin \
+         INSTALL_script INSTALL_data INSTALL_state INSTALL_etc \
+         INSTALL_man1 INSTALL_man2 INSTALL_man3 INSTALL_man4 \
+         INSTALL_man5 INSTALL_man6 INSTALL_man7 INSTALL_man8 \
+         INSTALL_manl INSTALL_mann INSTALL_man INSTALL_doc  \
+         INSTALL_nls
+ifdef SUBDIRS
+
+PRE_INSTALL: do_preinstall subdir_PRE_INSTALL
+
+
+ifdef idl_INSTALL
+INSTALL_idl:subinst_idl ${idl_INSTALL}
+else
+INSTALL_idl:subinst_idl
+	$(ECHO_COM)echo Nothing to be done for installing idl files
+endif
+
+ifdef include_INSTALL
+INSTALL_include:subinst_include ${include_INSTALL}
+else
+INSTALL_include:subinst_include
+	$(ECHO_COM)echo Nothing to be done for installing include files
+endif
+
+ifdef lib_INSTALL
+INSTALL_lib:subinst_lib ${lib_INSTALL}
+else
+INSTALL_lib:subinst_lib
+	$(ECHO_COM)echo Nothing to be done for installing libs
+endif
+
+ifdef bin_INSTALL
+INSTALL_bin:subinst_bin ${bin_INSTALL}
+else
+INSTALL_bin:subinst_bin
+	$(ECHO_COM)echo Nothing to be done for installing binaries
+endif
+
+ifdef script_INSTALL
+INSTALL_script:subinst_script ${script_INSTALL}
+else
+INSTALL_script:subinst_script
+	$(ECHO_COM)echo Nothing to be done for installing scripts
+endif
+
+ifdef data_INSTALL
+INSTALL_data:subinst_data ${data_INSTALL}
+else
+INSTALL_data:subinst_data
+	$(ECHO_COM)echo Nothing to be done for installing data files
+endif
+
+ifdef state_INSTALL
+INSTALL_state:subinst_state ${state_INSTALL}
+else
+INSTALL_state:subinst_state
+	$(ECHO_COM)echo Nothing to be done for  installing state  info files
+endif
+
+ifdef etc_INSTALL
+INSTALL_etc:subinst_etc ${etc_INSTALL}
+else
+INSTALL_etc:subinst_etc
+	$(ECHO_COM)echo Nothing to be done for installing etc or misclellaneous files
+endif
+
+ifdef man_INSTALL
+INSTALL_man:subinst_man ${man_INSTALL}
+else
+INSTALL_man:subinst_man
+	$(ECHO_COM)echo Nothing to be done for installing man pages
+endif
+
+ifdef man1_INSTALL
+INSTALL_man1:subinst_man1 ${man1_INSTALL}
+else
+INSTALL_man1:subinst_man1
+	$(ECHO_COM)echo Nothing to be done for installing section 1 man pages
+endif
+
+ifdef man2_INSTALL
+INSTALL_man2:subinst_man2 ${man2_INSTALL}
+else
+INSTALL_man2:subinst_man2
+	$(ECHO_COM)echo Nothing to be done for installing section 2 man pages
+endif
+
+ifdef man3_INSTALL
+INSTALL_man3:subinst_man3 ${man3_INSTALL}
+else
+INSTALL_man3:subinst_man3
+	$(ECHO_COM)echo Nothing to be done for installing section 3 man pages
+endif
+
+ifdef man4_INSTALL
+INSTALL_man4:subinst_man4 ${man4_INSTALL}
+else
+INSTALL_man4:subinst_man4
+	$(ECHO_COM)echo Nothing to be done for installing section 4 man pages
+endif
+
+ifdef man5_INSTALL
+INSTALL_man5:subinst_man5 ${man5_INSTALL}
+else
+INSTALL_man5:subinst_man5
+	$(ECHO_COM)echo Nothing to be done for installing section 5 man pages
+endif
+
+ifdef man6_INSTALL
+INSTALL_man6:subinst_man6 ${man6_INSTALL}
+else
+INSTALL_man6:subinst_man6
+	$(ECHO_COM)echo Nothing to be done for installing section 6 man pages
+endif
+
+ifdef man7_INSTALL
+INSTALL_man7:subinst_man7 ${man7_INSTALL}
+else
+INSTALL_man7:subinst_man7
+	$(ECHO_COM)echo Nothing to be done for installing section 7 man pages
+endif
+
+ifdef man8_INSTALL
+INSTALL_man8:subinst_man8 ${man8_INSTALL}
+else
+INSTALL_man8:subinst_man8
+	$(ECHO_COM)echo Nothing to be done for installing section 8 man pages
+endif
+
+ifdef manl_INSTALL
+INSTALL_manl:subinst_manl ${manl_INSTALL}
+else
+INSTALL_manl:subinst_manl
+	$(ECHO_COM)echo Nothing to be done for installing local man pages
+endif
+
+ifdef mann_INSTALL
+INSTALL_mann:subinst_mann ${mann_INSTALL}
+else
+INSTALL_mann:subinst_mann
+	$(ECHO_COM)echo Nothing to be done for installing new man pages
+endif
+
+ifdef doc_INSTALL
+INSTALL_doc:subinst_doc ${doc_INSTALL}
+else
+INSTALL_doc:subinst_doc
+	$(ECHO_COM)echo Nothing to be done for installing documentation
+endif
+
+ifdef nls_INSTALL
+INSTALL_nls:subinst_nls ${nls_INSTALL}
+else
+INSTALL_nls:subinst_nls
+	$(ECHO_COM)echo Nothing to be done for installing message catalog files.
+endif
+
+else
+
+PRE_INSTALL: do_preinstall
+
+ifdef idl_INSTALL
+INSTALL_idl:${idl_INSTALL}
+else
+INSTALL_idl:
+	$(ECHO_COM)echo Nothing to be done for installing idl files
+endif
+
+ifdef include_INSTALL
+INSTALL_include:${include_INSTALL}
+else
+INSTALL_include:
+	$(ECHO_COM)echo Nothing to be done for installing include files
+endif
+
+ifdef lib_INSTALL
+INSTALL_lib:${lib_INSTALL}
+else
+INSTALL_lib:
+	$(ECHO_COM)echo Nothing to be done for installing libs
+endif
+
+ifdef bin_INSTALL
+INSTALL_bin:${bin_INSTALL}
+else
+INSTALL_bin:
+	$(ECHO_COM)echo Nothing to be done for installing binaries
+endif
+
+ifdef script_INSTALL
+INSTALL_script:${script_INSTALL}
+else
+INSTALL_script:
+	$(ECHO_COM)echo Nothing to be done for installing scripts
+endif
+
+ifdef data_INSTALL
+INSTALL_data:${data_INSTALL}
+else
+INSTALL_data:
+	$(ECHO_COM)echo Nothing to be done for installing data files
+endif
+
+ifdef state_INSTALL
+INSTALL_state:${state_INSTALL}
+else
+INSTALL_state:
+	$(ECHO_COM)echo Nothing to be done for installing state  info files
+endif
+
+ifdef etc_INSTALL
+INSTALL_etc:${etc_INSTALL}
+else
+INSTALL_etc:
+	$(ECHO_COM)echo Nothing to be done for installing etc or misclellaneous files
+endif
+
+ifdef man_INSTALL
+INSTALL_man:${man_INSTALL}
+else
+INSTALL_man:
+	$(ECHO_COM)echo Nothing to be done for installing man pages
+endif
+
+ifdef man1_INSTALL
+INSTALL_man1:${man1_INSTALL}
+else
+INSTALL_man1:
+	$(ECHO_COM)echo Nothing to be done for installing section 1 man pages
+endif
+
+ifdef man2_INSTALL
+INSTALL_man2:${man2_INSTALL}
+else
+INSTALL_man2:
+	$(ECHO_COM)echo Nothing to be done for installing section 2 man pages
+endif
+
+ifdef man3_INSTALL
+INSTALL_man3:${man3_INSTALL}
+else
+INSTALL_man3:
+	$(ECHO_COM)echo Nothing to be done for installing section 3 man pages
+endif
+
+ifdef man4_INSTALL
+INSTALL_man4:${man4_INSTALL}
+else
+INSTALL_man4:
+	$(ECHO_COM)echo Nothing to be done for installing section 4 man pages
+endif
+
+ifdef man5_INSTALL
+INSTALL_man5:${man5_INSTALL}
+else
+INSTALL_man5:
+	$(ECHO_COM)echo Nothing to be done for installing section 5 man pages
+endif
+
+ifdef man6_INSTALL
+INSTALL_man6:${man3_INSTALL}
+else
+INSTALL_man6:
+	$(ECHO_COM)echo Nothing to be done for installing section 6 man pages
+endif
+
+ifdef man7_INSTALL
+INSTALL_man7:${man7_INSTALL}
+else
+INSTALL_man7:
+	$(ECHO_COM)echo Nothing to be done for installing section 7 man pages
+endif
+
+ifdef man8_INSTALL
+INSTALL_man8:${man8_INSTALL}
+else
+INSTALL_man8:
+	$(ECHO_COM)echo Nothing to be done for installing section 8 man pages
+endif
+
+ifdef manl_INSTALL
+INSTALL_manl:${manl_INSTALL}
+else
+INSTALL_manl:
+	$(ECHO_COM)echo Nothing to be done for installing local man pages
+endif
+
+ifdef mann_INSTALL
+INSTALL_mann:${mann_INSTALL}
+else
+INSTALL_mann:
+	$(ECHO_COM)echo Nothing to be done for installing new man pages
+endif
+
+ifdef doc_INSTALL
+INSTALL_doc:${doc_INSTALL}
+else
+INSTALL_doc:
+	$(ECHO_COM)echo Nothing to be done for installing documentation
+endif
+
+ifdef nls_INSTALL
+INSTALL_nls:${nls_INSTALL}
+else
+INSTALL_nls:
+	$(ECHO_COM)echo Nothing to be done for installing message catalog files
+endif
+
+endif
+
+else
+pre_install install INSTALL_idl INSTALL_include INSTALL_lib INSTALL_bin \
+PRE_INSTALL INSTALL_script INSTALL_data  INSTALL_state INSTALL_etc \
+INSTALL_man INSTALL_man1 INSTALL_man2 INSTALL_man3 INSTALL_man4 \
+INSTALL_man5 INSTALL_man6 INSTALL_man7 INSTALL_man8 \
+INSTALL_manl INSTALL_mann INSTALL_doc INSTALL_nls:
+	$(ECHO_COM)echo Please remember that you need to define SRC in your
+	$(ECHO_COM)echo Makefile before you do $(MAKE) $@
+
+endif
+
+help:
+	$(ECHO_COM)echo Please specify one of:
+	$(ECHO_COM)echo build build_sources build_objects
+	$(ECHO_COM)echo build_archives build_cbin build_c++bin
+	$(ECHO_COM)echo checkoutall objdir pre_install install
+	$(ECHO_COM)echo ""
+	$(ECHO_COM)echo Please remember that you need to define SRC in your
+	$(ECHO_COM)echo Makefile before you do that.
+	$(ECHO_COM)echo Alternately, if you have defined prog_BIN to have
+	$(ECHO_COM)echo dependencies, you may specify that.
+
+# }}}
+# {{{ clean
+ifdef SUBDIR_DIRS
+clean:subdir_clean build_clean
+else
+clean:build_clean
+endif
+
+ifdef SUBDIR_DIRS
+realclean:subdir_realclean build_realclean
+else
+realclean:build_realclean
+endif
+
+checkoutall:
+	${ECHO_COM}if [ -d RCS ] ; then \
+	 for file in $(patsubst RCS/%${COMMA}v,%,$(shell echo RCS/*)); do\
+	  echo ${CO} ${COFLAGS} $${file} ; ${CO} ${COFLAGS} $${file} ; \
+	 done; \
+	fi
+
+build_clean:
+	${ECHO_COM}echo -n cleaning ...; \
+	(cd ${SRCDIR} && ${RM} ${FilesToClean});\
+	(cd ${OBJDIR} && ${RM} ${FilesToClean});\
+	if [ -f ${OBJDIR}/$(VSHDIR) ]; then \
+	  (cd ${OBJDIR}/$(VSHDIR) && ${RM} ${FilesToClean}); \
+        else \
+          echo -n "" ; \
+        fi
+	${ECHO_COM} echo . done
+
+build_realclean:
+	${ECHO_COM}echo -n clobbering ...;
+ifneq (${SRCDIR}, ${OBJDIR})
+	-(cd ${OBJDIR} && ${RM} * && ${RM} -r $(VSHDIR) ) ;
+	${ECHO_COM} echo . done
+endif
+
+
+ifneq ($(strip $(PRE_INSTALL_SCRIPTS)),)
+do_preinstall: $(PRE_INSTALL_SCRIPTS)
+	-${ECHO_COM}echo "Running the pre install scripts"
+	$(REASON)
+	${ECHO_COM} \
+	$(foreach script,$?,\
+	    if test "" != "$($(script)_ARGS)" ; then \
+		echo "Running $(script) $($(script)_ARGS)" ; \
+		$(script) $($(script)_ARGS); \
+	    else \
+		echo "Running $(script)" ; \
+		$(script); \
+	    fi; ) \
+	$(TOUCH) ${OBJDIR}/${notdir $@};
+else
+do_preinstall:
+	-${ECHO_COM}echo "No pre install scripts"; \
+	$(TOUCH) ${OBJDIR}/${notdir $@};
+endif
+
+
+
+
+
+

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- *****************************************************************
+ *** Copyright (c) 2001, System/Technology Development Corporation .
+ ***                
+ *** Filename:      perfmon_response.xml
+ *** Version:       1.0
+ *** Description:   Sample XML File - Response from a NT_Perf_Mon_Probe
+ ***                
+ *** Author:        Amarendranath Vadlamudi <amar.vadlamudi@stdc.com>
+ *** Created at:    Fri Dec  7 13:20:14 2001
+ *** Modified by:   Amarendranath Vadlamudi <nath@vedam>
+ *** Modified at:   Tue Dec 11 21:19:28 2001
+ *** Status:        Experimental, do not distribute.
+ *** Update count:  6
+ ***************************************************************** -->
+
+<!-- This is a sample XML file that is useful to test any parser that -->
+<!-- uses the perfmonProbes.xsd schema defined for the NT Performance -->
+<!-- Monitor Probe -->
+
+
+
+  <perfmonProbe xmlns="http://www.stdc.com/2001/QMS/Probes/perfmonProbes"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.stdc.com/2001/QMS/Probes/perfmonProbes
+    perfmonProbes.xsd">
+  
+  <!-- The NT_Perf_Mon Continuous Probe sends the resource value in its
+  response. -->
+
+  <perfmonData>
+    <dataid>125</dataid>
+    <resource>\System\% Total Processor Time</resource>
+    <plotData>
+      <numericData>92.5</numericData>
+      <units>%</units>
+    </plotData>
+  </perfmonData>
+  
+  </perfmonProbe>           

@@ -1,0 +1,17 @@
+2000-11-08  Manoj Srivastava  <srivasta@debian.org>
+
+	* Remos_Instrumentation.cpp (Remos_CallBack): 1.4 Added option
+		  void * argument pointers to the call back function, to  
+		  allow the call back function to access to relatively
+		  stable data Also made the data id go up monotonically
+		  for each reuest.
+
+	* Remos_Instrumentation.h (errMsg): 1.2 Added option void *
+		  argument pointers to the call back function, to allow
+		  the call back function to access to relatively
+		  stable data
+
+2000-11-01  Manoj Srivastava  <manoj.srivastava@stdc.com>
+
+	* Remos_Instrumentation.cpp: 1.2 Use the new debug macros
+

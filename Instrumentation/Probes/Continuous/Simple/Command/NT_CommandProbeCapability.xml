@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- *****************************************************************
+ *** Copyright (c) 2001, System/Technology Developent Corporation .
+ ***                
+ *** Filename:      NT_CommandProbeCapability .xml
+ *** Version:       1.0
+ *** Description:   Command Probe Capability Fragment
+ ***                
+ *** Author:        Amarendranath Vadlamudi <nath@vedam>
+ *** Created at:    Fri Dec 14 10:43:43 2001
+ *** Modified by:   Amarendranath Vadlamudi <nath@vedam>
+ *** Modified at:   Mon Dec 17 21:30:14 2001
+ *** Status:        Experimental, do not distribute.
+ *** Update count:  3
+ ***************************************************************** -->
+
+  <!-- This is the capability fragment introduced by the installation
+  of the Command Probe. -->
+
+  <!-- NOTE: This file is just a capability fragment file. This needs
+  to be placed in a complete sensorCapability file for it to be
+  useful. See the documentation for more information -->
+
+
+  <Probe>
+  <probeType>continuous</probeType>
+  <dataReusable>false</dataReusable>
+  <QMSUniqueName>
+    <category>OS_Command_Probe</category>
+  </QMSUniqueName>
+  <probeSchema>commandProbe.xsd</probeSchema>
+  <schemaVersion>1.0</schemaVersion>
+  <Offer>
+    <variable>
+      <name>Description</name>
+      <value>
+	Provides the ability to execute any command using the hosts
+	native command execution environment.
+      </value>
+    </variable>
+    <variable>
+      <name>HostOS</name>
+      <value>Windows NT 4.0</value>
+    </variable>
+    <variable>
+      <name>DefaultPath</name>
+      <value>E:\stdc\QMS\;%PATH%</value>
+    </variable>
+    <variable>
+      <name>Function</name> 
+      <value>
+	Save the QMS Developers the hassle of writing yet another
+	probe
+      </value>
+    </variable>
+    <variable>
+      <name>Command1</name> 
+      <value>
+	&lt;displayName&gt;List directory&lt;/displayName&gt;
+	&lt;acceptsArguments/&gt;
+	&lt;arg0&gt;cmd&lt;/arg0&gt;
+	&lt;arg&gt;/c&lt;/arg&gt;
+	&lt;arg&gt;dir&lt;/arg&gt;
+	&lt;arg&gt;/prt&lt;/arg&gt;
+      </value>
+    </variable>
+    <variable>
+      <name>Command2</name> 
+      <value>
+	&lt;displayName&gt;Start Internet Explorer&lt;/displayName&gt;
+	&lt;arg0&gt;C:\progra~1\plus!\micros~1\iexplore.exe&lt;/arg0&gt;
+      </value>
+    </variable>
+    <variable>
+      <name>Command3</name> 
+      <value>
+	&lt;displayName&gt;Reboot&lt;/displayName&gt;
+	&lt;arg0&gt;e:\stdc\bin\shutdown&lt;/arg0&gt;
+	&lt;arg&gt;-r&lt;/arg&gt;
+	&lt;arg&gt;now&lt;/arg&gt;
+      </value>
+    </variable>
+    <variable>
+      <name>Command4</name> 
+      <value>
+	&lt;displayName&gt;Start ReconSim&lt;/displayName&gt;
+	&lt;arg0&gt;E:\stdc\BV\Scripts\Start_Reconsim&lt;/arg0&gt;
+      </value>
+    </variable>
+  </Offer>      
+  <Invoke>
+    <probeExecutable>Generic_Command_Probe.exe</probeExecutable>
+    <probeXSLTFile>commandProbe.xsl</probeXSLTFile>
+    <xslParameters>
+    </xslParameters>
+  </Invoke>
+  </Probe>

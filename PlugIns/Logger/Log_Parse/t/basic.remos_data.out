@@ -1,0 +1,4 @@
+			QMS Log Dump
+SequenceNo,LogDate,LogTime,LoggerID,SequenceNo,EventDate,EventTime,SenderID,EventType,requestid,dataid,source,destination,bandwidth_data linktype,collectrate,maximum,available,latency
+
+1, 11/10/00 ,15:59:58:906 , QMS_Logger ,0,10/10/2000,20:59:1956pm,skywalker_t.stdc.com,Remos Bandwidth data type link,0,0,skywalker_t.stdc.com,63.97.196.98,link,2.450000,100000.000000,99992.152000,0.000000

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <qms:QMSMessage xmlns="http://www.stdc.com/2001/QMSSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:qms="http://www.stdc.com/2001/QMSSchema"
+    xsi:schemaLocation="http://www.stdc.com/2001/QMSSchema QMSSchema.xsd">
+  
+    <qms:msgSequenceNo>1001</qms:msgSequenceNo>
+    <qms:msgDate>2001-09-18</qms:msgDate>
+    <qms:msgTime>15:05:05-05:00</qms:msgTime>
+    <qms:originatingHost>192.168.200.1</qms:originatingHost>
+    <qms:msgSender>
+      <id>100002</id>
+      <description>Network Data Probe</description>
+    </qms:msgSender>
+    <qms:msgDestination>
+      <id>100005</id>
+    </qms:msgDestination>
+    <qms:msgDestination>
+      <id>100008</id>
+      <description>Remos Probe on Host-A</description>
+    </qms:msgDestination>
+    <qms:msgReplyTo>
+      <id>100002</id>
+    </qms:msgReplyTo>
+    <qms:QMSUniqueName>
+      <category>QMSRemosDataUniqueName</category>
+    </qms:QMSUniqueName>
+    <qms:Session>
+      <requestID>128938956789</requestID>
+      <version>0</version>
+      <minRepetitions>
+	<count>10</count>
+      </minRepetitions>
+      <minRepeatInterval>PT0.7S</minRepeatInterval>
+      <forceReuse>true</forceReuse>
+      <QoSParameters>
+	<Priority>5</Priority>
+      </QoSParameters>
+    </qms:Session>
+    <qms:payload>
+      <remosProbe xmlns="http://www.stdc.com/2001/QMS/Probes/RemosProbes"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.stdc.com/2001/QMS/Probes/RemosProbes 
+	remosProbes.xsd">
+	<bandwidthRequest>
+	  <linkRequest>
+	    <hostname>desinode1</hostname>
+	    <hostname>desinode2</hostname>
+	    <hostname>desinode2</hostname>
+	  </linkRequest>
+	</bandwidthRequest>
+      </remosProbe>           
+    </qms:payload>
+  </qms:QMSMessage>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- *****************************************************************
+ *** Copyright (c) 2001, System/Technology Development Corporation .
+ ***                
+ *** Filename:      command_response.xml
+ *** Version:       1.0
+ *** Description:   Sample XML File - Response from a CommandProbe
+ ***                
+ *** Author:        Amarendranath Vadlamudi <amar.vadlamudi@stdc.com>
+ *** Created at:    Sat Dec  1 13:33:23 2001
+ *** Modified by:   Amarendranath Vadlamudi <nath@vedam>
+ *** Modified at:   Thu Dec 27 16:23:23 2001
+ *** Status:        Experimental, do not distribute.
+ *** Update count:  6
+ ***************************************************************** -->
+
+<!-- This is a sample XML file that is useful to test any parser that -->
+<!-- uses the commandProbe.xsd schema defined for the Command -->
+<!-- Continuous Probe -->
+
+  <commandProbe 
+    xmlns="http://www.stdc.com/2001/QMS/Probes/Continuous/CommandProbe"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation=
+    "http://www.stdc.com/2001/QMS/Probes/Continuous/CommandProbe 
+    commandProbe.xsd">
+    
+  <!-- The Command Probe usually returns whatever the command returns
+  in a text string. Note the output is exactly what the command
+  returns, in this case - the output of ls -l /usr -->
+    
+    <probeData>
+    <dataid>0</dataid>
+    <response>
+      <textData>
+	<message>
+total 152
+drwxr-xr-x    2 root     root        45056 Dec  9 17:14 bin/
+drwxr-xr-x    5 root     root        20480 Dec  9 17:14 doc/
+drwxr-xr-x    2 root     root         4096 Dec  9 17:07 games/
+drwxr-xr-x   50 root     root         8192 Dec  9 17:07 include/
+drwxr-xr-x    2 root     root         4096 Dec  9 17:09 info/
+drwxr-xr-x  121 root     root        28672 Dec  9 17:14 lib/
+drwxrwsr-x   10 root     staff        4096 Mar 20  2001 local/
+drwxr-xr-x    2 root     root        16384 Feb  8  2001 lost+found/
+drwxr-xr-x    4 root     root         4096 Sep 12 12:42 man/
+drwxr-xr-x    2 root     root         8192 Dec  9 17:14 sbin/
+drwxr-xr-x  184 root     root         4096 Dec  9 17:07 share/
+drwxrwsr-x    5 root     src          4096 Dec  9 17:06 src/
+drwxr-xr-x    6 root     root         4096 Oct 12 15:12 X11R6/
+	</message>
+      </textData>
+      </response>
+    </probeData>
+
+  </commandProbe>           

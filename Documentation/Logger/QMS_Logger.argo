@@ -1,0 +1,92 @@
+<?xml version = "1.0" encoding = "ISO-8859-1" ?>
+<!DOCTYPE argo SYSTEM "argo.dtd" >
+<argo>
+  <documentation>
+    <authorname></authorname>
+    <version></version>
+    <description>
+      
+    </description>
+  </documentation>
+  
+  <searchpath href="PROJECT_DIR" />
+  <member
+    type="pgml"
+    name="QMS_Logger_classdiagram1.pgml"
+  />
+  <member
+    type="pgml"
+    name="QMS_Logger_usecasediagram1.pgml"
+  />
+  <member
+    type="xmi"
+    name="QMS_Logger.xmi"
+  />
+  <member
+    type="pgml"
+    name="QMS_Logger_StartLoggerstates1.pgml"
+  />
+  <member
+    type="pgml"
+    name="QMS_Logger_StartnewLogstates1.pgml"
+  />
+  <member
+    type="pgml"
+    name="QMS_Logger_Registerwithtraderstates1.pgml"
+  />
+  <member
+    type="pgml"
+    name="QMS_Logger_usecasediagram2.pgml"
+  />
+  <member
+    type="pgml"
+    name="QMS_Logger_usecasediagram3.pgml"
+  />
+  <historyfile name="" />
+  <stats>
+    <stat name="clicksInToDoPane"
+         value="0" />
+    <stat name="dblClicksInToDoPane"
+         value="0" />
+    <stat name="longestToDoList"
+         value="45" />
+    <stat name="longestAdd"
+         value="0" />
+    <stat name="longestHot"
+         value="0" />
+    <stat name="numCriticsFired"
+         value="2922929" />
+    <stat name="numNotValid"
+         value="12" />
+    <stat name="numCriticsApplied"
+         value="0" />
+    <stat name="toDoPerspectivesChanged"
+         value="1" />
+    <stat name="navPerspectivesChanged"
+         value="1" />
+    <stat name="clicksInNavPane"
+         value="1" />
+    <stat name="numFinds"
+         value="1" />
+    <stat name="numJumpToRelated"
+         value="0" />
+    <stat name="numDecisionModel"
+         value="0" />
+    <stat name="numGoalsModel"
+         value="0" />
+    <stat name="numCriticBrowser"
+         value="0" />
+    <stat name="numNavConfig"
+         value="0" />
+    <stat name="numHushes"
+         value="0" />
+    <stat name="numChecks"
+         value="0" />
+    <stat name="Num_Button_Clicks"
+         value="0" />
+    <stat name="Drags_To_New"
+         value="0" />
+    <stat name="Drags_To_Existing"
+         value="0" />
+  </stats>
+</argo>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- *****************************************************************
+ *** Copyright (c) 2001, System/Technology Development Corporation .
+ ***                
+ *** Filename:      flowProbeCapability.xml
+ *** Version:       1.0
+ *** Description:   Remos_Flow_Probe Capability Fragment
+ ***                
+ *** Author:        Amarendranath Vadlamudi <amar.vadlamudi@stdc.com>
+ *** Created at:    Wed Oct 24 19:49:37 2001
+ *** Modified by:   Amarendranath Vadlamudi <nath@vedam>
+ *** Modified at:   Fri Dec  7 12:50:04 2001
+ *** Status:        Experimental, do not distribute.
+ *** Update count:  4
+ ***************************************************************** -->
+
+  <!-- This is the capability fragment introduced by the installation
+  of the Remos Flow Probe. -->
+
+  <!-- NOTE: This file is just a capability fragment file. This needs
+  to be placed in a complete sensorCapability file for it to be
+  useful. See the documentation for more information -->
+
+  <Probe>
+    <probeType>continuous</probeType>
+    <dataReusable>false</dataReusable>
+    <QMSUniqueName>
+      <category>Remos_Network_Flow</category>
+    </QMSUniqueName>
+    <probeSchema>remosProbes.xsd</probeSchema>
+    <schemaVersion>1.0</schemaVersion>
+    <Offer>
+      <variable>
+	<name>network</name>
+	<value>10.0.0.0/255.255.255.0</value>
+	<searchable/>
+	<maptoProperty>1</maptoProperty>
+      </variable>
+      <variable>
+	<name>Collector_Port</name>
+	<value>9001</value>
+      </variable>
+      <variable>
+	<name>Collector_Host</name>
+	<value>10.0.0.5</value>
+      </variable>
+      <variable>
+	<name>Description</name>
+	<value>Provides network data from Remos as a series of flows
+	  that describe available bandwidth</value>
+      </variable>
+      <variable>
+	<name>Function</name>
+	<value>Serve as a tutorial for QMS Developers</value>
+      </variable>
+      <variable>
+	<name>Author</name>
+	<value>Shivakumar Patil (S/TDC QMS team></value>
+      </variable>
+    </Offer>      
+    <Invoke>
+      <probeExecutable>Remos_Flow_Probe</probeExecutable>
+      <probeXSLTFile>remosProbes.xsl</probeXSLTFile>
+      <xslParameters>
+	<variable>
+	  <name>collectorport</name>
+	  <value>'9001'</value>
+	</variable>
+	<variable>
+	  <name>collectorhost</name>
+	  <value>'10.0.0.5'</value>
+	</variable>
+      </xslParameters>
+    </Invoke>
+  </Probe>

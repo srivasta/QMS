@@ -1,0 +1,64 @@
+
+
+#  Copyright (C) 2001 System/Technology Development Corporation
+#  This file is part of QoS Metric Services
+#
+#  This program is free software; you can redistribute it and/or
+#  modify it under the terms of the GNU General Public License as
+#  published by the Free Software Foundation; either version 2 of the
+#  License, or (at your option) any later version.
+# 
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#  General Public License for more details.
+# 
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+#  02111-1307 USA
+# 
+#  You may contact System/Technology Development Corporation at
+# 
+#      System/Technology Development Corporation
+#      Suite 500, Center for Innovative Technology,
+#      2214 Rock Hill Road,
+#      Herndon, VA 20170    
+#      (703) 476-0687
+
+
+You shall need to have a working XML::DOM perl package on your machine
+in order to use this script. the easiest way for doing this (assuming
+you already have perl installed) is to run
+ # perl -MCPAN -e shell 'install XML::DOM'
+
+	That was all I needed to do on a RedHat Linux box (it pulled in
+ lots of other perl modules as well).*
+
+ In order to use this script, please run:
+  # perl Makefile.pl
+  # make
+  # make test  (only works on fully POSIX compliant systems On
+                NON-POSIX systems like NT, please run instead:
+       	    c: perl logger_sample --event bandwidth_request t\test_log
+      	    c: perl logger_sample --event bandwidth_data    t\test_log
+      	    c: perl logger_sample --event desi_app_data     t\test_log
+                and verify manually if the output is correct )
+
+  	You can then run the script in this dir, or install it on your 
+ machine with 
+
+   # make install. 
+
+
+	At this point, there is little documentation, but the sample
+ script should serve as an example (it also has usage information; 
+    # perl logger_sample --help)
+
+*However, depending on your installation, you may need to also install
+ XML::Parser, and the underlying program expat (these are available in
+ the Debian distribvution of linux, but for other distributions you
+ may need to download expat separately in order to get an working
+ perl/XML environement.  lynx http://sourceforge.net/projects/expat/)
+
+

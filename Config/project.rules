@@ -1,0 +1,796 @@
+############################ -*- Mode: Makefile -*- ###########################
+## project.rules --- 
+## Author           : Manoj Srivastava ( srivasta@ember.stdc.com ) 
+## Created On       : Fri Aug 10 12:27:09 2001
+## Created On Node  : ember.stdc.com
+## Last Modified By : Manoj Srivastava
+## Last Modified On : Tue Aug 14 21:58:22 2001
+## Last Machine Used: ember.stdc.com
+## Update Count     : 19
+## Status           : Unknown, Use with caution!
+## HISTORY          : 
+## Description      : 
+## 
+###############################################################################
+
+
+
+# {{{ RCS rules
+ifndef $(NO_CHECKOUT)
+%:: %,v
+	@test -w $@ || (echo "Checking out $@"; $(CO) $(COFLAGS) $@)
+%:: RCS/%,v
+	@test -w $@ || (echo "Checking out $@"; $(CO) $(COFLAGS) $@)
+endif
+# }}}
+
+%: %.SH
+	$(REASON)
+	$(SHELL) $<
+
+
+$(foreach ext, $(IDL_EXT_MINUS), $(OBJDIR)/%$(ext)): $(OBJDIR)/%$(IDL_CLIENT_HDR_EXT)
+	@
+
+
+ifneq ($(OBJDIR), $(SRCDIR))
+$(OBJDIR)/%C.h: $(SRCDIR)/%.idl $(TAO_IDL_DEP)
+	$(REASON)
+	$(IDL) $(C++IDL_FLAGS) $<
+endif
+
+%C.h: %.idl $(TAO_IDL_DEP)
+	$(REASON)
+	$(IDL) $(C++IDL_FLAGS) $<
+
+# {{{ yacc
+
+ifneq ($(OBJDIR), $(SRCDIR))
+$(OBJDIR)/%.tab.c $(OBJDIR)/%.tab.h: $(SRCDIR)/%.y
+	$(REASON)
+	${ECHO_COM} ( echo "(cd ${OBJDIR};" ; cd ${OBJDIR};                   \
+	echo ${YACC} ${YACCFLAGS} $(SRCDIR)/$(notdir $<);                     \
+	${YACC} ${YACCFLAGS} $(SRCDIR)/$(notdir $<);                          \
+	if [ "${YACC}" = "yacc" ] ; then                                      \
+           if [ -f y.tab.c ] ; then                                           \
+              echo mv y.tab.c $*.tab.c;                                       \
+              mv y.tab.c $*.tab.c;                                            \
+           fi;                                                                \
+           if [ -f y.tab.h ] ; then                                           \
+              echo mv y.tab.h $*.tab.h;                                       \
+              mv y.tab.h $*.tab.h;                                            \
+           fi;                                                                \
+        fi;echo ")" ;                                                         \
+	)
+endif
+
+%.tab.c %.tab.h: %.y
+	$(REASON)
+	${ECHO_COM} ( echo "(cd ${OBJDIR};" ; cd ${OBJDIR};                   \
+	echo ${YACC} ${YACCFLAGS} $(SRCDIR)/$(notdir $<);                     \
+	${YACC} ${YACCFLAGS} $(SRCDIR)/$(notdir $<);                          \
+	if [ "${YACC}" = "yacc" ] ; then                                      \
+           if [ -f y.tab.c ] ; then                                           \
+              echo mv y.tab.c $*.tab.c;                                       \
+              mv y.tab.c $*.tab.c;                                            \
+           fi;                                                                \
+           if [ -f y.tab.h ] ; then                                           \
+              echo mv y.tab.h $*.tab.h;                                       \
+              mv y.tab.h $*.tab.h;                                            \
+           fi;                                                                \
+        fi;echo ")" ;                                                         \
+	)
+
+
+# }}}
+# {{{ lex
+
+ifneq ($(OBJDIR), $(SRCDIR))
+$(OBJDIR)/%.yy.c: $(SRCDIR)/%.l;
+	$(REASON)
+	${ECHO_COM}( echo "(cd ${OBJDIR};" ; cd ${OBJDIR};                    \
+	echo ${LEX} ${LEXFLAGS} $(SRCDIR)/$(notdir $<);                       \
+         ${LEX} ${LEXFLAGS} $(SRCDIR)/$(notdir $<);                           \
+         if [ -f lex.yy.c ] ; then                                            \
+             echo mv lex.yy.c $*.yy.c;                                        \
+             mv lex.yy.c $*.yy.c;                                             \
+          fi;echo ")" ;                                                       \
+	)
+endif
+
+%.yy.c: %.l;
+	$(REASON)
+	${ECHO_COM}( echo "(cd ${OBJDIR};" ; cd ${OBJDIR};   	              \
+	echo ${LEX} ${LEXFLAGS} $(SRCDIR)/$(notdir $<);      	              \
+         ${LEX} ${LEXFLAGS} $(SRCDIR)/$(notdir $<);          	              \
+         if [ -f lex.yy.c ] ; then                           	              \
+             echo mv lex.yy.c $*.yy.c;                       	              \
+             mv lex.yy.c $*.yy.c;                            	              \
+          fi;echo ")" ;                                      	              \
+	)
+
+
+# }}}
+
+# {{{ generic c files
+ifneq ($(OBJDIR), $(SRCDIR))
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	$(REASON)
+	${ECHO_COM}                                                           \
+         if [ "$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CPPFLAGS)"\
+                != "" ] ; then                                                \
+	   if [ "$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS)"\
+                  != "" ] ; then                                              \
+	     echo ${CC} -o ${OBJDIR}/${notdir $@}                             \
+                $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CPPFLAGS)\
+		$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS)  \
+                 -c $< ;                                                      \
+	     ${CC} -o ${OBJDIR}/${notdir $@}                                  \
+                $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CPPFLAGS)\
+		$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS)  \
+                 -c $< ;                                                      \
+	   else                                                               \
+	     echo ${CC} -o ${OBJDIR}/${notdir $@}                             \
+                $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CPPFLAGS)\
+                ${CFLAGS} -c $< ;                                             \
+	     ${CC} -o ${OBJDIR}/${notdir $@}                                  \
+               $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CPPFLAGS) \
+                 ${CFLAGS} -c $< ;                                            \
+	   fi ;                                                               \
+	 else                                                                 \
+	   if [ "$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS)"\
+                  != "" ] ; then                                              \
+	     echo ${CC} -o ${OBJDIR}/${notdir $@} ${CPPFLAGS}                 \
+                 $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS) \
+                 -c $< ;                                                      \
+	     ${CC} -o ${OBJDIR}/${notdir $@} ${CPPFLAGS}                      \
+                 $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS) \
+                  -c $< ;                                                     \
+	   else                                                               \
+	     echo ${CC} -o ${OBJDIR}/${notdir $@} ${CPPFLAGS}                 \
+                  ${CFLAGS} -c $< ;                                           \
+	     ${CC} -o ${OBJDIR}/${notdir $@} ${CPPFLAGS}                      \
+                  ${CFLAGS} -c $< ;                                           \
+	   fi ;                                                               \
+	 fi
+
+$(OBJDIR)/$(VSHDIR)/%.o: $(SRCDIR)/%.c
+	$(REASON)
+	${ECHO_COM}                                                           \
+         if [ "$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CPPFLAGS)"\
+                != "" ] ; then                                                \
+	   if [ "$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS)"\
+                  != "" ] ; then                                              \
+	     echo ${CC} -o ${OBJDIR}/${notdir $@}                             \
+                $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CPPFLAGS)\
+		$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS)  \
+                 -c $< ;                                                      \
+	     ${CC} -o ${OBJDIR}/${notdir $@}                                  \
+                $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CPPFLAGS)\
+		$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS)  \
+                 -c $< ;                                                      \
+	   else                                                               \
+	     echo ${CC} -o ${OBJDIR}/${notdir $@}                             \
+                $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CPPFLAGS)\
+                ${CFLAGS} -c $< ;                                             \
+	     ${CC} -o ${OBJDIR}/${notdir $@}                                  \
+               $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CPPFLAGS) \
+                 ${CFLAGS} -c $< ;                                            \
+	   fi ;                                                               \
+	 else                                                                 \
+	   if [ "$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS)"\
+                  != "" ] ; then                                              \
+	     echo ${CC} -o ${OBJDIR}/${notdir $@} ${CPPFLAGS}                 \
+                 $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS) \
+                 -c $< ;                                                      \
+	     ${CC} -o ${OBJDIR}/${notdir $@} ${CPPFLAGS}                      \
+                 $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS) \
+                  -c $< ;                                                     \
+	   else                                                               \
+	     echo ${CC} -o ${OBJDIR}/${notdir $@} ${CPPFLAGS}                 \
+                  ${CFLAGS} -c $< ;                                           \
+	     ${CC} -o ${OBJDIR}/${notdir $@} ${CPPFLAGS}                      \
+                  ${CFLAGS} -c $< ;                                           \
+	   fi ;                                                               \
+	 fi
+
+$(OBJDIR)/%.o: $(OBJDIR)/%.c
+	$(REASON)
+	${ECHO_COM}                                                           \
+         if [ "$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CPPFLAGS)"\
+                != "" ] ; then                                                \
+	   if [ "$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS)"\
+                  != "" ] ; then                                              \
+	     echo ${CC} -o ${OBJDIR}/${notdir $@}                             \
+                $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CPPFLAGS)\
+		$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS)  \
+                 -c $< ;                                                      \
+	     ${CC} -o ${OBJDIR}/${notdir $@}                                  \
+                $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CPPFLAGS)\
+		$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS)  \
+                 -c $< ;                                                      \
+	   else                                                               \
+	     echo ${CC} -o ${OBJDIR}/${notdir $@}                             \
+                $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CPPFLAGS)\
+                ${CFLAGS} -c $< ;                                             \
+	     ${CC} -o ${OBJDIR}/${notdir $@}                                  \
+               $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CPPFLAGS) \
+                 ${CFLAGS} -c $< ;                                            \
+	   fi ;                                                               \
+	 else                                                                 \
+	   if [ "$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS)"\
+                  != "" ] ; then                                              \
+	     echo ${CC} -o ${OBJDIR}/${notdir $@} ${CPPFLAGS}                 \
+                 $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS) \
+                 -c $< ;                                                      \
+	     ${CC} -o ${OBJDIR}/${notdir $@} ${CPPFLAGS}                      \
+                 $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS) \
+                  -c $< ;                                                     \
+	   else                                                               \
+	     echo ${CC} -o ${OBJDIR}/${notdir $@} ${CPPFLAGS}                 \
+                  ${CFLAGS} -c $< ;                                           \
+	     ${CC} -o ${OBJDIR}/${notdir $@} ${CPPFLAGS}                      \
+                  ${CFLAGS} -c $< ;                                           \
+	   fi ;                                                               \
+	 fi
+
+$(OBJDIR)/(VSHDIR)/%.o: $(OBJDIR)/%.c
+	$(REASON)
+	${ECHO_COM}                                                           \
+         if [ "$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CPPFLAGS)"\
+                != "" ] ; then                                                \
+	   if [ "$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS)"\
+                  != "" ] ; then                                              \
+	     echo ${CC} -o ${OBJDIR}/${notdir $@} $(PIC)                      \
+                $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CPPFLAGS)\
+		$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS)  \
+                 -c $< ;                                                      \
+	     ${CC} -o ${OBJDIR}/${notdir $@}  $(PIC)                          \
+                $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CPPFLAGS)\
+		$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS)  \
+                 -c $< ;                                                      \
+	   else                                                               \
+	     echo ${CC} -o ${OBJDIR}/${notdir $@} $(PIC)                      \
+                $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CPPFLAGS)\
+                ${CFLAGS} -c $< ;                                             \
+	     ${CC} -o ${OBJDIR}/${notdir $@}  $(PIC)                          \
+               $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CPPFLAGS) \
+                 ${CFLAGS} -c $< ;                                            \
+	   fi ;                                                               \
+	 else                                                                 \
+	   if [ "$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS)"\
+                  != "" ] ; then                                              \
+	     echo ${CC} -o ${OBJDIR}/${notdir $@} ${CPPFLAGS} $(PIC)          \
+                 $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS) \
+                 -c $< ;                                                      \
+	     ${CC} -o ${OBJDIR}/${notdir $@} ${CPPFLAGS} $(PIC)               \
+                 $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS) \
+                  -c $< ;                                                     \
+	   else                                                               \
+	     echo ${CC} -o ${OBJDIR}/${notdir $@} ${CPPFLAGS} $(PIC)          \
+                  ${CFLAGS} -c $< ;                                           \
+	     ${CC} -o ${OBJDIR}/${notdir $@} ${CPPFLAGS} $(PIC)               \
+                  ${CFLAGS} -c $< ;                                           \
+	   fi ;                                                               \
+	 fi
+
+%.o: $(OBJDIR)/%.c
+	$(REASON)
+	${ECHO_COM}                                                           \
+         if [ "$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CPPFLAGS)"\
+                != "" ] ; then                                                \
+	   if [ "$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS)"\
+                  != "" ] ; then                                              \
+	     echo ${CC} -o ${OBJDIR}/${notdir $@}                             \
+                $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CPPFLAGS)\
+		$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS)  \
+                 -c $< ;                                                      \
+	     ${CC} -o ${OBJDIR}/${notdir $@}                                  \
+                $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CPPFLAGS)\
+		$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS)  \
+                 -c $< ;                                                      \
+	   else                                                               \
+	     echo ${CC} -o ${OBJDIR}/${notdir $@}                             \
+                $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CPPFLAGS)\
+                ${CFLAGS} -c $< ;                                             \
+	     ${CC} -o ${OBJDIR}/${notdir $@}                                  \
+               $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CPPFLAGS) \
+                 ${CFLAGS} -c $< ;                                            \
+	   fi ;                                                               \
+	 else                                                                 \
+	   if [ "$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS)"\
+                  != "" ] ; then                                              \
+	     echo ${CC} -o ${OBJDIR}/${notdir $@} ${CPPFLAGS}                 \
+                 $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS) \
+                 -c $< ;                                                      \
+	     ${CC} -o ${OBJDIR}/${notdir $@} ${CPPFLAGS}                      \
+                 $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS) \
+                  -c $< ;                                                     \
+	   else                                                               \
+	     echo ${CC} -o ${OBJDIR}/${notdir $@} ${CPPFLAGS}                 \
+                  ${CFLAGS} -c $< ;                                           \
+	     ${CC} -o ${OBJDIR}/${notdir $@} ${CPPFLAGS}                      \
+                  ${CFLAGS} -c $< ;                                           \
+	   fi ;                                                               \
+	 fi
+
+endif
+
+%.o: %.c
+	$(REASON)
+	${ECHO_COM}                                                           \
+         if [ "$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CPPFLAGS)"\
+                != "" ] ; then                                                \
+	   if [ "$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS)"\
+                  != "" ] ; then                                              \
+	     echo ${CC} -o ${OBJDIR}/${notdir $@}                             \
+                $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CPPFLAGS)\
+		$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS)  \
+                 -c $< ;                                                      \
+	     ${CC} -o ${OBJDIR}/${notdir $@}                                  \
+                $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CPPFLAGS)\
+		$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS)  \
+                 -c $< ;                                                      \
+	   else                                                               \
+	     echo ${CC} -o ${OBJDIR}/${notdir $@}                             \
+                $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CPPFLAGS)\
+                ${CFLAGS} -c $< ;                                             \
+	     ${CC} -o ${OBJDIR}/${notdir $@}                                  \
+               $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CPPFLAGS) \
+                 ${CFLAGS} -c $< ;                                            \
+	   fi ;                                                               \
+	 else                                                                 \
+	   if [ "$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS)"\
+                  != "" ] ; then                                              \
+	     echo ${CC} -o ${OBJDIR}/${notdir $@} ${CPPFLAGS}                 \
+                 $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS) \
+                 -c $< ;                                                      \
+	     ${CC} -o ${OBJDIR}/${notdir $@} ${CPPFLAGS}                      \
+                 $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_CFLAGS) \
+                  -c $< ;                                                     \
+	   else                                                               \
+	     echo ${CC} -o ${OBJDIR}/${notdir $@} ${CPPFLAGS}                 \
+                  ${CFLAGS} -c $< ;                                           \
+	     ${CC} -o ${OBJDIR}/${notdir $@} ${CPPFLAGS}                      \
+                  ${CFLAGS} -c $< ;                                           \
+	   fi ;                                                               \
+	 fi
+
+
+# }}}
+(%): %
+	$(LIBREASON)
+	(cd ${OBJDIR}; $(AR) $(ARFLAGS) $@ $(notdir $%);)
+
+# {{{ C++
+
+ifneq ($(OBJDIR), $(SRCDIR))
+$(OBJDIR)/%.o: $(SRCDIR)/%.cpp
+	$(REASON)
+	${ECHO_COM}                                                           \
+      if [ "$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++CPPFLAGS)"\
+                != "" ] ; then                                                \
+	if [ "$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++FLAGS)" \
+                  != "" ] ; then                                              \
+	  echo ${C++} -o ${OBJDIR}/${notdir $@}                               \
+             $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++CPPFLAGS)\
+	     $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++FLAGS)   \
+                 -c $< ;                                                      \
+	  ${C++} -o ${OBJDIR}/${notdir $@}                                    \
+             $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++CPPFLAGS)\
+	     $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++FLAGS)   \
+                 -c $< ;                                                      \
+	else                                                                  \
+	  echo ${C++} -o ${OBJDIR}/${notdir $@}                               \
+             $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++CPPFLAGS)\
+             ${C++FLAGS} -c $< ;                                              \
+	  ${C++} -o ${OBJDIR}/${notdir $@}                                    \
+            $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++CPPFLAGS) \
+                 ${C++FLAGS} -c $< ;                                          \
+	   fi ;                                                               \
+	 else                                                                 \
+	 if [ "$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++FLAGS)"\
+                  != "" ] ; then                                              \
+	     echo ${C++} -o ${OBJDIR}/${notdir $@} ${C++CPPFLAGS}             \
+              $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++FLAGS)  \
+                 -c $< ;                                                      \
+	     ${C++} -o ${OBJDIR}/${notdir $@} ${C++CPPFLAGS}                  \
+               $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++FLAGS) \
+                  -c $< ;                                                     \
+	   else                                                               \
+	     echo ${C++} -o ${OBJDIR}/${notdir $@} ${C++CPPFLAGS}             \
+                  ${C++FLAGS} -c $< ;                                         \
+	     ${C++} -o ${OBJDIR}/${notdir $@} ${C++CPPFLAGS}                  \
+                  ${C++FLAGS} -c $< ;                                         \
+	   fi ;                                                               \
+	 fi
+
+$(OBJDIR)/$(VSHDIR)/%.o: $(SRCDIR)/%.cpp
+	$(REASON)
+	${ECHO_COM}                                                           \
+      if [ "$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++CPPFLAGS)"\
+                != "" ] ; then                                                \
+	if [ "$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++FLAGS)" \
+                  != "" ] ; then                                              \
+	  echo ${C++} -o ${OBJDIR}/$(VSHDIR)/${notdir $@} $(PIC)              \
+             $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++CPPFLAGS)\
+	     $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++FLAGS)   \
+                 -c $< ;                                                      \
+	  ${C++} -o ${OBJDIR}/$(VSHDIR)/${notdir $@}  $(PIC)                  \
+             $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++CPPFLAGS)\
+	     $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++FLAGS)   \
+                 -c $< ;                                                      \
+	else                                                                  \
+	  echo ${C++} -o ${OBJDIR}/$(VSHDIR)/${notdir $@} $(PIC)              \
+             $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++CPPFLAGS)\
+             ${C++FLAGS} -c $< ;                                              \
+	  ${C++} -o ${OBJDIR}/$(VSHDIR)/${notdir $@}  $(PIC)                  \
+            $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++CPPFLAGS) \
+                 ${C++FLAGS} -c $< ;                                          \
+	   fi ;                                                               \
+	 else                                                                 \
+	 if [ "$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++FLAGS)"\
+                  != "" ] ; then                                              \
+	     echo ${C++} -o ${OBJDIR}/$(VSHDIR)/${notdir $@} $(PIC)           \
+                       ${C++CPPFLAGS}                                         \
+              $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++FLAGS)  \
+                 -c $< ;                                                      \
+	     ${C++} -o ${OBJDIR}/$(VSHDIR)/${notdir $@} $(PIC) ${C++CPPFLAGS} \
+               $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++FLAGS) \
+                  -c $< ;                                                     \
+	   else                                                               \
+	     echo ${C++} -o ${OBJDIR}/$(VSHDIR)/${notdir $@} $(PIC)           \
+                  ${C++CPPFLAGS} ${C++FLAGS} -c $< ;                          \
+	     ${C++} -o ${OBJDIR}/$(VSHDIR)/${notdir $@} $(PIC)                \
+                  ${C++CPPFLAGS} ${C++FLAGS} -c $< ;                          \
+	   fi ;                                                               \
+	 fi
+
+$(OBJDIR)/%.o: $(OBJDIR)/%.cpp
+	$(REASON)
+	${ECHO_COM}                                                           \
+      if [ "$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++CPPFLAGS)"\
+                != "" ] ; then                                                \
+	if [ "$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++FLAGS)" \
+                  != "" ] ; then                                              \
+	  echo ${C++} -o ${OBJDIR}/${notdir $@}                               \
+             $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++CPPFLAGS)\
+	     $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++FLAGS)   \
+                 -c $< ;                                                      \
+	  ${C++} -o ${OBJDIR}/${notdir $@}                                    \
+             $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++CPPFLAGS)\
+	     $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++FLAGS)   \
+                 -c $< ;                                                      \
+	else                                                                  \
+	  echo ${C++} -o ${OBJDIR}/${notdir $@}                               \
+             $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++CPPFLAGS)\
+             ${C++FLAGS} -c $< ;                                              \
+	  ${C++} -o ${OBJDIR}/${notdir $@}                                    \
+            $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++CPPFLAGS) \
+                 ${C++FLAGS} -c $< ;                                          \
+	   fi ;                                                               \
+	 else                                                                 \
+	 if [ "$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++FLAGS)"\
+                  != "" ] ; then                                              \
+	     echo ${C++} -o ${OBJDIR}/${notdir $@} ${C++CPPFLAGS}             \
+              $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++FLAGS)  \
+                 -c $< ;                                                      \
+	     ${C++} -o ${OBJDIR}/${notdir $@} ${C++CPPFLAGS}                  \
+               $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++FLAGS) \
+                  -c $< ;                                                     \
+	   else                                                               \
+	     echo ${C++} -o ${OBJDIR}/${notdir $@} ${C++CPPFLAGS}             \
+                  ${C++FLAGS} -c $< ;                                         \
+	     ${C++} -o ${OBJDIR}/${notdir $@} ${C++CPPFLAGS}                  \
+                  ${C++FLAGS} -c $< ;                                         \
+	   fi ;                                                               \
+	 fi
+
+$(OBJDIR)/$(VSHDIR)/%.o: $(OBJDIR)/%.cpp
+	$(REASON)
+	${ECHO_COM}                                                           \
+      if [ "$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++CPPFLAGS)"\
+                != "" ] ; then                                                \
+	if [ "$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++FLAGS)" \
+                  != "" ] ; then                                              \
+	  echo ${C++} -o ${OBJDIR}/$(VSHDIR)/${notdir $@} $(PIC)              \
+             $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++CPPFLAGS)\
+	     $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++FLAGS)   \
+                 -c $< ;                                                      \
+	  ${C++} -o ${OBJDIR}/$(VSHDIR)/${notdir $@}  $(PIC)                  \
+             $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++CPPFLAGS)\
+	     $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++FLAGS)   \
+                 -c $< ;                                                      \
+	else                                                                  \
+	  echo ${C++} -o ${OBJDIR}/$(VSHDIR)/${notdir $@} $(PIC)              \
+             $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++CPPFLAGS)\
+             ${C++FLAGS} -c $< ;                                              \
+	  ${C++} -o ${OBJDIR}/$(VSHDIR)/${notdir $@}  $(PIC)                  \
+            $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++CPPFLAGS) \
+                 ${C++FLAGS} -c $< ;                                          \
+	   fi ;                                                               \
+	 else                                                                 \
+	 if [ "$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++FLAGS)"\
+                  != "" ] ; then                                              \
+	     echo ${C++} -o ${OBJDIR}/$(VSHDIR)/${notdir $@} $(PIC)           \
+                       ${C++CPPFLAGS}                                         \
+              $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++FLAGS)  \
+                 -c $< ;                                                      \
+	     ${C++} -o ${OBJDIR}/$(VSHDIR)/${notdir $@} $(PIC) ${C++CPPFLAGS} \
+               $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++FLAGS) \
+                  -c $< ;                                                     \
+	   else                                                               \
+	     echo ${C++} -o ${OBJDIR}/$(VSHDIR)/${notdir $@} $(PIC)           \
+                  ${C++CPPFLAGS} ${C++FLAGS} -c $< ;                          \
+	     ${C++} -o ${OBJDIR}/$(VSHDIR)/${notdir $@} $(PIC)                \
+                  ${C++CPPFLAGS} ${C++FLAGS} -c $< ;                          \
+	   fi ;                                                               \
+	 fi
+
+endif
+
+%.o: %.cpp
+	$(REASON)
+	${ECHO_COM}                                                           \
+      if [ "$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++CPPFLAGS)"\
+                != "" ] ; then                                                \
+	if [ "$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++FLAGS)" \
+                  != "" ] ; then                                              \
+	  echo ${C++} -o ${OBJDIR}/${notdir $@}                               \
+             $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++CPPFLAGS)\
+	     $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++FLAGS)   \
+                 -c $< ;                                                      \
+	  ${C++} -o ${OBJDIR}/${notdir $@}                                    \
+             $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++CPPFLAGS)\
+	     $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++FLAGS)   \
+                 -c $< ;                                                      \
+	else                                                                  \
+	  echo ${C++} -o ${OBJDIR}/${notdir $@}                               \
+             $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++CPPFLAGS)\
+             ${C++FLAGS} -c $< ;                                              \
+	  ${C++} -o ${OBJDIR}/${notdir $@}                                    \
+            $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++CPPFLAGS) \
+                 ${C++FLAGS} -c $< ;                                          \
+	   fi ;                                                               \
+	 else                                                                 \
+	 if [ "$($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++FLAGS)"\
+                  != "" ] ; then                                              \
+	     echo ${C++} -o ${OBJDIR}/${notdir $@} ${C++CPPFLAGS}             \
+              $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++FLAGS)  \
+                 -c $< ;                                                      \
+	     ${C++} -o ${OBJDIR}/${notdir $@} ${C++CPPFLAGS}                  \
+               $($(subst -,_,$(subst .,_,$(notdir $(basename $@))))_C++FLAGS) \
+                  -c $< ;                                                     \
+	   else                                                               \
+	     echo ${C++} -o ${OBJDIR}/${notdir $@} ${C++CPPFLAGS}             \
+                  ${C++FLAGS} -c $< ;                                         \
+	     ${C++} -o ${OBJDIR}/${notdir $@} ${C++CPPFLAGS}                  \
+                  ${C++FLAGS} -c $< ;                                         \
+	   fi ;                                                               \
+	 fi
+
+
+# }}}
+ifndef DID_DEPENDENCY_RULES
+$(OBJDIR)/%.d: $(OBJDIR)/%.cpp
+	$(REASON)
+	-$(C++) ${DEPFLAGS} -M $(CPPFLAGS) $< | sed 's|$*\.o|& $@|' > $@
+
+$(OBJDIR)/%.d: %.c
+	$(REASON)
+	-$(CC) ${DEPFLAGS} -M $(CPPFLAGS) $< | sed 's|$*\.o|& $@|' > $@
+
+%.d: %.c
+	$(REASON)
+	-$(CC) ${DEPFLAGS} -M $(CPPFLAGS) $< | sed 's|$*\.o|& $@|' > $@
+
+$(OBJDIR)/%.d: %.cpp
+	$(REASON)
+	-$(C++) ${DEPFLAGS} -M $(CPPFLAGS) $< | sed 's|$*\.o|& $@|' > $@
+
+%.d: %.cpp
+	$(REASON)
+	-$(C++) ${DEPFLAGS} -M $(CPPFLAGS) $< | sed 's|$*\.o|& $@|' > $@
+
+
+endif
+
+# {{{ libraries
+
+%.a:
+	$(LIBREASON)
+	ranlib $@;
+
+
+# }}}
+# {{{ c binaries
+
+%_BIN:
+	$(REASON)
+	${ECHO_COM}( echo "(cd ${OBJDIR};" ; cd ${OBJDIR};                    \
+	if [ "${$(subst _BIN,,$(notdir $@))_LDFLAGS}" != "" ] ; then          \
+	   if [ "${$(subst _BIN,,$(notdir $@))_LIBS}" != "" ] ; then          \
+		echo ${CC} -o ${OBJDIR}/$(subst _BIN,,$(notdir $@))           \
+                          ${$(subst _BIN,,$(notdir $@))_LDFLAGS}              \
+	  	  $(filter %.o,$^) ${$(subst _BIN,,$@)_LIBS} ;                \
+		$(PURELINK) $(PRELINK) ${CC}                                  \
+                       -o ${OBJDIR}/$(subst _BIN,,$(notdir $@))               \
+                          ${$(subst _BIN,,$(notdir $@))_LDFLAGS}              \
+	  	  $(filter %.o,$^) ${$(subst _BIN,,$(notdir $@))_LIBS} ;      \
+	   else                                                               \
+		echo ${CC} -o ${OBJDIR}/$(subst _BIN,,$(notdir $@))           \
+                           ${$(subst _BIN,,$(notdir $@))_LDFLAGS}             \
+	  	  $(filter %.o,$^) ${LIBS} ;                                  \
+	        $(PURELINK) $(PRELINK) ${CC}                                  \
+                       -o ${OBJDIR}/$(subst _BIN,,$(notdir $@))               \
+                           ${$(subst _BIN,,$(notdir $@))_LDFLAGS}             \
+	  	  $(filter %.o,$^) $(LDLIBS) ${LIBS} ;                        \
+	   fi ;                                                               \
+	 else                                                                 \
+	   if [ "${$(subst _BIN,,$(notdir $@))_LIBS}" != "" ] ; then          \
+		echo ${CC} -o ${OBJDIR}/$(subst _BIN,,$(notdir $@))           \
+	  	  ${LDFLAGS} $(filter %.o,$^)                                 \
+                      ${$(subst _BIN,,$(notdir $@))_LIBS} ;                   \
+		$(PURELINK) $(PRELINK) ${CC}                                  \
+                       -o ${OBJDIR}/$(subst _BIN,,$(notdir $@)) ${LDFLAGS}    \
+	  	  $(filter %.o,$^) ${$(subst _BIN,,$(notdir $@))_LIBS} ;      \
+	   else                                                               \
+		echo ${CC} -o ${OBJDIR}/$(subst _BIN,,$(notdir $@))           \
+                        ${LDFLAGS} $(filter %.o,$^) $(LDLIBS) ${LIBS} ;       \
+	        $(PURELINK) $(PRELINK) ${CC}                                  \
+                       -o ${OBJDIR}/$(subst _BIN,,$(notdir $@))               \
+		   ${LDFLAGS}  $(filter %.o,$^) $(LDLIBS) ${LIBS} ;           \
+	   fi ;                                                               \
+	 fi;                                                                  \
+         $(TOUCH) ${OBJDIR}/$(notdir $@);                                     \
+         echo ")" ;                                                           \
+	)
+
+# }}}
+# {{{ c ++ binaries
+
+%_BINC++:
+	$(REASON)
+	${ECHO_COM}( echo "(cd ${OBJDIR};" ; cd ${OBJDIR};                    \
+	 if [ "${$(subst _BINC++,,$(notdir $@))_C++LDFLAGS}" != "" ] ; then   \
+	   if [ "${$(subst _BINC++,,$(notdir $@))_C++LIBS}" != "" ] ; then    \
+		echo ${C++} -o ${OBJDIR}/$(subst _BINC++,,$(notdir $@))       \
+                     ${$(subst _BINC++,,$(notdir $@))_C++LDFLAGS}             \
+	  	  $(filter %.o,$^)                                            \
+                      ${$(subst _BINC++,,$(notdir $@))_C++LIBS} ;             \
+		$(PURELINK) $(PRELINK) ${C++}                                 \
+                   -o ${OBJDIR}/$(subst _BINC++,,$(notdir $@))                \
+                     ${$(subst _BINC++,,$(notdir $@))_C++LDFLAGS}             \
+	  	  $(filter %.o,$^)                                            \
+                     ${$(subst _BINC++,,$(notdir $@))_C++LIBS} $(PTDIRS);     \
+	   else                                                               \
+		echo ${C++} -o ${OBJDIR}/$(subst _BINC++,,$(notdir $@))       \
+                     ${$(subst _BINC++,,$(notdir $@))_LDFLAGS}                \
+			$(filter %.o,$^) ${C++LIBS};                          \
+	        $(PURELINK) $(PRELINK) ${C++}                                 \
+                   -o ${OBJDIR}/$(subst _BINC++,,$(notdir $@))                \
+                     ${$(subst _BINC++,,$(notdir $@))_C++LDFLAGS}             \
+                         $(filter %.o,$^) ${C++LIBS} $(PTDIRS);               \
+	   fi ;                                                               \
+	 else                                                                 \
+	   if [ "${$(subst _BINC++,,$(notdir $@))_C++LIBS}" != "" ] ; then    \
+		echo ${C++} -o ${OBJDIR}/$(subst _BINC++,,$(notdir $@))       \
+	  	  ${C++LDFLAGS} $(filter %.o,$^)                              \
+                     ${$(subst _BINC++,,$(notdir $@))_C++LIBS};               \
+		$(PURELINK) $(PRELINK) ${C++}                                 \
+                   -o ${OBJDIR}/$(subst _BINC++,,$(notdir $@))                \
+	  	  ${C++LDFLAGS} $(filter %.o,$^)                              \
+                     ${$(subst _BINC++,,$(notdir $@))_C++LIBS}$(PTDIRS);      \
+	   else                                                               \
+		echo ${C++} -o ${OBJDIR}/$(subst _BINC++,,$(notdir $@))       \
+                     ${C++LDFLAGS} $(filter %.o,$^) ${C++LIBS} ;              \
+	        $(PURELINK) $(PRELINK) ${C++}                                 \
+                   -o ${OBJDIR}/$(subst _BINC++,,$(notdir $@))                \
+                     ${C++LDFLAGS} $(filter %.o,$^) ${C++LIBS} $(PTDIRS);     \
+	   fi ;                                                               \
+	 fi;                                                                  \
+         echo ")" ;                                                           \
+	)
+# $(TOUCH) ${OBJDIR}/$(notdir $@);                                     
+
+
+%_SHLIB:
+	$(REASON)
+	${ECHO_COM}( echo "(cd ${OBJDIR};" ; cd ${OBJDIR};                    \
+	if [ "${$(subst _SHLIB,,$(notdir $@))_C++LDFLAGS}" != "" ] ; then     \
+	   if [ "${$(subst _SHLIB,,$(notdir $@))_C++LIBS}" != "" ] ; then     \
+	      echo ${C++} $(SHLINK) -Wl,-soname,$(subst _SHLIB,,$(notdir $@)) \
+                     -o  $(subst _SHLIB,,$@)                                  \
+                     ${$(subst _SHLIB,,$(notdir $@))_C++LDFLAGS}              \
+	  	  $(filter %.o,$^) ${$(subst _SHLIB,,$(notdir $@))_C++LIBS} ; \
+		$(PURELINK) $(PRELINK) ${C++} $(SHLINK)                       \
+                   -Wl,-soname,$(subst _SHLIB,,$(notdir $@))                  \
+                    -o $(subst _SHLIB,,$@)                                    \
+                     ${$(subst _SHLIB,,$(notdir $@))_C++LDFLAGS}              \
+	  	  $(filter %.o,$^) ${$(subst _SHLIB,,$(notdir $@))_C++LIBS}   \
+                     $(PTDIRS);                                               \
+	   else                                                               \
+	       echo ${C++} $(SHLINK) -Wl,-soname,$(subst _SHLIB,,$(notdir $@))\
+                    -o $(subst _SHLIB,,$@)                                    \
+                     ${$(subst _SHLIB,,$(notdir $@))_LDFLAGS}                 \
+			$(filter %.o,$^) ${C++LIBS};                          \
+	        $(PURELINK) $(PRELINK) ${C++} $(SHLINK)                       \
+                   -Wl,-soname,$(subst _SHLIB,,$(notdir $@))                  \
+                     -o $(subst _SHLIB,,$@)                                   \
+                     ${$(subst _SHLIB,,$(notdir $@))_C++LDFLAGS}              \
+                         $(filter %.o,$^) ${C++LIBS} $(PTDIRS);               \
+	   fi ;                                                               \
+	 else                                                                 \
+	   if [ "${$(subst _SHLIB,,$(notdir $@))_C++LIBS}" != "" ] ; then     \
+	      echo ${C++} $(SHLINK) -Wl,-soname,$(subst _SHLIB,,$(notdir $@)) \
+                  -o $(subst _SHLIB,,$@) ${C++LDFLAGS} $(filter %.o,$^)       \
+                     ${$(subst _SHLIB,,$(notdir $@))_C++LIBS};                \
+		$(PURELINK) $(PRELINK) ${C++} $(SHLINK)                       \
+                  -Wl,-soname,$(subst _SHLIB,,$(notdir $@))                   \
+                  -o $(subst _SHLIB,,$@) ${C++LDFLAGS} $(filter %.o,$^)       \
+                     ${$(subst _SHLIB,,$(notdir $@))_C++LIBS}$(PTDIRS);       \
+	   else                                                               \
+	       echo ${C++} $(SHLINK) -Wl,-soname,$(subst _SHLIB,,$(notdir $@))\
+                     -o $(subst _SHLIB,,$@) ${C++LDFLAGS} $(filter %.o,$^)    \
+                       ${C++LIBS} ;                                           \
+	        $(PURELINK) $(PRELINK) ${C++} $(SHLINK)                       \
+                     -Wl,-soname,$(subst _SHLIB,,$(notdir $@))                \
+                     -o $(subst _SHLIB,,$@)                                   \
+                     ${C++LDFLAGS} $(filter %.o,$^) ${C++LIBS} $(PTDIRS);     \
+	   fi ;                                                               \
+	 fi;                                                                  \
+         $(TOUCH) ${OBJDIR}/$(notdir $@);                                     \
+         echo ")" ;                                                           \
+	)
+
+# }}}
+# {{{ Installation
+
+subdir_%:
+	@if [ "${SUBDIRS}" != "" ] ; then                                     \
+               $(foreach dir,${SUBDIRS},                                      \
+                (cd ${dir} ; $(MAKE) $(notdir $*) ;);                         \
+                )                                                             \
+          fi
+
+
+subinst_%:
+	@if [ "${SUBDIRS}" != "" ] ; then                                     \
+               $(foreach dir,${SUBDIRS},                                      \
+                (cd ${dir} ; $(MAKE) INSTALL_$(notdir $*) ;);                 \
+                )                                                             \
+          fi
+
+INSTALL_%:
+	$(REASON)
+	${ECHO_COM}echo Working on $(subst INSTALL_,,$(notdir $@)) files.
+	${ECHO_COM}$(foreach file,$?,                                         \
+     if [ "$${${subst -,_,${subst .,_,${notdir ${file}}}}_INSTALL_MODE}" ] ;  \
+           then                                                               \
+             echo installing $(notdir ${file}) with mode                      \
+                  $${${subst -,_,${subst .,_,${notdir ${file}}}}_INSTALL_MODE}\
+                     in $($(subst INSTALL_,,$(notdir $@))dir);                \
+             ${INSTALL} ${file}                                               \
+                   $($(subst INSTALL_,,$(notdir $@))dir)/${notdir ${file}};   \
+        ${CHMOD} $${${subst -,_,${subst .,_,${notdir ${file}}}}_INSTALL_MODE} \
+                 $($(subst INSTALL_,,$(notdir $@))dir)/${notdir ${file}};     \
+         else                                                                 \
+              echo installing $(notdir ${file}) with mode                     \
+                  ${$(subst INSTALL_,,$(notdir $@))_INSTALL_MODE} in          \
+                   $($(subst INSTALL_,,$(notdir $@))dir);                     \
+              ${INSTALL} ${file}                                              \
+                      $($(subst INSTALL_,,$(notdir $@))dir)/${notdir ${file}};\
+              ${CHMOD} ${$(subst INSTALL_,,$(notdir $@))_INSTALL_MODE}        \
+                      $($(subst INSTALL_,,$(notdir $@))dir)/${notdir ${file}};\
+         fi;                                                                  \
+         $(TOUCH) ${OBJDIR}/${notdir $@};                                     \
+         )
+	${ECHO_COM}echo $(subst INSTALL_,,$(notdir $@)) files installed.
+
+# }}}
+
+# }}}
+
+
+.el.elc:
+	$(EMACS) -batch -f batch-byte-compile $<

@@ -1,0 +1,2 @@
+wrapper RM_SEND_IC implementation "E:\Work\devel\quite\QMS\build\winnt\Instrumentation\Continuous\Simple\DesiRMSendWrapper\RM_SEND_IC.dll" [no_propagate]
+wrap send in ws2_32 with _Med_send@20 size 16

@@ -1,0 +1,19 @@
+2001-05-03  Manoj Srivastava  <manoj.srivastava@stdc.com>
+
+	* testLinkedList.cpp:
+	Added locking
+
+	* Makefile, instantiate.cpp, testLinkedList.cpp:
+	The first working version
+
+2001-04-29  Manoj Srivastava  <manoj.srivastava@stdc.com>
+
+	* instantiate.cpp:
+	First checkin of the template instantiation test file
+
+	* testLinkedList.cpp:
+	Added tracing, debuggin, and more doxygen documentation
+
+	* Makefile:
+	Make the template instantiation another file, but not part of the
+	shared library

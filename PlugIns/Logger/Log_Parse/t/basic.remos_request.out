@@ -1,0 +1,4 @@
+			QMS Log Dump
+SequenceNo,LogDate,LogTime,LoggerID,SequenceNo,EventDate,EventTime,SenderID,EventType,requestid,bandwidth_request linktype,repeatcount,refreshrate,Hostnames
+
+0, 11/10/00 ,15:59:43:905 , QMS_Logger ,0,10/10/2000,20:59:1939pm,KENOBEE_N,link,0,Remos Bandwidth Query type link,5,2.450000,skywalker_t.stdc.com,kenobee_t.stdc.com,c3po_t.stdc.com

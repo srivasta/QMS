@@ -1,0 +1,110 @@
+<!--                             -*- Mode: Xml -*- 
+;; build.xml - 
+;; Author           : Manoj Srivastava ( srivasta@glaurung.green-gryphon.com ) 
+;; Created On       : Sat Nov 16 00:36:58 2002
+;; Created On Node  : glaurung.green-gryphon.com
+;; Last Modified By : Manoj Srivastava
+;; Last Modified On : Sat Nov 16 00:38:57 2002
+;; Last Machine Used: glaurung.green-gryphon.com
+;; Update Count     : 5
+;; Status           : Unknown, Use with caution!
+;; HISTORY          : 
+;; Description      : 
+;; 
+ -->
+<?xml version="1.0"?>
+
+
+<project name="QMSJava" default="all" basedir="."> 
+  
+  <!-- ==================================================== -->
+  <!--             Events build file                         -->
+  <!-- ==================================================== -->
+
+  <!-- Setting up some initial parameters -->
+  <target name="init" depends="javatest">
+    <property file="${basedir}/Config/site.properties" />
+    <property name="tao.base" value="${ace.base}/ACE_wrappers/TAO"/>
+    <property name="jacorb.lib" value="${jacorb.base}/lib"/>
+    <property name="dirs.base" value="${basedir}"/>
+    <property name="dirs.build" value="${dirs.base}/build"/>
+    <property name="classdir" value="${dirs.build}/classes"/>
+    <property name="src.generated" value="${dirs.build}/generated"/>
+    <property name="jardir" value="${dirs.build}/jars"/>
+    <property name="jarlib" value="${dirs.base}/libjars"/>
+    <property name="classpath" 
+      value="${java.class.path}:${classdir}:${jacorb.lib}/jacorb.jar:${jarlib}/xerces.jar"
+      />
+    <property name="include" value="${jacorb.base}/idl"/>
+    <mkdir dir="${dirs.build}"/>
+    <mkdir dir="${src.generated}"/>
+    <mkdir dir="${classdir}"/>
+    <mkdir dir="${jardir}"/>
+    <property name="eclib.jar" value="${jardir}/eclib.jar"/>
+    <available file="${eclib.jar}" property="eclib.jar.present"/>
+  </target>
+  
+  <!-- check for Java 2 -->
+  <target name="javatest">
+    <available classname="java.lang.ref.WeakReference"
+      property="java2" />	
+  </target>
+
+
+  <target name="all" depends="init,eclib,core,util,clients"/>
+
+  <!-- ==================================================== -->
+  <!--        Realtime Event Channel IDL files              -->
+  <!-- ==================================================== -->
+
+  <target name="eclib" unless="eclib.jar.present">
+    <echo message="Compiling Realtime Event Channel IDL files"/>
+    <ant inheritAll="false" antfile="${basedir}/eclib_build.xml" 
+      dir="${basedir}"/>
+  </target>
+
+  <!-- ==================================================== -->
+  <!--                 QMS Core IDL files                   -->
+  <!-- ==================================================== -->
+
+  <target name="core">
+    <echo message="Compiling QMS Core IDL files"/>
+    <ant antfile="${basedir}/Core/build.xml" dir="${basedir}"/>
+  </target>
+
+  <!-- ==================================================== -->
+  <!--                       QMS Util                       -->
+  <!-- ==================================================== -->
+
+  <target name="util">
+    <echo message="Compiling QMS Utilities"/>
+    <ant antfile="${basedir}/Utilities/build.xml" dir="${basedir}"/>
+  </target>
+
+  <!-- ==================================================== -->
+  <!--                       QMS Clients                       -->
+  <!-- ==================================================== -->
+
+  <target name="clients">
+    <echo message="Compiling QMS Clients"/>
+    <ant antfile="${basedir}/Instrumentation/Clients/build.xml" dir="${basedir}"/>
+  </target>
+
+
+  <!-- Clean up  -->
+  <target name="clean" depends="init">
+    <ant inheritAll="false" antfile="${basedir}/eclib_build.xml" dir="${basedir}" target="clean"/>
+    <ant antfile="${basedir}/Core/build.xml" dir="${basedir}" target="clean"/>
+    <ant antfile="${basedir}/Utilities/build.xml" dir="${basedir}" target="clean"/>
+    <ant antfile="${basedir}/Instrumentation/Clients/build.xml" dir="${basedir}" target="clean"/>
+  </target>
+  
+  <!-- Really Clean up  -->
+  <target name="realclean" depends="init">
+    <ant inheritAll="false" antfile="${basedir}/eclib_build.xml" dir="${basedir}" target="realclean"/>
+    <ant antfile="${basedir}/Core/build.xml" dir="${basedir}" target="realclean"/>
+    <ant antfile="${basedir}/Utilities/build.xml" dir="${basedir}" target="realclean"/>
+    <ant antfile="${basedir}/Instrumentation/Clients/build.xml" dir="${basedir}" target="realclean"/>
+  </target>
+  
+</project>

@@ -1,0 +1,9 @@
+qms (1.1.1-1) unstable; urgency=medium
+
+  * Initial version
+
+ -- Manoj Srivastava <srivasta@debian.org>  Thu, 16 May 2002 15:28:37 -0500
+
+Local variables:
+mode: debian-changelog
+End:

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--******************************************************************
+ * Copyright (c) 2001, System/Technology Development Corporation
+ *                
+ * Filename:      genericCProbe.xsd
+ * Version:       1.0
+ * Description:   Schema Description for the Generic Continuous Probe
+ *                
+ * Author:        Amarendranath Vadlamudi <amar.vadlamudi@stdc.com>
+ * Created at:    Tue Nov 30 10:05:05 2001
+ * Modified by:   Amarendranath Vadlamudi <amar.vadlamudi@stdc.com>
+ * Modified at:   Wed Oct 24 18:54:25 2001
+ * Status:        Experimental, do not distribute.
+ * Update count:  2
+ ******************************************************************-->
+
+  <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://www.stdc.com/2001/QMS/Probes/Continuous/GenericProbe"
+    targetNamespace="http://www.stdc.com/2001/QMS/Probes/Continuous/GenericProbe"
+    elementFormDefault="qualified"
+    version="$Id: genericCProbe.xsd,v 1.5 2001/12/01 19:13:02 nath Exp $" >
+  
+
+  <xsd:complexType name="probeCommandType">
+    <xsd:annotation>
+      <xsd:documentation>The Generic Continuous probe supports a
+        set of control strings that allows the requestor to control
+        the function of the probe. The supported actions are "start",
+        "stop", "pause" and "resume". Corresponding to these control
+        actions, the probe executes the action. 
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="action">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+	    <xsd:enumeration value="start"/>
+            <xsd:enumeration value="stop"/>
+            <xsd:enumeration value="pause"/>
+            <xsd:enumeration value="resume"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="probeResponseType">
+    <xsd:annotation>
+      <xsd:documentation>The Generic Continuous Probe is designed to
+      be a sample probe that can readily be used to test new
+      sensors. So it has a very simple response format.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="dataid" type="xsd:nonNegativeInteger"/>
+      <xsd:element name="response" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="genericCProbe">
+    <xsd:complexType>
+      <xsd:choice>
+	<xsd:element name="probeRequest">
+	  <xsd:annotation>
+	    <xsd:documentation>
+	      If the probeRequest element is empty, then the request
+	      is essentially changing the minRepetitions or the
+	      minRepeatInterval parameters for the active request.
+	      </xsd:documentation>
+	  </xsd:annotation>
+	  <xsd:complexType>
+	    <xsd:sequence>
+	      <xsd:element name="probeControl"
+		type="probeCommandType" minOccurs="0"/>
+	    </xsd:sequence>
+	  </xsd:complexType>
+	</xsd:element>
+        <xsd:element name="probeData" maxOccurs="unbounded" 
+          type="probeResponseType"/>
+      </xsd:choice>
+    </xsd:complexType>
+  </xsd:element>
+
+</xsd:schema>
+

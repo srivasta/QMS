@@ -1,0 +1,418 @@
+#!/usr/bin/perl -w
+eval 'exec perl -w -S $0 ${1+"$@"}'
+   if $running_under_some_shell
+     shift if(join("", @ARGV) eq ""); # Xenix Kludge
+
+#                              -*- Mode: Perl -*- 
+# logger_sample.pl --- 
+# Author           : Manoj Srivastava ( srivasta@glaurung.stdc.com ) 
+# Created On       : Wed Nov 15 17:52:03 2000
+# Created On Node  : glaurung.stdc.com
+# Last Modified By : Manoj Srivastava
+# Last Modified On : Thu Nov 16 14:36:51 2000
+# Last Machine Used: glaurung.stdc.com
+# Update Count     : 66
+# Status           : Unknown, Use with caution!
+# HISTORY          : 
+# Description      : 
+# $Id: logger_sample,v 1.3 2001/12/02 03:30:27 srivasta Exp $
+# 
+
+use strict;
+use Carp;
+require 5.001;
+
+use Data::Dumper;
+use QMS::Parse_Qms_Log;
+use QMS::Desi_Remos;
+use Getopt::Long;
+use vars qw($running_under_some_shell);
+
+=head1 NAME
+
+logger_sample - a sample parser for a qms log that creates comma or
+tab seprated columns
+
+=cut
+
+sub main {
+  my %log_item;
+  my $MYNAME = '';
+
+  # Default values  
+  my $event_type = 'bandwidth_request';
+  my $delimiter = "</QMSLOG>";
+  my $Debug = 19;
+
+  # Command line option parsing
+  my %opts = (
+	       "debug"      => \$Debug,
+	       "event_type" => \$event_type,
+	       "delimiter"  => \$delimiter
+	     );
+  my %write_opts;
+
+=head1 SYNOPSIS
+
+B<logger_sample>
+[ B<--help> ]
+[ B<--debug=>I<level> ]
+[ B<--event_type=>I<string> ]
+[ B<--delimiter=>I<string> ]
+[ B<--comma_separated> ]
+[ B<--tab_separated> ]
+I<inputfile>
+
+=cut
+
+  ($MYNAME     = $0) =~ s|.*/||;  
+  my $usage = <<EOUSAGE;
+usage: $MYNAME [options] < input log file > output file
+where the options are:
+ --help               This message.
+ --debug level        Set the debug level to level. Default is 19
+                      (lower levels are more verbose)
+ --event_type string  Set the event type to extract from the log
+                      file. Default is 'bandwidth_request'
+ --delimiter string   Set the delimiter between log items in the log
+                      file. The default is "</QMSLOG>"
+ --comma_separated    Output each log item as a comma separated list
+                      of fields on a single line. Mutually exclusive
+                      to tab_separated. This is the default.
+ --tab_separated      Output each log item as a tab separated list
+                      of fields on a single line. Mutually exclusive
+                      to comma_separated
+EOUSAGE
+  ;
+
+=head1 DESCRIPTION
+
+B<logger_sample> converts its input file containing a log file
+containing a I<XML> formatted B<QMS> log into a comma or tab separated
+columns of data suitable for use in verious spread sheet programs.
+
+=cut
+
+
+
+  my $result = 
+    GetOptions(
+	       \%opts, "debug=i", "event_type=s", "delimiter=s",
+	       "help", "comma_separated", "tab_separated"
+	      );
+  if (exists($opts{help})) {
+    print $usage;
+    exit 0;
+  }
+
+  if (exists($opts{"comma_separated"}) && exists($opts{"tab_separated"})) {
+    print STDERR "$MYNAME Only one of  --comma_separated or\n";
+    print STDERR "  --tab_separated may be specified. \n";
+    exit 1;
+  }
+
+
+=head1 OPTIONS
+
+=over 8
+
+=item help
+
+This option causes the program to emit a short usage message and exit
+immediately after
+
+=item debug
+
+Set the debug level for the program. The default level is 19, with
+lower debug levels being more verbose
+
+=item event_type
+
+Set the event type to extract from the log file. Default is
+'bandwidth_request'
+
+=item delimiter
+
+Set the delimiter between log items in the log file. Default is "</QMSLOG>"
+
+=item comma_separated
+
+Output each log item as a comma separated list of fields on a single
+line. Mutually exclusive to tab_separated. This is the default
+
+=item tab_separated
+
+Output each log item as a tab separated list of fields on a single
+line. Mutually exclusive to comma_separated
+
+=back
+
+=cut
+
+
+  if (exists($opts{"tab_separated"})) {
+    $write_opts{"Separator"} = "\t";
+  }
+  else {
+    $write_opts{"Separator"} = ",";
+  }
+  $write_opts{"Event Type"} = $event_type;
+
+  # Here is where we can pring a header
+  my $banner = "\t\t\tQMS Log Dump\n";
+  $banner .= create_banner(\%write_opts);
+
+  print $banner;
+
+  # Set the handler for the application specific XML content
+  my $handler = QMS::Desi_Remos->new('EventType' => $event_type,
+				     'Debug' => $Debug);
+  # Create the parser
+  my $log     = QMS::Parse_Qms_Log->new('Call Back' => $handler,
+					'Out Put'   => \&print_separated,
+					'Out Args'  => \%write_opts,
+					'Debug'     => $Debug);
+
+  # Slurp one event at a  time
+  $/=$delimiter;
+  $log->parse('Log Item' => \%log_item);
+ 
+}
+
+# This is the banner line created at the top of the output table,
+# giving the various column headings. This contains code specific for
+# each type of event
+sub create_banner{
+  my $options  = shift;
+  my $string;
+  # Generic headers
+  $string = 'SequenceNo';
+  $string .= $options->{'Separator'} . 'LogDate';
+  $string .= $options->{'Separator'} . 'LogTime';
+  $string .= $options->{'Separator'} . 'LoggerID';
+
+  # Handle the QMS_Event Headers
+  $string .= $options->{'Separator'} . 'SequenceNo';
+  $string .= $options->{'Separator'} . 'EventDate';
+  $string .= $options->{'Separator'} . 'EventTime';
+  $string .= $options->{'Separator'} . 'SenderID';
+  $string .= $options->{'Separator'} . 'EventType';
+
+  # Band width request column headers
+   if ($options->{'Event Type'} eq 'bandwidth_request') {
+     $string .= $options->{'Separator'} . 'requestid';
+     $string .= $options->{'Separator'} . 'bandwidth_request linktype';
+     $string .= $options->{'Separator'} . 'repeatcount';
+     $string .= $options->{'Separator'} . 'refreshrate';
+     $string .= $options->{'Separator'} . 'Hostnames';
+   }
+  # Band width data column headers
+  elsif ($options->{'Event Type'} eq 'bandwidth_data') {
+    $string .= $options->{'Separator'} . 'requestid';
+    $string .= $options->{'Separator'} . 'dataid';
+    $string .= $options->{'Separator'} . 'source';
+    $string .= $options->{'Separator'} . 'destination';
+    $string .= $options->{'Separator'} . 'bandwidth_data linktype';
+    $string .= $options->{'Separator'} . 'collectrate';
+    $string .= $options->{'Separator'} . 'maximum';
+    $string .= $options->{'Separator'} . 'available';
+    $string .= $options->{'Separator'} . 'latency';
+  }
+  # Test App data column headers
+  elsif ($options->{'Event Type'} eq 'desi_app_data') {
+    $string .= $options->{'Separator'} . 'dataid';
+    $string .= $options->{'Separator'} . 'data_timestamp';
+    $string .= $options->{'Separator'} . 'sender';
+    $string .= $options->{'Separator'} . 'receiver';
+    $string .= $options->{'Separator'} . 'length';
+    $string .= $options->{'Separator'} . 'frequency';
+    $string .= $options->{'Separator'} . 'total';
+    $string .= $options->{'Separator'} . 'name';
+    $string .= $options->{'Separator'} . 'data_size';
+    $string .= $options->{'Separator'} . 'iterations';
+  }				# Add new event type headers here
+  else {
+    warn "Uknown event type";
+  }
+  $string .= "\n";
+  return $string;
+}
+
+#
+# These methods are used to handle application specific XML conversion
+# to comma or tab separated fields. They are very closely tied to the
+# event type that they are transforming. Most of these methods take as
+# input a reference to a tree like data structure representing the
+# document, and return a formatted string on completion.
+#
+
+# This routine takes an internal representation of the DOM structure
+# of an remos instrumentation bandwidth request and converts it into a
+# string of fields separated by a delimiter. It takes an reference to
+# a tree like data structure representing the document, and the value
+# of the separator contained in the options hash table as inputs, and
+# returns a formatted string on completion.
+sub print_separated_bandwidth_request {
+  my $log_item = shift;
+  my $options  = shift;
+  my $string = '';
+
+  foreach my $data_item (@{$log_item}) {
+    $string .= $options->{'Separator'} . $data_item->{'requestid'};
+    $string .= $options->{'Separator'} . 
+      $data_item->{'bandwidth_request linktype'};
+    $string .= $options->{'Separator'} . $data_item->{'repeatcount'};
+    $string .= $options->{'Separator'} . $data_item->{'refreshrate'};
+    foreach my $host (@{$data_item->{'Hostnames'}}) {
+      $string .= $options->{'Separator'} . $host;
+    }
+  }
+  
+  return $string;
+}
+
+# This routine takes an internal representation of the DOM structure
+# of an remos instrumentation bandwidth data document and converts it
+# into a string of fields separated by a delimiter. It takes an
+# reference to a tree like data structure representing the document,
+# and the value of the separator contained in the options hash table
+# as inputs, and returns a formatted string on completion.
+sub print_separated_bandwidth_data {
+  my $log_item = shift;
+  my $options  = shift;
+  my $string = '';
+  foreach  my $data_item (@{$log_item}) {
+    $string .= $options->{'Separator'} . $data_item->{'requestid'};
+    $string .= $options->{'Separator'} . $data_item->{'dataid'};
+    $string .= $options->{'Separator'} . $data_item->{'source'};
+    $string .= $options->{'Separator'} . $data_item->{'destination'};
+    $string .= $options->{'Separator'} . 
+      $data_item->{'bandwidth_data linktype'};
+    $string .= $options->{'Separator'} . $data_item->{'collectrate'};
+    $string .= $options->{'Separator'} . $data_item->{'maximum'};
+    $string .= $options->{'Separator'} . $data_item->{'available'};
+    $string .= $options->{'Separator'} . $data_item->{'latency'};
+  }
+  return $string;
+}
+
+# This routine takes an internal representation of the DOM structure
+# of an desi test application data document and converts it into a
+# string of fields separated by a delimiter. It takes an reference to
+# a tree like data structure representing the document, and the value
+# of the separator contained in the options hash table as inputs, and
+# returns a formatted string on completion.
+sub print_separated_desi_app_data {
+  my $log_item = shift;
+  my $options  = shift;
+  my $string = '';
+  foreach  my $data_item (@{$log_item}) {
+    $string .= $options->{'Separator'} . $data_item->{'dataid'};
+    $string .= $options->{'Separator'} . $data_item->{'data_timestamp'};
+
+    # Handle the message info
+    $string .= $options->{'Separator'} . 
+      $data_item->{'desi_app_message_info'}{'sender'};
+    $string .= $options->{'Separator'} . 
+      $data_item->{'desi_app_message_info'}{'receiver'};
+    $string .= $options->{'Separator'} . 
+      $data_item->{'desi_app_message_info'}{'length'};
+    $string .= $options->{'Separator'} . 
+      $data_item->{'desi_app_message_info'}{'frequency'};
+    $string .= $options->{'Separator'} . 
+      $data_item->{'desi_app_message_info'}{'total'};
+
+    # Handle the message data
+    $string .= $options->{'Separator'} . 
+      $data_item->{'desi_app_load'}{'name'};
+    $string .= $options->{'Separator'} . 
+      $data_item->{'desi_app_load'}{'data_size'};
+    $string .= $options->{'Separator'} . 
+      $data_item->{'desi_app_load'}{'iterations'};
+  }
+  return $string;
+}
+
+# This routine takes an internal representation of the DOM structure
+# of a QMS event document and converts it into a string of fields
+# separated by a delimiter. It takes an reference to a tree like data
+# structure representing the document, The event type to extract from
+# the document (contained in the options hash table) and the value of
+# the separator contained in the options hash table as inputs, and
+# returns a formatted string on completion.
+sub print_separated {
+  my $log_item = shift;
+  my $options  = shift;
+  my $string = '';
+  
+  #$string = Dumper($log_item);
+
+  # Handle the log item headers
+  $string .= "\n$log_item->{'SequenceNo'}";
+  $string .= $options->{'Separator'} . "$log_item->{'LogDate'}";
+  $string .= $options->{'Separator'} . "$log_item->{'LogTime'}";
+  $string .= $options->{'Separator'} . "$log_item->{'LoggerID'}";
+
+  # Handle the QMS_Event Headers
+  $string .= $options->{'Separator'} . $log_item->{'QMS Event'}{'SequenceNo'};
+  $string .= $options->{'Separator'} . $log_item->{'QMS Event'}{'EventDate'};
+  $string .= $options->{'Separator'} . $log_item->{'QMS Event'}{'EventTime'};
+  $string .= $options->{'Separator'} . $log_item->{'QMS Event'}{'SenderID'};
+  $string .= $options->{'Separator'} . $log_item->{'QMS Event'}{'EventType'};
+
+  if ($options->{'Event Type'} eq 'bandwidth_request') {
+    $string .=
+      print_separated_bandwidth_request($log_item->{'QMS Event'}{'QMS Data'},
+					$options );
+  }
+  elsif ($options->{'Event Type'} eq 'bandwidth_data') {
+    $string .=
+      print_separated_bandwidth_data($log_item->{'QMS Event'}{'QMS Data'},
+				     $options);
+  }
+  elsif ($options->{'Event Type'} eq 'desi_app_data') {
+    $string .=
+      print_separated_desi_app_data($log_item->{'QMS Event'}{'QMS Data'}, 
+				    $options	);
+  }
+  else {
+    warn "Uknown event type";
+  }
+
+
+  $string .= "\n";
+  return $string;
+}
+
+&main();
+
+
+=head1 SEE ALSO
+
+B<QMS::Desi_Remos>, B<QMS::Parse_Qms_Log>
+
+=head1 EXAMPLES
+
+=over 4
+
+=item % logger_sample --help
+
+=item % logger_sample < qms.log > comma_sep.dat
+
+=item % logger_sample --tab < qms.log > tab_sep.dat
+
+=back
+
+=head1 RESTRICTIONS
+
+None at this time.
+
+=head1 BUGS
+
+None known at this time.
+
+=head1 AUTHORS
+
+Manoj Srivastava <manoj.srivastava@stdc.com>
+
+=cut

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding='us-ascii'?>
+<!DOCTYPE XML PUBLIC "-//STDC//QMS Event//EN//XML" "QMS_Event.dtd">
+<QMS_Event>
+  <SequenceNo>0</SequenceNo>
+  <SenderID>ember</SenderID>
+  <DestinationID>RemosHost</DestinationID>
+  <EventDate>9/26/2000</EventDate>
+  <EventTime>20:20:1903pm</EventTime>
+  <EventType>link</EventType>
+  <EventData>
+    <bandwidth_request linktype="link">
+        <requestid>0</requestid>
+        <hostname>skywalker_t.stdc.com</hostname>
+        <hostname>kenobee_t.stdc.com</hostname>
+        <hostname>c3po_t.stdc.com</hostname>
+        <refreshrate>2.450000</refreshrate>
+        <repeatcount>5</repeatcount>
+  </bandwidth_request>
+  </EventData>
+</QMS_Event>

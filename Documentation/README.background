@@ -1,0 +1,503 @@
+/** @page README.background Understanding QMS
+ *
+ *  <PRE>
+ *  Copyright (C) 2001 System/Technology Development Corporation
+ *  This file is part of QoS Metric Services
+ *
+ *  This program is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU General Public License as
+ *  published by the Free Software Foundation; either version 2 of the
+ *  License, or (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ *  02111-1307 USA
+ *
+ *  You may contact System/Technology Development Corporation at
+ *
+ *      System/Technology Development Corporation
+ *      Suite 500, Center for Innovative Technology,
+ *      2214 Rock Hill Road,
+ *      Herndon, VA 20170
+ *      (703) 476-0687
+ *  </PRE>
+
+    Before you use QMS, these sections will provide some valuable
+    background to the mechanisms, structures and terminology that QMS
+    uses. This will also enable you to understand the QMS interactions
+    and the advantages.
+
+    @ref QMSTerminology
+
+    @ref QMSEventChannels
+
+    @ref QMSUniqueName
+
+    @ref QMSMessage
+  
+    @ref QMSSensors
+  
+    @ref QMSProbes
+
+    @ref QMSClients
+
+    @ref QMSTraderOverview
+
+ **//**
+ @page QMSTerminology Terminology in QMS
+
+    QMS defines a generally usable framework where several entities
+    interoperate. Based on the nature of the interaction and the
+    services offered up by the entity or the services desired by the
+    entity, the entity behaves as a citizen, a client, a sensor or a
+    combination of the above. It is important that you be aware of
+    this terminology to ensure that you understand the roles of the
+    entities. 
+
+    - QMS Citizens
+         - An entity that operates in the QMS framework and
+              - Provides a standard CORBA interface for command and control
+              - Publishes capabilities with the QMS Trader
+
+    - QMS Client
+          - An entity that uses the services of QMS
+
+    - Adapter Object (standard OO definition)
+           - A standard C++ object that provides a user-friendly
+             abstraction for complex or non-standard objects
+
+    - QMS Core
+           - Required elements of the QMS framework without which
+             functionality would be seriously compromised
+
+    - QMS Plugins
+           -  Add-on components to the QMS framework that enhance the
+              services and functionality provided
+
+    - QMS Sensors
+           -  QMS citizen that is a data source that deploys probes
+
+    - QMS Probes
+           -  A lightweight instrumentation element visible only to its QMS
+              Sensor
+ 
+ ** @ref README.background **//**
+ @page QMSEventChannels Understanding CORBA Event Channels in QMS
+
+    CORBA Event Channels are used as the primary backbones of the
+    transport mechanism in QMS. Every data stream in QMS is associated
+    with a specific QMSUniqueName/Category that clearly identifies the
+    data to the consumer of the data. Each such data stream consists
+    of messages with three distinct aspects to them.
+
+      - The messages that form the primary focus of interest and are
+	the basis for the creation of the QMSUniqueName. Notionally
+	these messages are labeled as data messages.
+
+      - The messages that form requests to initiate, or modify the
+	flow of the data messages described above. These are usually
+	sent by the clients and can do such things as start/stop/pause
+	the flow of data.  Notionally, these are labeled - request
+	messages.
+
+      - The messages that form announcements that are broadcast to
+	anyone who listens with the contents of the Yellow Pages
+	Offers that the Sensor makes with the QMS Trader. These are
+	intended for those consumers who do not wish to poll the
+	Trader for the existence of the data stream, but are content
+	to listen to broadcasts, which occur whenever a Sensor makes a
+	YP Offer. Notionally, these are labeled - announce messages
+
+    To facilitate flexibility in the deployment of QMS, we associate
+    each of the above message types with a distinct Event Channel. So
+    a QMS administrator, could choose to have all HelloWorldProbe
+    request messages flow on the Event Channel named "QMS_D_REQ1", all
+    HelloWorldProbe data messages flow on "QMS_D_DAT1" and all
+    HelloWorldProbe announce messages flow on "QMS_D_ANN1". This
+    distribution of which messages will flow on which event channel is
+    controlled by the Trader.config file for preseeding QMS Trader or
+    is automatically generated by the QMS_Trader_ECInfo.
+
+    So any default installation of QMS will definitely have one Event
+    Channel in it and more than likely will have many Event Channels
+    depending on how the administrator chooses to distribute the
+    load. In the default distibution, we assume that there will be
+    several event channels.  (QMS_ANN, QMS_DAT, QMS_REQ) to be used
+    for announce, data, request respectively by all
+    citizens. (QMS_D_ANN, QMS_D_DAT, QMS_D_REQ) to be used as the
+    defaults if no specific event channel name is specified. (QMS_FFD,
+    QMS_Channel) to cover historical reasons in older versions of QMS.
+
+ ** @ref README.background **//**
+ @page QMSUniqueName Understanding QMSUniqueName
+
+    In order to ensure that every consumer of data can communicate
+    with every supplier of data and specifically request or send a
+    stream of data, it is imperative that we be able to identify the
+    data stream uniquely. One of the original intents of QMS was to
+    leverage the schemas that exist in the CIM (Common Information
+    Model) standard that is published by the DTMF. CIM promises the
+    ability to uniquely identify any entity in the environment.
+
+    We use QMSUniqueName as a standin for the more formal CIM Schemas.
+    QMSUniqueName is used to uniquely identify a data stream in the
+    QMS operating environment. The structure of QMSUniqueName is
+    defined in the QMS Schema (QMSSchema.xsd) and consists of:
+    
+    <code>
+	 <dl>
+	   <dt><em>Category</em></dt>
+           <dd>A string of the form "HelloWorldProbe" that describes
+	   the data content of the stream. The Sensor providing the
+	   data and the Clients consuming the data have common
+	   knowledge of this string.
+	   </dd>
+	   <dt><em>Host</em></dt>
+	   <dd>The IPv4 address of the host on which the Sensor that
+	   is generating the stream of data is executing.</dd>
+	   <dt><em>Uuid</em></dt>
+	   <dd>A unique id that is generated to distinguish the
+	   instance of the Sensor that is providing the stream of
+	   data</dd>
+	 </dl>
+    </code>
+
+    Consisting of these three entities, the QMSUniqueName enables us
+    to uniquely identify any stream of data that is generated by any
+    Sensor operating in the QMS environment
+
+    If you design a Sensor that will provide data in the QMS
+    environment, you will need to define a QMSUniqueName/Category
+    string for use by your Sensor. This string will be used to
+    construct the QMSUniqueName for your Sensor and will be included
+    in the contents of the YellowPages Offer that your Sensor will
+    make in the QMS Trader. For example, the QMSUniqueName/Category
+    sring for the Hello_World example Sensor is called
+    "HelloWorldProbe".
+
+
+ ** @ref README.background **//**
+ @page QMSMessage Understanding QMS Messages
+
+    Communication between a QMS Sensor and a QMS Client is
+    accomplished through the exchange of XML messages delivered by the
+    CORBA event channels. The XML messages conform to a specific XML
+    Schema that is defined as QMSSchema belonging to the namespace
+    http://www.stdc.com/2001/QMSSchema. This schema is fixed for all
+    QMS entities and is the reference used to construct the XML
+    messages. A well-formed and valid XML message exchanged between
+    QMS entities is called a QMS Message.THe basic structure of the
+    QMS Message looks like:
+
+	 - <QMSMessage>
+	    - <QMSHeader>
+	    - <QMSPayload>
+	 - </QMSMessage>
+
+    <QMSMessage> is the top level element of a QMS Message. It
+    consists of essentially two parts. The first part is the QMS
+    Message Header, which has various elements that enable message
+    delivery and facilitate message filtering. These elements include
+    QMSUniqueName and also encapsulate the notion of a <Session> which
+    allows for the modification of requests. The syntax for the
+    definition of the QMS Message headers is defined in the file
+    QMSSchema.xsd.
+
+    The second and more important aspect of QMS Message is the
+    contents of <payload>. This is the payload that the QMS Sensor
+    carries between the client and the Sensor and vice-versa. The
+    Sensor has no control over the contents of the payload. This
+    conforms to an XML schema that is defined by the probe generating
+    the data stream. In the case of the HelloWorldProbe data stream,
+    this schema is defined in helloWorldProbe.xsd. Note that the
+    payload has its own namespace as defined by the creator of the
+    Probe.
+
+    Having well defined complete schemas for the messages, we ensure
+    that the messages are always well-formed and valid. This allows
+    the code in the Sensor and client to hand over the job of
+    validating the data stream to a validating parser like Xerces.
+
+    The schema for QMS is described in Core/XML/QMSSchema.xsd. It is a
+    rather extensive schema and so do not attempt to examine it in
+    detail right now. You can always come back to it later.  The relevant
+    sections of the schema are included here.
+
+    The namespace defined for QMS  
+    @dontinclude QMSSchema.xsd @skipline xml @until version
+
+    The QMS Message structure 
+    @skipline QMSMessage @until END 
+
+ ** @ref README.background **//**
+ @page QMSSensors Understanding QMS Sensors
+
+    A Sensor is a QMS citizen that will publish data into the QMS
+    environment. Since it is a QMS citizen, it is required to expose
+    some mandatory Corba interfaces, that will enable a QMS
+    administrator to control this Sensor causing it to shutdown, pause
+    etc. This interface is called the Command and Control
+    Interface. The more relevant of these interfaces that the Sensor
+    provides is the ping() interface, the use of which is described in 
+    @ref QMSClients . Since this implies that the QMS Sensor is also a CORBA 
+    object, the Sensor appropriately registers its service in the CORBA
+    Name Service as well as creates the appropriate naming context in the
+    Name Service. The image below illustrates this for a Generic Sensor.
+    
+    <img alt="Naming Context View" src="../images/naming_context_view.png"/> 
+
+    When the Sensor is instantiated, it is configured using an XML
+    configuration file - "SensorConfiguration.xml" that specifies the
+    various parameters that the Sensor needs for its operation. The
+    Sensor reads this file and determines what kind of data streams it
+    is going to publish into the QMS environment. Conceptually, each
+    data stream is generated by a probe. Probes can be built-in probes
+    or external probes. The Hello_World Sensor, for instance has a single
+    built in probe, while the Generic Sensor only supports external
+    probes and can support any number of them. 
+
+    As a rule for Sensors, probes that are built into the Sensor are
+    described in the configuration file directly
+    (SensorConfiguration.xml), while probes that are external to the
+    Sensor are described in an additional capability file -
+    "sensorCapability.xml". Thus, in the case of the Generic Sensor,
+    the Sensor reads two files at instantiation -
+    sensorConfiguration.xml and sensorCapability.xml, which then help
+    it to start/stop the external probes. This distinction is clearly
+    evident in the case of the Remos_Sensor, which is a hybrid Sensor,
+    i.e. - it has a built-in probe and two external probes. The
+    built-in probe is defined in the configuration file, while the two
+    external probes are described in the capability file.
+    
+    Note that with each data stream, i.e. Probe there is a
+    QMSUniqueName/Category that is defined. This string should be
+    selected carefully as it is indicative of the nature of the data
+    being provided by the probe. Once the Sensor determines how many
+    data streams it is publishing (i.e., number of probes), it
+    contacts the QMS Trader to obtain a SupplierID for itself. Every
+    entity that publishes data in QMS is required to have a
+    SupplierID. For each data stream that the Sensor is publishing, it
+    obtains the Event Channel information from the QMS Trader. Then it
+    publishes YellowPages Offers (YP Offers) in the QMS Trader with
+    information about every data stream that it is capable of
+    providing to the world.
+
+    Now the Sensor is ready and waiting to receive requests for its
+    data streams from the world.
+
+    @dontinclude QMSCitizenConfiguration.xml
+    An example Sensor configuration file is described in
+    Documentation/XML/QMSCitizenConfiguration.xml. The first section
+    describes the service offer that the Sensor will provide to the
+    QMS Trader. @skipline xml @until /Instance
+    
+    The next section in the configuration demonstrates that the
+    Sensor described by this file has a built in probe which will
+    provide a data stream with the QMSUniqueName/Category -
+    "QMSLogger". All built in probes provided by a Sensor will
+    be described in the Sensor's configuration file.  
+    @until END
+
+    Similarly, a sample configuration file for a Sensor with external
+    probes is included in
+    Documentation/XML/GenericSensorConfiguration.xml. Note that in
+    this case, there are no specific probes described in this
+    file. There is only a pointer to a capability file that contains
+    all the probes that this Sensor provides.  
+    @include GenericSensorConfiguration.xml
+    
+    A sample Sensor capability file is described in
+    Documentation/XML/SensorCapability.xml. As described above, any
+    external probes that the Sensor can deploy are described in the
+    Sensor's capability file. If the Sensor does not deploy any
+    external probes then the Capability file is not
+    necessary. However, the capability file may not be used to
+    describe probes that are built into the Sensor. Built in probes
+    are only described in the sensorConfiguration file. In the example,
+    you see that the Sensor provides the ability to deploy an
+    executable at "/usr/local/qms/bin/remosProbe" which will provide a
+    data stream with the QMSUniqueName/Category -
+    "Remos_Bandwidth_Probe". Note that the capability file can have
+    any number of external probes defined in it.
+    @dontinclude SensorCapability.xml  
+    @line xml @until /Probe @skip /sensorCapability @until END
+
+ ** @ref README.background **//**
+ @page QMSProbes Understanding QMS Probes
+
+    Probes are the lowest level entity in the QMS infrastructure. If
+    there is a data stream that is being generated, then there is a
+    probe. Conceptually, a probe is the portion of the entity that is
+    generating the data stream. Ofcourse, the probe could be a
+    separate entity that allows itself to be controlled by the Sensor
+    (this is how the Generic Sensor interacts with its probes) or it
+    could be a probe that is built into the Sensor and has no
+    existence of its own (the HelloWorld Probe).
+
+    When you've identified a unique data stream you have a case for a
+    probe. The first step is to define a format for the data that the
+    probe generates. It is important for this format to be something
+    that the clients receiving the data understand as well, so as to
+    be able to make sense of the data they are receiving. So this is
+    accomplished by defining an XML Schema for the probe -
+    "ProbeSchema.xsd" that clearly defines the format in which the
+    probe publishes its data.
+
+    Now we would like to have the probe also support some additional
+    features such as stopping the data stream, starting the data
+    stream etc. These would be instructions sent to the probe in a
+    request from the client. To make sure that the client understands
+    the instructions, these are also described in the
+    "ProbeSchema.xsd". This ensures that the clients also know what
+    instructions are supported by the Probe and how to activate them.
+
+    A sample Probe schema file is described in
+    Documentation/XML/ProbeSchema.xml. As described above, this schema
+    shows that the Probe has defined its own distinct namespace,
+    supports requests that instruct it to do something
+    (start,pause,resume,stop) and sends responses that have a dataid
+    and a response string in it.
+    @include ProbeSchema.xsd
+
+    If the probe is built into a Sensor, then this is all you need to
+    understand and define. However, if the probe is to be an external
+    probe that would be deployed by a Sensor such as the Generic
+    Sensor, then the interactions between the Sensor and this probe
+    need to be clearly specified. This process is accomplished through
+    the use of XML transformation using XSLT. Each external probe
+    needs to define a Probe.xsl file that is an XML stylesheet
+    file. Note that the Sensor Capability file specifies this
+    information for each probe. 
+    @dontinclude SensorCapability.xml
+    @skipline Invoke @until /Invoke
+
+    Note that in the capability file the external executable file that
+    is the probe is identified, the XSL file to use is identified and
+    several parameters that are needed by the probe during execution
+    are also identified. More detail regarding how the Sensor uses
+    this information can be found in @ref UnderstandingXSL in
+    @ref README.misc.  A sample XSL file for a simple QMS Probe is
+    described in Documentation/XML/ProbeSample.xsl.  
+
+ ** @ref README.background **//**
+ @page QMSTraderOverview Understanding QMS Trader
+
+    The QMS Trader is a collection of components that
+    perform an important function in the QMS infrastructure. The QMS
+    Trader provides the all knowing directory service that is essential
+    for the QMS environment to be operational. At the present time, the
+    QMS Trader consists of two components
+
+     - @ref QMS_Trader_ECInfo 
+     - The TAO CORBA Trading Service
+
+    Both these components operating in synchrony provide the functionality
+    of the QMS Trader. The description below describes the overall QMS 
+    Trader functionality and does not distinguish between the individual
+    components.
+
+    The QMS Trader gives each publisher in the QMS environment a SupplierID. 
+    All QMS citizens that publish data in the QMS environment contact the
+    QMS Trader to obtain a SupplierID. Note that there are two
+    basic kinds of QMS clients. There are the clients that subscribe
+    to a stream of data and just consume it - <em>passive
+    clients</em>. There are also clients that actively send out
+    requests for data that conform to the request message
+    specification that the probe defines in the ProbeSchema.xsd. These
+    clients that publish requests are - <em>active
+    clients</em>. Active clients are also required to obtain
+    SupplierID's from the QMS Trader.
+
+    The QMS Trader also provides information to the QMS
+    citizens that is related to the data stream that they are
+    providing. For every QMSUniqueName/Category in the QMS
+    environment, the QMS Trader maintains a record of the Event
+    Channels and the corresponding Event Types. For example, for the
+    Hello_World Sensor that publishes a datastream for the
+    QMSUniqueName/Category "HelloWorldProbe", the QMS Trader 
+    could have the following information.
+      
+      - Sensors that publish HelloWorldProbe data publish it on
+	the following Event Channels - QMS_D_DAT1 and QMS_D_DAT2
+	with the event_type 10001.
+      - Sensors that publish HelloWorldProbe data receive requests
+	for their data on the following Event Channels - QMS_D_REQ1,
+	QMS_D_REQ2 and QMS_D_REQ3 with the event_type 120005.
+      - Sensors that publish HelloWorldProbe data make
+	announcements regarding their YellowPages Offers on the
+	following Event Channel - QMS_D_ANN1 with event_type
+	25000.
+      
+    The scalability advantages of providing the multiple event
+    channels for use by the provider of the HelloWorldProbe data are
+    immediately obvious.
+    
+    A Sensor that is activated in the QMS environment, goes about
+    its business, by first obtaining a SupplierID, obtaining all the
+    Event Channel information from the QMS Trader and then
+    registering a YellowPages Offer with the Trading Service under the
+    ServiceType "STDC_QMS_CITIZEN_YPOFFER" along with all the details
+    regarding the data stream. These are the offers that the QMS
+    Clients will query to figure out who to talk to and how when using
+    QMS. 
+
+    A view of a sample offer registered in the QMS Trader by a Generic
+    Sensor is illustrated in the image below.
+    
+    <img alt="QMS Trader Offer View" src="../images/trader_offer_view.png"/> 
+
+
+ ** @ref README.background **//**
+ @page QMSClients Understanding QMS Clients
+
+    A QMS Client is an entity that operates in the QMS framework and
+    uses the services provided by QMS. There are two basic kinds of
+    clients.
+    
+    - Passive Clients: These clients subscribe to one or more data
+      streams in the QMS framework. The starting, stopping or
+      modification of those data streams is controlled by some other entity.
+    - Active Clients: These clients subscribe to one or more
+      data streams in the QMS framework and actively send out requests
+      to the data stream providers that start, stop or perform other
+      control actions as supported by the data stream probe's schema.
+
+    In its most basic form, a QMS client undertakes the following
+    actions in order to obtain the services it needs. It identifies a
+    specific QMSUniqueName for the data stream that it is interested
+    in. This can be done through mutual understanding between the data
+    provider and the client developer or by browsing the active offers
+    in the QMS Trader. 
+
+    The Client then queries the QMSTrader for all offers that provide
+    the specific data stream (QMSUniqueName) that it is interested
+    in. It may receive multiple offers because there may be multiple
+    Sensors providing data streams for that specific
+    QMSUniqueName. The client can then choose to further narrow the
+    list of offers by using other criteria that are present in the
+    offer. Additionally, the client can also ping the Sensor on its
+    Command and Control interface, to determine if the Sensor that
+    created the offer is actually available. Once an offer is
+    selected, the client reads the offer to determine what parameters
+    it needs to set and then it connects to the Event Channel as a
+    consumer to start consuming the appropriate data.
+
+    If the client is an Active Client, then the behavior is slightly
+    different. Since the client will be sending out requests for data,
+    it first obtains a SupplierID from the QMS Trader. This will
+    enable it to publish requests in QMS.  After finding the offer
+    that it is interested in, the client then makes the appropriate
+    connection to the Event Channel and sends out its request.
+
+    Now as the data provider starts publishing the data, the Client
+    will receive all the messages that it is subscribed to. Active
+    clients can also send out requests which start/stop the data flow
+    as well as change the interval of their delivery.
+
+** @ref README.background **/

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- *****************************************************************
+ *** Copyright (c) 2001, System/Technology Development Corporation .
+ ***                
+ *** Filename:      QMSMessage_commandProbe.xml
+ *** Version:       1.0
+ *** Description:   Sample QMS Message with Command Probe payload
+ ***                
+ *** Author:        Amarendranath Vadlamudi <amar.vadlamudi@stdc.com>
+ *** Created at:    Fri Nov 30 18:35:47 2001
+ *** Modified by:   Amarendranath Vadlamudi <nath@vedam>
+ *** Modified at:   Fri Dec 14 03:39:52 2001
+ *** Status:        Experimental, do not distribute.
+ *** Update count:  7
+ ***************************************************************** -->
+
+  <!-- This is a sample XML file that is useful to test any parser
+  that uses the schema defined for QMS Message
+  (QMSSchema.xsd). Specifically, this message also contains a valid
+  payload message specific to the Command Probe that is conformant to
+  its schema (commandProbe.xsd).  -->
+
+<qms:QMSMessage xmlns="http://www.stdc.com/2001/QMSSchema"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:qms="http://www.stdc.com/2001/QMSSchema"
+  xsi:schemaLocation="http://www.stdc.com/2001/QMSSchema QMSSchema.xsd">
+  <qms:msgSequenceNo>1000</qms:msgSequenceNo>
+  <qms:msgDate>2001-11-30</qms:msgDate>
+  <qms:msgTime>23:32:57-0:00</qms:msgTime>
+  <qms:originatingHost>10.0.0.2</qms:originatingHost>
+  <qms:msgSender>
+    <id>20004</id>
+    <description>Test client for a QMS Command Probe</description>
+  </qms:msgSender>
+  <qms:QMSUniqueName>
+    <category>QMS_Command_Probe</category>
+  </qms:QMSUniqueName>
+  <qms:Session>
+    <requestID>1</requestID>
+    <version>0</version>
+    <minRepetitions>
+     <count>1</count>
+    </minRepetitions>
+    <minRepeatInterval>PT1.000000S</minRepeatInterval>
+  </qms:Session>
+  <qms:payload>
+    <commandProbe 
+      xmlns="http://www.stdc.com/2001/QMS/Probes/Continuous/CommandProbe"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation=
+      "http://www.stdc.com/2001/QMS/Probes/Continuous/CommandProbe 
+      commandProbe.xsd">
+      
+      <!-- The Command Probe accepts a request to start and stop it. If
+      the contents of probeRequest are empty, the request is a modify
+      request. Sinceh -->
+      
+      <probeRequest>
+	<probeCommand>
+	  <arg0>/bin/ls</arg0>
+	  <arg>-l</arg>
+	  <arg>/usr</arg>
+      </probeCommand>
+      </probeRequest>
+    </commandProbe>           
+  </qms:payload>
+</qms:QMSMessage>

@@ -1,0 +1,4 @@
+.obj .shobj QMS_Api.h.html QMS_Consumer.h.html QMS_Supplier.h.html QMS_Remos_Msg.h.html Remos_Datastructs.h.html 
+html rtf man latex
+html/ rtf/ man/ latex/
+QMS.tag

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- *****************************************************************
+ *** Copyright (c) 2001, System/Technology Development Corporation .
+ ***                
+ *** Filename:      QMSMessage_ffdProbe.xml
+ *** Version:       1.0
+ *** Description:   Sample QMS Message with FFD Continuous Probe payload
+ ***                
+ *** Author:        Amarendranath Vadlamudi <amar.vadlamudi@stdc.com>
+ *** Created at:    Fri Nov 30 18:35:47 2001
+ *** Modified by:   Amarendranath Vadlamudi <nath@vedam>
+ *** Modified at:   Mon Dec 10 16:22:03 2001
+ *** Status:        Experimental, do not distribute.
+ *** Update count:  6
+ ***************************************************************** -->
+
+  <!-- This is a sample XML file that is useful to test any parser
+  that uses the schema defined for QMS Messages
+  (QMSSchema.xsd). Specifically, this message also contains a valid
+  payload message specific to the FFD Continuous Probe that is
+  conformant to its schema (ffdProbe.xsd).  -->
+
+<qms:QMSMessage xmlns="http://www.stdc.com/2001/QMSSchema"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:qms="http://www.stdc.com/2001/QMSSchema"
+  xsi:schemaLocation="http://www.stdc.com/2001/QMSSchema QMSSchema.xsd">
+  <qms:msgSequenceNo>1000</qms:msgSequenceNo>
+  <qms:msgDate>2001-11-30</qms:msgDate>
+  <qms:msgTime>23:32:57-0:00</qms:msgTime>
+  <qms:originatingHost>10.0.0.2</qms:originatingHost>
+  <qms:msgSender>
+    <id>20004</id>
+    <description>Test client for a QMS Probe</description>
+  </qms:msgSender>
+  <qms:QMSUniqueName>
+    <category>QMS_FFD</category>
+  </qms:QMSUniqueName>
+  <qms:Session>
+    <requestID>1</requestID>
+    <version>3</version>
+    <minRepetitions>
+     <count>200</count>
+    </minRepetitions>
+    <minRepeatInterval>PT1.000000S</minRepeatInterval>
+  </qms:Session>
+  <qms:payload>
+    <ffdProbe xmlns="http://www.stdc.com/2001/QMS/Probes/Continuous/FFDProbe"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.stdc.com/2001/QMS/Probes/Continuous/FFDProbe 
+      ffdProbe.xsd">
+      <probeControl>
+	<action>start</action>
+      </probeControl>
+    </ffdProbe>
+  </qms:payload>
+</qms:QMSMessage>

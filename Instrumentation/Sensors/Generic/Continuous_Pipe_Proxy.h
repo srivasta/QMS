@@ -1,0 +1,125 @@
+/*                               -*- Mode: C++ -*- 
+ * Continuous_Pipe_Proxy.h --- 
+ * Author           : Manoj Srivastava ( srivasta@glaurung.stdc.com ) 
+ * Created On       : Wed May  9 13:09:30 2001
+ * Created On Node  : glaurung.stdc.com
+ * Last Modified By : Manoj Srivastava
+ * Last Modified On : Wed Jan  9 15:15:15 2002
+ * Last Machine Used: glaurung.green-gryphon.com
+ * Update Count     : 20
+ * Status           : Unknown, Use with caution!
+ * HISTORY          : 
+ * Description      : 
+ * $Id: Continuous_Pipe_Proxy.h,v 1.11 2002/01/11 19:09:56 srivasta Exp $
+ */
+
+/*
+ * Copyright (C) 2001 System/Technology Development Corporation
+ * This file is part of QoS Metrics Services (QMS)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ * 02111-1307 USA
+ *
+ * You may contact System/Technology Development Corporation at
+ *
+ *     System/Technology Development Corporation
+ *     Suite 500, Center for Innovative Technology,
+ *     2214 Rock Hill Road,
+ *     Herndon, VA 20170    
+ *     (703) 476-0687
+ */
+
+
+/**
+ * @file 
+ * @ingroup GenericSensor
+ * @brief A concrete abstraction object for sophisticated probes using pipes
+ *
+ */
+
+#ifndef _CONTINUOUS_PIPE_PROXY_H_
+#define _CONTINUOUS_PIPE_PROXY_H_
+
+#include "Pipe_Proxy.h"
+
+/// Windows needs this to export the member functions.
+#if defined (_WIN32) /* Only Win32 needs special treatment. */
+#   define Dllexport  __declspec( dllexport )
+#else
+#   define Dllexport
+#endif
+
+namespace STDC
+{
+  namespace QMS
+  {
+    namespace Citizen
+    {
+	
+      /**
+       * @ingroup GenericSensor
+       * @brief A concrete abstraction object for probes using simple pipes
+       *
+       * This is a concrete class derived from the virtual class for
+       * interacting with probes using simple pipes. The distinguishing
+       * characteristic of the probes handled by this class is that they are
+       * complex; and implement their own session management. They can be
+       * started, paused, and resumed, and, finally, killed. They can, then,
+       * handle periodicity requirements on their own. These status change
+       * commands are communicated from the Sensor to the probe through the
+       * probes STDIN.
+       */
+      class Continuous_Pipe_Proxy : 
+	public virtual STDC::QMS::Citizen::Pipe_Proxy
+      {
+      public:
+	/// The default constructor for the class Continuous_Pipe_Proxy
+	Continuous_Pipe_Proxy(const char *file_name_p,
+			      char *const argv[],
+			      Meta_Data & parent,
+			      string & key
+			      );
+	  
+        /// A pure virtual start method
+        Dllexport virtual int start(void);
+        /// A pure virtual Pause method
+        Dllexport virtual int pause(void);
+        /// A pure virtual Resume method
+        Dllexport virtual int resume(void);
+        /// A pure virtual Kill method
+        Dllexport virtual int kill(void);
+	/// A virtual method to deploy the probe
+	Dllexport virtual int deploy(void);
+	/// A pure virtual method to destroy this object
+	virtual void destroy (void);
+	/// A pure virtual send_command method
+	Dllexport virtual int send_command(const string command);
+	  
+	/// the destructor
+	virtual ~Continuous_Pipe_Proxy(){
+#       ifndef SILENT_MODE
+	  std::cerr << "\tProbe Finished" << std::endl;
+#       endif
+	};
+	  
+      protected:
+      };	// end of class Continuous_Pipe_Proxy
+    };
+  };
+};
+
+
+
+#endif /* _CONTINUOUS_PIPE_PROXY_H_ */

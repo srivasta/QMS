@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+
+<project name="QMS_Clients" default="all" basedir="../..">
+
+  <!-- ==================================================== -->
+  <!--            Utilities build file                      -->
+  <!-- ==================================================== -->
+
+
+   <target name="init">
+       <property file="${basedir}/Config/site.properties" />
+       <property name="tao.base" value="${ace.base}/ACE_wrappers/TAO"/>
+       <property name="jacorb.lib" value="${jacorb.base}/lib"/>
+       <property name="dirs.base" value="${basedir}"/>
+       <property name="dirs.build" value="${dirs.base}/build"/>
+       <property name="classdir" value="${dirs.build}/classes"/>
+       <property name="src.generated" value="${dirs.build}/generated"/>
+       <property name="jardir" value="${dirs.build}/jars"/>
+       <property name="jarlib" value="${dirs.base}/libjars"/>
+       <property name="projectdir" value="${dirs.base}/Instrumentation/Clients"/>
+       <property name="classpath" 
+                 value="${java.class.path}:${classdir}:${jacorb.lib}/jacorb.jar:${jarlib}/xerces.jar"
+       />
+       <mkdir dir="${dirs.build}"/>
+       <mkdir dir="${src.generated}"/>
+       <mkdir dir="${classdir}"/>
+       <mkdir dir="${jardir}"/>
+   </target> 
+
+   <!-- all -->
+
+   <target name="all" depends="init,clients" />
+
+   <target name="clients">
+        <javac srcdir="${projectdir}"
+               destdir="${classdir}"
+               classpath="${classpath}"
+               debug="on"
+               />
+   </target>
+
+  <!-- Clean up  -->
+  <target name="clean" depends="init">
+    <delete dir="${classdir}/com/stdc/Instrumentation/Clients"/>
+  </target>
+
+  <!-- Really Clean up  -->
+  <target name="realclean" depends="clean"/>
+
+</project>

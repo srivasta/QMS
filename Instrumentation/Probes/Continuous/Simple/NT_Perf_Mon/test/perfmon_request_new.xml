@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- *****************************************************************
+ *** Copyright (c) 2001, System/Technology Development Corporation .
+ ***                
+ *** Filename:      perfmon_request_new.xml
+ *** Version:       1.0
+ *** Description:   Sample XML File - New request to NT_Perf_Mon_Probe
+ ***                
+ *** Author:        Amarendranath Vadlamudi <amar.vadlamudi@stdc.com>
+ *** Created at:    Fri Dec  7 13:20:14 2001
+ *** Modified by:   Amarendranath Vadlamudi <nath@vedam>
+ *** Modified at:   Fri Dec  7 13:31:45 2001
+ *** Status:        Experimental, do not distribute.
+ *** Update count:  3
+ ***************************************************************** -->
+
+<!-- This is a sample XML file that is useful to test any parser that -->
+<!-- uses the perfmonProbes.xsd schema defined for the NT Performance -->
+<!-- Monitor Probe -->
+
+
+ <perfmonProbe xmlns="http://www.stdc.com/2001/QMS/Probes/perfmonProbes"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://www.stdc.com/2001/QMS/Probes/perfmonProbes
+   perfmonProbes.xsd">
+  
+  <!-- The NT_Perf_Mon Continuous Probe accepts a request to start,
+  pause, resume and stop it. If the contents of perfmonRequest is
+  empty, the request is a modify request -->
+
+  <perfmonRequest>
+    <probeControl>
+      <action>start</action>
+    </probeControl>
+  </perfmonRequest>
+  
+  </perfmonProbe>           

@@ -1,0 +1,81 @@
+//                              -*- Mode: Idl -*- 
+// Control.idl --- 
+// Author           : Manoj Srivastava ( srivasta@glaurung.stdc.com ) 
+// Created On       : Sun Feb  4 19:15:02 2001
+// Created On Node  : glaurung.stdc.com
+// Last Modified By : Manoj Srivastava
+// Last Modified On : Sat Oct 20 04:51:18 2001
+// Last Machine Used: glaurung.stdc.com
+// Update Count     : 18
+// Status           : Unknown, Use with caution!
+// HISTORY          : 
+// Description      : 
+// 
+// 
+
+#ifndef CONTROL_IDL
+#define CONTROL_IDL
+
+/** @file Control.idl
+ *  @ingroup COMMAND
+ *  @brief The set of interfaces a QMS citizen must support
+ *
+ *  These interfaces are mandatory for conforming QMS citizens. They
+ *  are designed to allow a high level of control over the whole QMS
+ *  facility, as well as providing an entry point for the control of
+ *  individual citizens. 
+ *
+ */
+module STDC 
+{
+  module QMS
+  {
+
+    /// Exceptions raised by operations on the QMS scope
+    exception QMS_Error {
+      /// Cause of the exception 
+      short cause ;
+      /// Human readable error reason
+      string  msg;
+    };
+    
+    module Citizen 
+    {
+      ///  Exceptions raised by operations on this citizen
+      exception QMS_Citizen_Error {
+	/// Exceptions raised by operations on the QMS scope
+	short cause ;
+	/// Human readable error reason
+	string  msg;
+      };
+  
+      /// Generic user errors
+      exception USERERROR { 
+	/// Reason for the exception
+	any reason;
+      };
+  
+      /// This is the interface used to provide control of the QMS
+      /// facility 
+      interface Control
+      {
+	/// This member function pauses all the the components of a QMS facility
+	void pause(in string reason, in string credentials, 
+		   out short ack) raises (QMS_Error);
+	
+	/// This member function resumes the components of a paused QMS facility
+	void resume(in string reason, in string credentials, 
+		    out short ack) raises (QMS_Error);
+
+	/// This member function brings all the the components of a QMS
+	/// facility to a stop
+	void stop(in string reason, in string credentials, 
+		  out short ack) raises (QMS_Error);
+      };
+    };
+  };
+};
+
+
+
+#endif // CONTROL_IDL

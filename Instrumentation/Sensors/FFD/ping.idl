@@ -1,0 +1,12 @@
+
+#pragma prefix "stdc.com"
+
+module XYZ {
+
+	interface STDC
+	{
+		short ping ();
+
+	};
+		
+};

@@ -1,0 +1,269 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!--                             -*- Mode: Sgml -*- 
+;; design.html - 
+;; Author           : Manoj Srivastava ( srivasta@glaurung.stdc.com ) 
+;; Created On       : Sun Oct  8 22:16:21 2000
+;; Created On Node  : glaurung.stdc.com
+;; Last Modified By : Manoj Srivastava
+;; Last Modified On : Mon Oct 30 23:14:58 2000
+;; Last Machine Used: glaurung.stdc.com
+;; Update Count     : 64
+;; Status           : Unknown, Use with caution!
+;; HISTORY          : 
+;; Description      : 
+;; 
+ -->
+<html>
+  <head>
+    <title>Design Document: QMS support for Desi Remos interaction</title>
+    <meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+    <meta http-equiv="keywords" content="Desi">
+    <meta http-equiv="keywords" content="Manoj">
+    <meta http-equiv="keywords" content="Srivastava">
+    <meta http-equiv="keywords" content="Remos">
+    <meta name="keywords" content="diary">
+    <link href="mailto:srivasta@datasync.com" rev="made">
+    <link href="../stylesheets/index.css" type="text/css" rel="stylesheet"> 
+  </head>
+  <body>
+
+    <div class="toc">
+      <ol>
+	<li><a href="design.html#intro">Flow sequence</a></li>
+	<li><a href="design.html#remos">Remos specific add ons</a></li>
+	<li><a href="design.html#refs">Data structs and Class Heirarchy</a></li>
+      </ol>
+    </div>
+    <hr>
+
+    <h1 name="intro" align="center">Design Document: QMS support for Desi Remos
+      interaction</h1> 
+    <p align="center">Desi Remos interaction diagram<br>
+      <a href="desi-remos.png"> 
+	<img src="desi-remos.png" alt="Desi Remos interaction diagram" 
+	     width="200"></a>
+    </p>
+    <hr>
+    <p>
+      A flow sequence of the scenario is sketched out below. It should
+      be noted that QMS presents a uniform (symmetrical) API to either
+      side of the transaction. 
+    </p>
+    <ol type="a">
+      <li>
+	The client code (Desi or the Remos instrumentation)
+	instantiates a <a href="QMS_Api.h.html">QMS_Api</a>
+	Object. This also instantiates member 
+	<a href="QMS_Supplier.h.html">supplier</a> and
+	<a href="QMS_Consumer.h.html">consumer</a>
+	objects. No connections to the event channel are established
+	yet. 
+      </li>
+      <li>
+	The client code then initializes the new QMS_Api object,
+	feeding it the command line options, an ID number that
+	identifies the type of entity that we are (a Desi entity that
+	generates queries and consumes Remos data, or Remos
+	instrumentation that consumes queries and creates data events.
+	This causes the library to initialize and bind to the ORB,
+	POA, the event channel, and the scheduler; though no
+	connections to the event channel are established yet. The
+	following tasks are accomplished:
+	<ol type="1" compact="compact">
+	  <li> ORB initialization. </li>
+	  <li>Getting a handle for the Portable Object Adapter</li>
+	  <li>Getting a handle for the POA manager, used later to
+	    activate the servant for the consumer object</li>
+	  <li>Obtain a reference to the naming service. This is the
+	    first connection made outside the process</li>
+	  <li>Obtain a handle for the real time scheduler, used later
+	    by the consumer object</li>
+	  <li>Obtain a handle for the event channel</li>
+	  <li>All these handles are stashed, and passed along to the
+	    consumer and supplier objects to be stashed there for later
+	    use. </li>
+	</ol>. 
+      </li>
+      <li>
+	Next, the client code registers a call back with this newly
+	created object, providing a function that should be called
+	when the data arrives. On the Desi side, this call back
+	function needs to handle the data that shall be returned by
+	the Remos instrumentation, and the Remos instrumentation probe
+	needs to provide a function that can handle queries sent to
+	it. No connections to the event channel are established.
+	<ol type="1" compact="compact">
+	  <li>
+	    This call back function is passed to the consumer object
+	    to be used later while establishing a connection with the
+	    event channel
+	  </li>
+	</ol>
+      </li>
+      <li>
+	Then the client code calls a routine to connect the supplier
+	to the event channel. This is used on the Desi side to
+	establish the connection that shall send queries, and on the
+	Remos instrumentation side to send back the data gathered by
+	Remos. There are a number of steps the supplier object takes
+	at this point:
+	<ol type="1" compact="compact">
+	  <li>
+	    Set the scheduler information, including criticality and
+	    importance of the events that shall be generated
+	  </li>
+	  <li>
+	    Set up the QoS information for the supplier, including the
+	    supplier ID, the type of events that shall be generated,
+	    and the scheduler information from the previous step.
+	  </li>
+	  <li>
+	    Get a supplier admin object from the event channel
+	  </li>
+	  <li>
+	    Use this supplier admin to get a consumer proxy from the
+	    event channel
+	  </li>
+	  <li>
+	    Connect out push supplier object to this consumer proxy
+	  </li>
+	</ol>
+      </li>
+      <li>
+	The next step is to connect the consumer object to the event
+	channel. This requires that a call back method already be
+	registered, since the consumer needs to be able to handle the
+	events coming in from the event channel.  There are a number
+	of steps the Consumer object takes 
+	at this point:
+	<ol type="1" compact="compact">
+	  <li>
+	    Set the scheduler information, including criticality and
+	    importance of the events that shall shall be recieved
+	  </li>
+	  <li>
+	    Set up the QoS information for the consumer, including the
+	    supplier ID, the type of events that shall be accepted,
+	    and the scheduler information from the previous step. At
+	    thsi point we add in all the event types we are interested
+	    in listening to. 
+	  </li>
+	  <li>
+	    Get a consumer admin object from the event channel
+	  </li>
+	  <li>
+	    Use this consumer admin to get a supplier proxy from the
+	    event channel
+	  </li>
+	</ol>
+      </li>
+      <li>
+	This is where the behaviors of the Desi client and the Remos
+	instrumentation client diverge. The Desi client fires up a
+	thread that does the main task, and generates the queries and
+	subsequently dispatches them to the Remos instrumentation
+      </li>
+      <li>
+	The client applications then enter into an loop listening for
+	CORBA events. This is where the final task of connecting the
+	Consumer object to the event channel is done. 
+      <li>
+	Now we are in business. The Desi code can now call thesend
+	method, and use the consumer proxy's push method to
+	send the data off.
+      </li>
+      <li>
+	The Remos instrumentation module then waits for an query event
+	on the event channel. When it recieves an event, it Constructs
+	the Remos query, and sends it to Remos. When data are
+	available from Remos, the instrumentation module pushes the
+	data out to the event channel
+      </li>
+      <li>
+	The push consumer interface of the Desi-QMS entity recieves
+	this data, and feeds it to the call back function that was
+	registered with QMS. No manipulation of the data is done; any
+	book keeping required would be the responsibility of the Desi
+	client code.
+      </li>
+    </ol>
+    <blockquote>
+      <p>
+	Please note that there is not necesarily a one to one
+	relationship between the query event and the data events; a
+	singel query may ask for a series of data events (perhaps
+	recurring series of data events)
+      </p>      
+    </blockquote>
+    <p>
+      Thankfully, since the network broker is not a C app, we shall
+      not have to bother with <a href="c-bindings.html">C bindings</a>.
+    </p>
+
+    <h2 name="remos">Desi Remos specific Add ons for QMS</h2>
+    
+    <p>
+      Most of the abive discussion actually utilizes a data agnostic,
+      generic API, even though we used the Desi and Remos clients as
+      examples (any QMS client shall go through similar steps).
+    </p>
+    
+    <p>
+      However, an add on utility class, 
+      <a href="QMS_Remos_Msg.h.html">QMS_Remos_Msg</a>, is provided to
+      help with the conversions back and forth between XML and the
+      <a href="Remos_Datastructs.h.html">data structures</a> used in
+      the client code to encapsulate a Remos 
+      Query and response. The way this works is:
+    </p>
+    <ul>
+      <li>One creates a new QMS_Remos_Msg object</li>
+      <li>One can then insert into it either
+	<ol>
+	  <li>A Remos Query struct</li>
+	  <li>A Remos result struct</li>
+	  <li>Well formed XML</li>
+	</ol>
+      </li>
+      <li>
+	Subsequently, one can extract from the  message
+	<ol>
+	  <li>XML encoding of whatever was stuffed into the object</li>
+	  <li>Recreate the  Query struct (if that is what was inserted
+	    into the message object)</li>
+	  <li>Recreate the result struct ((if that is what was inserted
+	    into the message object)</li>
+	</ol>
+      </li>
+    </ul>
+    
+    <h3 name="refs">Data structs and Class Heirarchy</h3>
+    <p>
+      Most of this is implemented as these classes:
+    </p>
+    <ol>
+      <li>An <a href="QMS_Api.h.html">object</a> encapsulating the
+	interface with the client code</li>
+      <li>An <a href="QMS_Consumer.h.html">object</a> implementing a
+	push consumer interface with the event channel, and</li>
+      <li>An <a href="QMS_Supplier.h.html">object</a> implementing a
+	push supplier interface for the event channel.</li>
+      <li>
+	A <a href="QMS_Remos_Msg.h.html">object</a> that provides XML
+	conversions to and from the data structs used by the client
+	code</li>
+    </ol>
+    The file <a href="Remos_Datastructs.h.html">Remos_Datastructs.h</a> 
+    contains the struct definitions used in this application.
+    </p>
+
+    <hr>
+    <script type="text/javascript" language="JavaScript">
+      <!--
+      document.write("<p align=\"center\"><font size=\"-2\">Last Updated:");
+      document.writeln(document.lastModified);
+      document.writeln("</font></p>");
+      // -->
+    </script>
+  </body>
+</html>

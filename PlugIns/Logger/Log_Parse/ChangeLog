@@ -1,0 +1,5 @@
+2000-11-30  Manoj Srivastava  <srivasta@debian.org>
+
+	* QMS_Log_Parse/README: Note that make test requires a POSIX
+		  system. Provide a manual test. 
+

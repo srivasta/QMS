@@ -1,0 +1,14 @@
+2001-08-06  Manoj Srivastava  <srivasta@debian.org>
+
+	* QMS.doxygen (STRIP_CODE_COMMENTS): 1.13 set to YES
+
+2000-11-29  Manoj Srivastava  <manoj.srivastava@stdc.com>
+
+	* qms.mk (CFLAGS): Added debug and debug mask command line options
+
+2000-11-01  Manoj Srivastava  <manoj.srivastava@stdc.com>
+
+	* Makefile (DIRS): 1.1 added the utils directory
+
+	* .cvsignore: Added. Propogate this down all sub directories
+

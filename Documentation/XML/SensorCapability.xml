@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--******************************************************************
+ * Copyright (c) 2001, System/Technology Development Corporation
+ *                
+ * Filename:      SensorCapability.xml
+ * Version:       
+ * Description:   Sample Capability file used by the Generic Sensor
+
+ *                
+ * Author:        Amarendranath Vadlamudi <amar.vadlamudi@stdc.com>
+ * Created at:    Tue Oct  9 14:00:27 2001
+ * Modified by:   Amarendranath Vadlamudi <amar.vadlamudi@stdc.com>
+ * Modified at:   Wed Oct 24 18:45:10 2001
+ * Status:        Experimental, do not distribute.
+ * Update count:  1
+ ******************************************************************-->
+
+<sensorCapability xmlns="http://www.stdc.com/2001/QMSSchema"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:qms="http://www.stdc.com/2001/QMSSchema"
+  xsi:schemaLocation="http://www.stdc.com/2001/QMSSchema
+  QMSSchema.xsd">
+  
+  <Probe>
+    <probeType>oneshot</probeType>
+    <dataReusable>false</dataReusable>
+    <QMSUniqueName>
+      <category>Remos_Bandwidth_Probe</category>
+    </QMSUniqueName>
+    <probeSchema>file:///usr/local/QMS/remosProbe.xsd</probeSchema>
+    <schemaVersion>1.01</schemaVersion>
+    <Offer>
+      <variable>
+	<name>network</name>
+	<value>10.0.0.0/255.255.255.0</value>
+	<searchable/>
+	<maptoProperty>1</maptoProperty>
+      </variable>
+      <variable>
+	<name>collector_port</name>
+	<value>9001</value>
+      </variable>
+      <variable>
+	<name>collector host</name>
+	<value>10.0.0.5</value>
+      </variable>
+    </Offer>	
+    <Invoke>
+      <probeExecutable>/usr/local/bin/qms/remosProbe</probeExecutable>
+      <probeXSLTFile>file:///usr/local/etc/config/remosProbe.xsl</probeXSLTFile>
+      <xslParameters>
+	<variable>
+	  <name>collectorport</name>
+	  <value>9001</value>
+	</variable>
+	<variable>
+	  <name>collectorhost</name>
+	  <value>10.0.0.5</value>
+	</variable>
+      </xslParameters>
+    </Invoke>
+  </Probe>
+  <Probe>
+    <probeType>continuous</probeType>
+    <dataReusable>true</dataReusable>
+    <QMSUniqueName>
+      <category>CPUProbe</category>
+    </QMSUniqueName>
+    <probeSchema>file:///home/nath/test/cpuprobe.xsd</probeSchema>
+    <schemaVersion>1.00</schemaVersion>
+    <Offer>
+      <variable>
+	<name>host</name>
+	<value>10.0.0.2</value>
+	<searchable/>
+	<maptoProperty>1</maptoProperty>
+      </variable>
+    </Offer>	
+    <Invoke>
+      <probeExecutable>/usr/local/bin/cpuload</probeExecutable>
+      <probeXSLTFile>file:///usr/local/config/cpuProbe.xsl</probeXSLTFile>
+      <xslParameters>
+      </xslParameters>
+    </Invoke>
+  </Probe>
+</sensorCapability>
+

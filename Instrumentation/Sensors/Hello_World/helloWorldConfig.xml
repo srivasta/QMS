@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--******************************************************************
+ * Copyright (c) 2001, System/Technology Development Corporation .
+ *                
+ * Filename:      helloWorldConfig.xml
+ * Version:       1.0
+ * Description:   Configuration File for the HelloWorld Sensor
+ *                
+ * Author:        Amarendranath Vadlamudi <amar.vadlamudi@stdc.com>
+ * Created at:    Tue Oct 23 10:05:05 2001
+ * Modified by:   Amarendranath Vadlamudi <amar.vadlamudi@stdc.com>
+ * Modified at:   Wed Oct 24 19:01:42 2001
+ * Status:        Experimental, do not distribute.
+ * Update count:  2
+ ******************************************************************-->
+
+<sensorConfiguration xmlns="http://www.stdc.com/2001/QMSSchema"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:qms="http://www.stdc.com/2001/QMSSchema"
+  xsi:schemaLocation="http://www.stdc.com/2001/QMSSchema
+  QMSSchema.xsd">
+  
+  <!-- This is the CORBA interface that the Sensor instance provides with the
+  Command and Control interface. Note that the Offer variable can be
+  anything the author desires. The sample here assumes that describing
+  the CORBA methods available in the Sensor object is useful, so we
+  describe that we have a ping() method available.-->
+  <QMSSchema/>
+  <QMSUniqueName>
+    <category>HelloWorld</category>
+  </QMSUniqueName>
+  <interfaceVersion>1.0</interfaceVersion>
+  <interfaceDescription>
+    QMS Command and Control Citizen Interface
+  </interfaceDescription>
+  <Offer>
+    <variable>
+      <name>ping</name>
+      <value>boolean</value>
+      <searchable/>
+      <maptoProperty>1</maptoProperty>
+    </variable>
+  </Offer>	
+  
+  <!-- This is the built in probe in the Sensor. This probe has rather
+  limited functionality. So there is not much that goes into the
+  offer. A more capable probe would have several variables that have
+  meaning to the consumer in the offer. Note that we are assuming that
+  the schema description files are all in the working directory. Thus
+  the probeSchema element is not a complete URI like
+  file:///etc/helloWorld.xsd. -->
+  <sensorService>
+    <QMSUniqueName>
+      <category>HelloWorldProbe</category>
+    </QMSUniqueName>
+    <probeSchema>helloWorld.xsd</probeSchema>
+    <schemaVersion>1.01</schemaVersion>
+    <Offer>
+      <variable>
+	<name>Description</name>
+	<value>Return a salutation string with provided parameters of first name and last name</value>
+      </variable>
+      <variable>
+	<name>Author</name>
+	<value>The S/TDC Development Team</value>
+      </variable>
+      <variable>
+	<name>Function</name>
+	<value>Serve as a tutorial for QMS users</value>
+      </variable>
+    </Offer>
+  </sensorService>
+</sensorConfiguration>
+

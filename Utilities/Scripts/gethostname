@@ -1,0 +1,41 @@
+#!/bin/sh
+#                               -*- Mode: Sh -*- 
+# gethostname --- 
+# Author           : Manoj Srivastava ( srivasta@ember.stdc.com ) 
+# Created On       : Fri Aug 10 13:02:24 2001
+# Created On Node  : ember.stdc.com
+# Last Modified By : Manoj Srivastava
+# Last Modified On : Fri Aug 10 13:02:42 2001
+# Last Machine Used: ember.stdc.com
+# Update Count     : 1
+# Status           : Unknown, Use with caution!
+# HISTORY          : 
+# Description      : 
+# 
+# 
+
+
+if [ X"/bin/hostname" != X  ]; then
+	local_hostname=`/bin/hostname`
+else
+	local_hostname=`hostname`
+fi
+
+if [ X"$local_hostname" = X  ]; then
+	exit 1
+fi
+
+: translate upper to lower if necessary
+case "$local_hostname" in
+*[A-Z]*)
+        local_hostname=`echo $local_hostname | tr '[A-Z]' '[a-z]'`
+        ;;
+esac
+
+case "$local_hostname" in
+*\.*)
+        local_hostname=`echo $local_hostname | cut -d'.' -f 1`
+        ;;
+esac
+echo $local_hostname
+exit 0

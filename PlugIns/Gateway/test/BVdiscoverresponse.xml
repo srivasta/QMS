@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- *****************************************************************
+ *** Copyright (c) 2001, System/Technology Development Corporation .
+ ***                
+ *** Filename:      BVdiscoverresponse.xml
+ *** Version:       1.0
+ *** Description:   Discovery response from Gateway to BVTool
+ ***                
+ *** Author:        Amarendranath Vadlamudi <nath@vedam>
+ *** Created at:    Sun Dec  9 23:37:10 2001
+ *** Modified by:   Amarendranath Vadlamudi <nath@vedam>
+ *** Modified at:   Mon Dec 10 19:03:23 2001
+ *** Status:        Experimental, do not distribute.
+ *** Update count:  12
+ ***************************************************************** -->
+<discover xmlns="http://www.stdc.com/2001/QMS/Plugins/BVGateway"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:qms="http://www.stdc.com/2001/QMSSchema"
+  xsi:schemaLocation=
+  "http://www.stdc.com/2001/QMS/Plugins/BVGateway BVGateway.xsd"> 
+
+  <response>
+    <msgDate>2001-12-24</msgDate>
+    <msgTime>19:02:32-05:00</msgTime>
+    <BVTlistenAddress>
+      <host>10.0.0.1</host>
+      <port>4001</port>
+    </BVTlistenAddress>
+    <resource>
+      <QMSUniqueName>
+	<category>QMS_CPU</category>
+	<host>10.1.1.0</host>
+	<uuid>12450</uuid>
+      </QMSUniqueName>
+      <offerInfo>
+	<qms:name>GUIString</qms:name>
+	<qms:value>CPU 0 Utilization</qms:value>
+      </offerInfo>
+      <offerInfo>
+	<qms:name>isPlottableData</qms:name>
+	<qms:value>1</qms:value>
+      </offerInfo>
+      <offerInfo>
+	<qms:name>units</qms:name>
+	<qms:value>% Utilization</qms:value>
+      </offerInfo>
+    </resource>
+    <action>add</action>
+  </response>
+</discover>

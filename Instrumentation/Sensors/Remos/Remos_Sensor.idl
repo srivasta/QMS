@@ -1,0 +1,49 @@
+//                              -*- Mode: Idl -*- 
+// Remos_Sensor.idl --- 
+// Author           : Manoj Srivastava ( srivasta@glaurung.stdc.com ) 
+// Created On       : Fri Aug 17 16:06:14 2001
+// Created On Node  : glaurung.stdc.com
+// Last Modified By : Manoj Srivastava
+// Last Modified On : Wed Oct 24 09:06:56 2001
+// Last Machine Used: glaurung.stdc.com
+// Update Count     : 10
+// Status           : Unknown, Use with caution!
+// HISTORY          : 
+// Description      : 
+// 
+// 
+#ifndef REMOS_SENSOR_IDL
+#define REMOS_SENSOR_IDL
+
+
+/** @file Remos_Sensor.idl
+ *  @ingroup RemosSensor 
+ *  @brief The implementation of a Sensor interface
+ *
+ *  $Id: Remos_Sensor.idl,v 1.2 2001/12/09 02:14:18 nath Exp $
+ */
+
+#include "Command.idl"
+
+module STDC
+{
+  module QMS 
+  {   
+    module Citizen 
+    {
+      /**
+       * The Remos Sensor is a prototype Generic Sensor, originally
+       * geared for the Remos Probes. Since it is a QMS citizen, it is
+       * required to expose some mandatory Corba interfaces, that will
+       * enable a QMS administrator to control this Sensor causing it
+       * to shutdown, pause etc. This interface is  derived from the
+       * Command and Control Interface. 
+       */
+      interface Remos_Sensor : Command
+      {
+      };
+    };
+  };
+};
+
+#endif // REMOS_SENSOR_IDL

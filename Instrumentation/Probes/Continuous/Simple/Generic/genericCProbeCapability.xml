@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- *****************************************************************
+ *** Copyright (c) 2001, System/Technology Development Corporation .
+ ***                
+ *** Filename:      genericCProbeCapability.xml
+ *** Version:       1.0
+ *** Description:   GenericCProbe Capability Fragment
+ ***                
+ *** Author:        Amarendranath Vadlamudi <amar.vadlamudi@stdc.com>
+ *** Created at:    Fri Dec  7 12:38:39 2001
+ *** Modified by:   Amarendranath Vadlamudi <nath@vedam>
+ *** Modified at:   Fri Dec  7 12:49:21 2001
+ *** Status:        Experimental, do not distribute.
+ *** Update count:  5
+ ***************************************************************** -->
+
+  <!-- This is the capability fragment introduced by the installation
+  of the Generic Continuous Probe. -->
+
+  <!-- NOTE: This file is just a capability fragment file. This needs
+  to be placed in a complete sensorCapability file for it to be
+  useful. See the documentation for more information -->
+
+<Probe>
+  <probeType>continuous</probeType>
+  <dataReusable>false</dataReusable>
+  <QMSUniqueName>
+    <category>GenericCProbe</category>
+  </QMSUniqueName>
+  <probeSchema>genericCProbe.xsd</probeSchema>
+  <schemaVersion>1.0</schemaVersion>
+  <Offer>
+    <variable>
+      <name>Description</name>
+      <value>Provides the ability to test the Generic Sensor. This
+	probe sends back a response containing a string "Generic
+	Continuous Probe is successfully executing". 
+      </value>
+    </variable>
+    <variable>
+      <name>Function</name>
+      <value>Serve as a tutorial for QMS Developers</value>
+    </variable>
+    <variable>
+      <name>Author</name>
+      <value>Shivakumar Patil (S/TDC QMS team></value>
+    </variable>
+  </Offer>      
+  <Invoke>
+    <probeExecutable>Generic_Continuous_Probe</probeExecutable>
+      <probeXSLTFile>genericCProbe.xsl</probeXSLTFile>
+      <xslParameters>
+      </xslParameters>
+    </Invoke>
+</Probe>

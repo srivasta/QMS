@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- *****************************************************************
+ *** Copyright (c) 2001, System/Technology Development Corporation .
+ ***                
+ *** Filename:      QMSMessage_perfmonProbes.xml
+ *** Version:       1.0
+ *** Description:   Sample QMS Message with NT_Perf_Mon Probe payload
+ ***                
+ *** Author:        Amarendranath Vadlamudi <amar.vadlamudi@stdc.com>
+ *** Created at:    Fri Dec  7 13:38:12 2001
+ *** Modified by:   Amarendranath Vadlamudi <nath@vedam>
+ *** Modified at:   Fri Dec  7 13:40:13 2001
+ *** Status:        Experimental, do not distribute.
+ *** Update count:  2
+ ***************************************************************** -->
+
+  <!-- This is a sample XML file that is useful to test any parser
+  that uses the schema defined for QMS Messages
+  (QMSSchema.xsd). Specifically, this message also contains a valid
+  payload message specific to the NT_Perf_Mon Probe that is
+  conformant to its schema (perfmonProbes.xsd).  -->
+
+<qms:QMSMessage xmlns="http://www.stdc.com/2001/QMSSchema"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:qms="http://www.stdc.com/2001/QMSSchema"
+  xsi:schemaLocation="http://www.stdc.com/2001/QMSSchema QMSSchema.xsd">
+  <qms:msgSequenceNo>1000</qms:msgSequenceNo>
+  <qms:msgDate>2001-11-30</qms:msgDate>
+  <qms:msgTime>23:32:57-0:00</qms:msgTime>
+  <qms:originatingHost>10.0.0.2</qms:originatingHost>
+  <qms:msgSender>
+    <id>20004</id>
+    <description>Test client for a QMS Probe</description>
+  </qms:msgSender>
+  <qms:QMSUniqueName>
+    <category>QMS_CPU</category>
+  </qms:QMSUniqueName>
+  <qms:Session>
+    <requestID>1</requestID>
+    <version>3</version>
+    <minRepetitions>
+     <count>200</count>
+    </minRepetitions>
+    <minRepeatInterval>PT1.000000S</minRepeatInterval>
+  </qms:Session>
+  <qms:payload>
+    <perfmonProbe xmlns="http://www.stdc.com/2001/QMS/Probes/perfmonProbes"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.stdc.com/2001/QMS/Probes/perfmonProbes
+      perfmonProbes.xsd">
+      <perfmonRequest>
+	<probeControl>
+	  <action>start</action>
+	</probeControl>
+      </perfmonRequest>
+  </perfmonProbe>         
+  </qms:payload>
+</qms:QMSMessage>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- *****************************************************************
+ *** Copyright (c) 2001, System/Technology Development Corporation .
+ ***                
+ *** Filename:      remos_graphrequest.xml
+ *** Version:       1.0
+ *** Description:   Sample XML File - New request to graphProbe
+ ***                
+ *** Author:        Amarendranath Vadlamudi <amar.vadlamudi@stdc.com>
+ *** Created at:    Sat Dec  1 13:33:23 2001
+ *** Modified by:   Amarendranath Vadlamudi <nath@vedam>
+ *** Modified at:   Fri Dec  7 20:51:16 2001
+ *** Status:        Experimental, do not distribute.
+ *** Update count:  4
+ ***************************************************************** -->
+
+<!-- This is a sample XML file that is useful to test any parser that -->
+<!-- uses the remosProbes.xsd schema defined for the Remos Flow and -->
+<!-- Graph Continuous Probes -->
+
+
+
+<remosProbe xmlns="http://www.stdc.com/2001/QMS/Probes/RemosProbes"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.stdc.com/2001/QMS/Probes/RemosProbes 
+  remosProbes.xsd">
+  <bandwidthRequest>
+    <linkRequest>
+      <hostname>desinode1</hostname>
+      <hostname>desinode2</hostname>
+      <hostname>desinode2</hostname>
+    </linkRequest>
+  </bandwidthRequest>
+</remosProbe>           

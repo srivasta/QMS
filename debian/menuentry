@@ -1,0 +1,4 @@
+?package(qms-doc):needs="dwww" section="Apps/Programming" title="QMS"\
+ longtitle="The QoS Metric Services framework." \
+ description=". " \
+ command="/usr/share/doc/qms-doc/index.html"

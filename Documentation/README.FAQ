@@ -1,0 +1,83 @@
+/** @page README.FAQ Frequently Asked Questions
+ *
+ *  <PRE>
+ *  Copyright (C) 2001 System/Technology Development Corporation
+ *  This file is part of QoS Metric Services
+ * 
+ *  This program is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU General Public License as
+ *  published by the Free Software Foundation; either version 2 of the
+ *  License, or (at your option) any later version.
+ * 
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  General Public License for more details.
+ * 
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ *  02111-1307 USA
+ * 
+ *  You may contact System/Technology Development Corporation at
+ * 
+ *      System/Technology Development Corporation
+ *      Suite 500, Center for Innovative Technology,
+ *      2214 Rock Hill Road,
+ *      Herndon, VA 20170    
+ *      (703) 476-0687
+ *  </PRE>
+
+
+    This document will contain the list of "Frequently Asked
+    Questions" and their answers. As we encounter more of these
+    questions, expect this list to grow.
+
+    <DL>
+    <DT><B>
+    While compiling QMS with your instructions I get the following
+    errors and QMS does not work.<BR>
+    /opt/xalan/include/XalanDOM/XalanDOMString.hpp: 
+    In function `const class XalanDOMString 
+              TranscodeFromLocalCodePage(const CharVectorType &)':<BR>
+    /opt/xalan/include/XalanDOM/XalanDOMString.hpp:1113: parse error
+    before `=='
+    </B></DT>
+
+    <DD>
+    This is a known problem with the Xalan C distribution from
+    Apache. We have confirmed its existence in version
+    Xalan-C-1.2. The solution is to edit the file XalanDOMString.hpp
+    indicated above. This does not need any reinstallation or
+    recompiling of the Xalan package.<P>
+    
+    Edit /opt/xalan/include/XalanDOM/XalanDOMString.hpp to comment out
+    line number 1113 which should then look like the following:<P>
+    
+    @code
+        //assert(real_size_type(size_type(theSize)) == theSize);
+    @endcode 
+    
+    That should resolve the compile time errors.
+    </DD>
+
+    <DT><B>
+    While shutting down the Generic Sensor, I encounter an "Aborted"
+    message with the following debug lines.<BR>
+    ACE_ASSERT: file /opt/ACE_wrappers/TAO/orbsvcs/orbsvcs/CosNamingC.i, 
+    line 314 assertion failed for 'i < this->maximum_'
+    </B></DT>
+    
+    <DD>
+    This occurs when the Sensor is shutting down. The Sensor first
+    cleans up all the Yellow Pages offers it made in the QMS
+    Trader. Next it tries to unregister its naming context with the
+    CORBA Name Service. The ACE_ASSERT error occurs at this point. It
+    is a bug that we are trying to fix. However, since the Sensor has
+    already finished all of its cleanup operations before this point,
+    it should not affect the operation of QMS in any substantial way.
+    </DD>
+
+    </DL>
+
+** @ref index **/

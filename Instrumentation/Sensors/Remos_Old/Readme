@@ -1,0 +1,43 @@
+Created by :- Shivakumar Patil
+
+
+Remos_Instrumentation
+=====================
+
+
+The Remos_Instrumentation is like a glue code which talks to QMS_API 
+as well as Remos. The Remos should be up and running with Bridge Collector 
+and SNMP collector for this to work. As soon as Remos_Instrumentation comes up,
+it performs the following functions.  
+
+1:- 	Makes sure that Remos is running.
+2:-	Talks to the "QMS_Channel"and initializes the consumer and supplier interfaces.
+3:- 	Waits for a request of type bandwidth_request.
+4:- 	Once the requets arrives , the call back function is called, which handles the 
+	request by invoking either the graph or flow function depending on the type of 
+	remos data requested.
+
+
+To run Remos_Instrumentation:
+
+	Just type in ->  Remos_Instrumentation on the command line. 
+
+	Make sure that Naming Service and QMS_Channel are running already. This works fine,
+	if the Naming Service is running on the same subnet, Otherwise use the option
+	-ORBInitRef, associated with resolving the TAO Naming Service.
+	
+	There is also a startRemos bash script available under Remos_Instrumrntation
+	directory, which can be used to start Bridge collector ,SNMP collector as well as 
+	the Remos_Instrumrntation.
+
+To build the Remos_Instrumentation:
+
+	This is built by default , when you build the whole QMS_API stuff. But to build it
+	seperately , go to the Remos_Instrumentation directory and just type "make". 
+	It needs the LD_LIBRARY_PATH variable to point to ACE and TAO shared libraries 
+	as well as libQMS_Api.so, libQMS_Remos.so . 
+
+	
+	
+
+

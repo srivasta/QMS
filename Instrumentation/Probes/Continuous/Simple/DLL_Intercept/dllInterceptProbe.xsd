@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- *****************************************************************
+ *** Copyright (c) 2001, System/Technology Development Corporation .
+ ***                
+ *** Filename:      dllInterceptProbe.xsd
+ *** Version:       1.0
+ *** Description:   Schema used by the DLL Intercept Probe
+ ***                
+ *** Author:        Amarendranath Vadlamudi <amar.vadlamudi@stdc.com>
+ *** Created at:    Mon Nov 19 12:18:40 2001
+ *** Modified by:   Amarendranath Vadlamudi <nath@vedam>
+ *** Modified at:   Mon Nov 26 17:26:22 2001
+ *** Status:        Experimental, do not distribute.
+ *** Update count:  3
+ ***************************************************************** -->
+  <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://www.stdc.com/2001/QMS/Probes/dllInterceptProbe"
+    targetNamespace="http://www.stdc.com/2001/QMS/Probes/dllInterceptProbe"
+    elementFormDefault="qualified"
+    version="$Id: dllInterceptProbe.xsd,v 1.2 2001/11/26 22:28:57 nath Exp $">
+  
+  <xsd:complexType name="dllInterceptRequestType">
+    <xsd:annotation>
+      <xsd:documentation>
+	In order to activate a DLL intercept, the request needs to
+	contain the process ID of the process that is to be
+	intercepted, the name of the wrapper that is to be activated
+	on that process. The names of all the available wrappers for
+	that probe are present in the offer exported by the
+	probe. Lastly, the request can indicate an action to start the
+	intercept and to stop the intercept.
+	</xsd:documentation>
+      </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="process_pid" type="xsd:nonNegativeInteger"/>
+      <xsd:element name="wrapper_name" type="xsd:string"/>
+      <xsd:element name="wrapper_file" type="xsd:string"/>
+      <xsd:element name="action">
+	<xsd:simpleType>
+	  <xsd:restriction base="xsd:string">
+	    <xsd:enumeration value="activate"/>
+	    <xsd:enumeration value="deactivate"/>
+	  </xsd:restriction>
+	</xsd:simpleType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="dllInterceptDataType">
+    <xsd:annotation>
+      <xsd:documentation>
+	The data received from the dllInterceptProbe depends on
+	what the replacement dll function is providing. We will
+	use a string element to convey the contents to the
+	receiving end for further interpretation.
+	The data will include the Process ID of the process being
+	intercepted and the name of the wrapper being activated.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="process_pid" type="xsd:nonNegativeInteger"/>
+      <xsd:element name="wrapper_name" type="xsd:string"/>
+      <xsd:element name="contents" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:element name="dllInterceptProbe">
+    <xsd:complexType>
+      <xsd:choice>
+	<xsd:element name="interceptRequest" type="dllInterceptRequestType"/>
+	<xsd:element name="interceptData" type="dllInterceptDataType"/>
+      </xsd:choice>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,79 @@
+//                              -*- Mode: Idl -*- 
+// Command.idl --- 
+// Author           : Manoj Srivastava ( srivasta@glaurung.stdc.com ) 
+// Created On       : Sun Feb  4 19:15:02 2001
+// Created On Node  : glaurung.stdc.com
+// Last Modified By : Manoj Srivastava
+// Last Modified On : Tue May 15 20:30:36 2001
+// Last Machine Used: ember.stdc.com
+// Update Count     : 16
+// Status           : Unknown, Use with caution!
+// HISTORY          : 
+// Description      : 
+// 
+// 
+
+#ifndef COMMAND_IDL
+#define COMMAND_IDL
+
+/** @file Command.idl
+ *  @ingroup COMMAND
+ *  @brief The set of interfaces a QMS citizen must support
+ *
+ */
+
+#include "Control.idl"
+
+/** @brief Mandatory interfaces for conforming QMS citizens
+ *  @ingroup COMMAND
+ *
+ *  These interfaces are mandatory for conforming QMS citizens. They
+ *  are designed to allow a high level of control over the whole QMS
+ *  facility, as well as providing an entry point for the control of
+ *  individual citizens. 
+ *
+ */
+module STDC 
+{
+  module QMS
+  {
+    module Citizen 
+    {
+      /// this interface provides a finer granularity of control for the
+      /// individual citizen. 
+      interface Command : Control
+      {
+	/// This function shall cause the citizen to disconnect from the
+	/// event channel
+	void disconnect_EC(in string reason, in string credentials)
+	  raises (QMS_Citizen_Error);
+
+	/// This function shall cause the citizen to reconnect to (a
+	/// potentially different) event channel
+	void reconnect_EC(in string reason, in string EC_Name, 
+			  in string credentials) 
+	  raises (QMS_Citizen_Error);
+
+	/// This function requests the current QoS operating level
+	void show_operating_level(out short level);
+
+	/// This function instructs the citizen to go to a specified
+	/// operating level. The actions taken are citizen defined.
+	void set_operating_level(in short level, in string credentials)
+	  raises (QMS_Citizen_Error);
+
+	/// This function request a XML document describing the statistics
+	/// and operational characteristic of the citizen
+	void stats(in string credentials, out string stats);
+
+	/// This function provides for a mechanism for implementing a
+	/// heartbeat functionality for all QMS citizens
+	void ping(out short ack) raises (QMS_Citizen_Error);
+      };
+    };
+  };
+};
+
+
+
+#endif // COMMAND_IDL

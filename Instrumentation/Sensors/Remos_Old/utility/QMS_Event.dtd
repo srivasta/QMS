@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding='us-ascii'?>
+<!-- DTD for Generic QMS Event Data -->
+<!ELEMENT QMSEvent ( SequenceNo,SenderID,DestinationID?,EventDate,EventTime,EventType,EventData)>
+
+ <!-- A Sequence Number - like a unique id per message -->
+ <!ELEMENT SequenceNo (#PCDATA)>
+
+ <!-- Message Sender -->
+ <!ELEMENT SenderID (#PCDATA)>
+
+ <!-- Message Intended for - optional because it may be a broadcast -->
+ <!ELEMENT DestinationID (#PCDATA)>
+
+ <!-- Timestamping the event -->
+ <!ELEMENT EventDate (#PCDATA)>
+ <!ELEMENT EventTime (#PCDATA)>
+ 
+ <!-- A placeholder to be used when we figure out the namespace issues -->
+ <!ELEMENT EventType (#PCDATA)>
+
+ <!-- The actual message contents -->
+ <!-- Only dealing with network related ones here. Could be others too -->
+ <!-- The actual message could be empty -->
+ <!ELEMENT EventData ( bandwidthdata*|bandwidthrequest*|desiappdata* )>
+
+   <!-- Network Bandwidth Data from a supplier -->
+   <!ELEMENT  bandwidthdata (requestid, dataid, source, destination, latency, available, maximum?, collectrate)>
+
+      <!-- Multiple instances of bandwidthdata possible in one event -->
+      <!-- Bandwidth could be for a flow or for a switch-node link -->
+      <!-- Default is "flow" -->
+      <!ATTLIST bandwidthdata linktype (link|flow) "flow" > 
+      
+      <!-- Request ID -->
+      <!-- Sequence Number for the request that generated this response -->
+      <!ELEMENT requestid (#PCDATA)>
+
+      <!-- Data ID -->
+      <!-- Sequence Number for the response -->
+      <!ELEMENT dataid (#PCDATA)>
+     
+      <!-- The source and destination of the bandwidth calculation -->
+      <!-- In the case of a link, the destination could be a virtual switch -->
+      <!ELEMENT source (#PCDATA)>
+      <!ELEMENT destination (#PCDATA)>
+
+      <!-- Latency is provided by Remos. Doesn't work right now -->
+      <!ELEMENT latency (#PCDATA)>
+
+      <!-- Available Bandwidth,  default units are bits/sec -->
+      <!ELEMENT available (#PCDATA)>
+      <!ATTLIST available units (bps|Kbps|Mbps) "bps">
+
+      <!-- Static Bandwidth for the link, does not exist for linktype=flow -->
+      <!ELEMENT maximum (#PCDATA)>
+      <!ATTLIST maximum units (bps|kbps|Mbps) "bps">
+
+      <!-- Current rate at which data is being collected for this flow -->
+      <!ELEMENT collectrate (#PCDATA)>
+      <!ATTLIST collectrate units (micro|milli|sec) "milli">
+
+   <!-- Network Bandwidth Request from a consumer -->
+   <!ELEMENT  bandwidthrequest (requestid, hostname+, refreshrate?, repeatcount?)>
+
+      <!-- Multiple instances of bandwidthrequest possible in one event -->
+      <!-- Bandwidth could be for a flow or for a switch-node link -->
+      <!-- Default is "flow" -->
+      <!ATTLIST bandwidthrequest linktype (link|flow) "flow" > 
+
+      <!-- Request ID -->
+      <!-- Sequence Number for the request for consumer to keep track of -->
+      <!-- ELEMENT requestid was defined earlier in bandwidthdata -->
+
+      <!-- One or more hostnames. For linktype=link, the graph for each -->
+      <!-- of those nodes will be returned. For linktype=flow, the flows -->
+      <!-- for each of the combinations should be returned -->
+      <!ELEMENT hostname (#PCDATA)>
+
+      <!-- Rate at which data should be collected for this set of flows -->
+      <!ELEMENT refreshrate (#PCDATA)>
+      <!ATTLIST refreshrate units (micro|milli|sec) "milli">
+
+      <!-- Number of times this bandwidthrequest is repeated -->
+      <!ELEMENT repeatcount (#PCDATA)>
+
+   <!-- DeSi Test Application Data Reported -->
+   <!ELEMENT  desiappdata (dataid, process, load, message)>
+
+      <!-- Sequence Number for the data being sent out -->
+      <!-- It's already defined earlier for bandwidthdata -->
+      <!-- ELEMENT dataid (#PCDATA) -->
+   
+      <!-- The Process that we're reporting on -->
+      <!ELEMENT process (name, source, destination)>
+        
+          <!-- A descriptive name for the process -->
+          <!ELEMENT name (#PCDATA)>
+
+          <!-- The source and destination for this process -->
+          <!-- Already defined in the bandwidthdata -->
+          <!-- ELEMENT source (#PCDATA) -->
+          <!-- ELEMENT destination (#PCDATA) -->
+
+      <!-- The processing load parameters to be applied by this process -->
+      <!-- The attributes specify if this indicates number of iterations -->
+      <!-- or seconds to sleep for. This may be an unnecessary attribute -->
+      <!ELEMENT load (#PCDATA)>
+      <!ATTLIST load units (iterations|sec) "sec">
+    
+      <!-- The message related details for this process -->
+      <!ELEMENT message (size, frequency, average, total)>
+ 
+          <!-- Size of the message -->
+          <!ELEMENT size (#PCDATA)>
+
+          <!-- Frequency of the message -->
+          <!ELEMENT frequency (#PCDATA)>
+
+          <!-- Average Messages/second being sent -->
+          <!ELEMENT average (#PCDATA)>
+
+          <!-- Total Number of Messages sent so far-->
+          <!ELEMENT total (#PCDATA)>

@@ -1,0 +1,4 @@
+.obj .shobj .depend
+
+test_desi test_remos test_msg
+bench_recv bench_xml bench_send

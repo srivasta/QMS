@@ -1,0 +1,5 @@
+
+ 
+     This Probe doesnot take the name of the named pipe on the command line. The probe 
+     already has a predefined name pipe from where it reads . It's the responsiblity 
+     of the user to change this and use it accordingly.

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- *****************************************************************
+ *** Copyright (c) 2001, System/Technology Development Corporation .
+ ***                
+ *** Filename:      genericC_request_modify.xml
+ *** Version:       1.0
+ *** Description:   Sample XML File - Modification request to genericCProbe
+ ***                
+ *** Author:        Amarendranath Vadlamudi <amar.vadlamudi@stdc.com>
+ *** Created at:    Sat Dec  1 13:33:23 2001
+ *** Modified by:   Amarendranath Vadlamudi <nath@vedam>
+ *** Modified at:   Sat Dec  1 13:47:45 2001
+ *** Status:        Experimental, do not distribute.
+ *** Update count:  4
+ ***************************************************************** -->
+
+<!-- This is a sample XML file that is useful to test any parser that -->
+<!-- uses the genericCProbe.xsd schema defined for the Generic -->
+<!-- Continuous Probe -->
+
+  <genericCProbe 
+    xmlns="http://www.stdc.com/2001/QMS/Probes/Continuous/GenericProbe"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation=
+    "http://www.stdc.com/2001/QMS/Probes/Continuous/GenericProbe 
+    genericCProbe.xsd">
+    
+    <!-- The Generic Continuous Probe accepts a request to start and
+    stop it. If the contents of probeRequest are empty, the request is
+    a modify request -->
+    
+    <probeRequest>
+    </probeRequest>
+
+  </genericCProbe>           

@@ -1,0 +1,4 @@
+2000-11-01  Manoj Srivastava  <manoj.srivastava@stdc.com>
+
+	* Remos_Instrumentation.cpp: 1.2 Use the new debug macros
+

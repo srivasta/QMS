@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- *****************************************************************
+ *** Copyright (c) 2001, System/Technology Development Corporation .
+ ***                
+ *** Filename:      BVrsrc_req_exec.xml
+ *** Version:       1.0
+ *** Description:   BVT to BVGateway Command Probe request
+ ***                
+ *** Author:        Amarendranath Vadlamudi <nath@vedam>
+ *** Created at:    Sun Dec  9 17:48:18 2001
+ *** Modified by:   Amarendranath Vadlamudi <nath@vedam>
+ *** Modified at:   Thu Dec 27 14:44:00 2001
+ *** Status:        Experimental, do not distribute.
+ *** Update count:  31
+ ***************************************************************** -->
+
+<resource xmlns="http://www.stdc.com/2001/QMS/Plugins/BVGateway"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:qms="http://www.stdc.com/2001/QMSSchema"
+  xsi:schemaLocation=
+  "http://www.stdc.com/2001/QMS/Plugins/BVGateway BVGateway.xsd"> 
+  
+  <request>
+    <requestID>235</requestID>
+    <QMSUniqueName>
+      <category>QMS_CPU</category>
+      <host>10.2.1.12</host>
+      <uuid>2455</uuid>
+    </QMSUniqueName>
+    <qms:minRepeatInterval>PT0.2S</qms:minRepeatInterval>
+    <action>start</action>
+    <qms:payload>
+      <commandProbe 
+	xmlns="http://www.stdc.com/2001/QMS/Probes/Continuous/CommandProbe"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation=
+	"http://www.stdc.com/2001/QMS/Probes/Continuous/CommandProbe 
+	commandProbe.xsd">
+	<probeRequest>
+	  <probeCommand>
+	    <arg0>/bin/ls</arg0>
+	    <arg>-l</arg>
+	    <arg>/usr</arg>
+	  </probeCommand>
+	</probeRequest>
+      </commandProbe>         
+    </qms:payload>
+  </request>
+</resource>
+

@@ -1,0 +1,54 @@
+#!/bin/bash
+# The order to invoke should be
+if [ $# != 5 ]; then
+echo "Incomplete parameter list"
+echo "Usage:"
+echo "$0 host_file collector_config_file bridge_config_file collector_host collector_port"
+exit
+fi
+
+#/usr/X11R6/bin/xhost +
+
+# Environment needed for building remos.  Edit these to fit your environment.
+# You probably need only to set REMOS_DIR.
+export REMOS_DIR=/home/quite/remos/Remos
+export JAVA_PATH=/usr/local/share/jdk1.2.2/bin
+export QMS_DIR=/home/quite/API
+export DESI_REMOS_DIR=/home/quite/API/Desi_Remos
+export ACE_LIB_PATH=/home/quite/ACE_wrappers/ace
+
+export CLASSPATH=$REMOS_DIR/java
+export LD_LIBRARY_PATH=$REMOS_DIR/java:$QMS_DIR/QMS_Api:$DESI_REMOS_DIR:$ACE_LIB_PATH:$LD_LIBRARY_PATH
+#export LD_LIBRARY_PATH=$REMOS_DIR/java:$QMS_DIR/QMS_Api:$DESI_REMOS_DIR:$ACE_LIB_PATH:$LD_LIBRARY_PATH
+export PATH=$JAVA_PATH:$REMOS_DIR/java/remulac/BridgeColl:$PATH
+
+#
+# Environment needed to run remos programs.  You probably only need to
+# set the various xxx_port values.
+# collector_host should be replaced with the name of the machine where
+# you intend to run the collector,
+# collector_port should be replaced with the TCP port number it will
+# use on that machine .
+#export COLLECTOR="skywalker_t 5001"
+export COLLECTOR="$4 $5"
+
+/usr/bin/gnome-terminal --login -t "Bridge Collector" -e "$REMOS_DIR/build/run_bridgecoll $1 $3" &
+
+while [ ! -f topology-data ]
+do
+ sleep 1
+done
+
+sleep 2
+
+/usr/bin/gnome-terminal --login -t "Snmp Collector" -e "$REMOS_DIR/build/run_collector $2" &
+
+sleep 5
+#If the naming service is running on the same subnet, then you donot need the option -ORBInitRef . So delete the rest of it.
+
+/usr/bin/gnome-terminal --login -t "Remos Instrumentation" -e "$QMS_DIR/Remos_Instrumentation/Remos_Instrumentation" &
+
+#/usr/bin/gnome-terminal&
+#bash
+#/usr/X11R6/bin/xhost -
+

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- *****************************************************************
+ *** Copyright (c) 2001, System/Technology Development Corporation .
+ ***                
+ *** Filename:      BVrsrc_req_counter.xml
+ *** Version:       1.0
+ *** Description:   BVT to BVGateway Discover request
+ ***                
+ *** Author:        Amarendranath Vadlamudi <nath@vedam>
+ *** Created at:    Sun Dec  9 17:48:18 2001
+ *** Modified by:   Amarendranath Vadlamudi <nath@vedam>
+ *** Modified at:   Thu Dec 27 14:37:26 2001
+ *** Status:        Experimental, do not distribute.
+ *** Update count:  32
+ ***************************************************************** -->
+
+<resource xmlns="http://www.stdc.com/2001/QMS/Plugins/BVGateway"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:qms="http://www.stdc.com/2001/QMSSchema"
+  xsi:schemaLocation=
+  "http://www.stdc.com/2001/QMS/Plugins/BVGateway BVGateway.xsd"> 
+
+  <request>
+    <requestID>235</requestID>
+    <QMSUniqueName>
+      <category>QMS_CPU</category>
+      <host>10.2.1.12</host>
+      <uuid>2455</uuid>
+    </QMSUniqueName>
+    <qms:minRepetitions>
+      <qms:count>10</qms:count>
+    </qms:minRepetitions>
+    <qms:minRepeatInterval>PT0.2S</qms:minRepeatInterval>
+    <action>start</action>
+    <qms:payload>    
+      <dllInterceptProbe
+	xmlns="http://www.stdc.com/2001/QMS/Probes/dllInterceptProbe"  
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.stdc.com/2001/QMS/Probes/dllInterceptProbe
+	dllInterceptProbe.xsd">
+	<interceptRequest>
+	  <process_pid>10</process_pid>
+	  <wrapper_name>RM_SEND_IC</wrapper_name>
+	  <wrapper_file>RM_SEND_IC.wrp</wrapper_file>
+	  <action>activate</action>
+	</interceptRequest>
+      </dllInterceptProbe>     
+    </qms:payload>
+  </request>
+</resource>
+

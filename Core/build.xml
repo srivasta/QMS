@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+
+<project name="QMS_Core" default="all" basedir="..">
+
+  <!-- ==================================================== -->
+  <!--                 Core build file                      -->
+  <!-- ==================================================== -->
+
+
+   <target name="init" depends="javatest">
+       <property file="${basedir}/Config/site.properties" />
+       <property name="tao.base" value="${ace.base}/ACE_wrappers/TAO"/>
+       <property name="jacorb.lib" value="${jacorb.base}/lib"/>
+       <property name="dirs.base" value="${basedir}"/>
+       <property name="dirs.build" value="${dirs.base}/build"/>
+       <property name="classdir" value="${dirs.build}/classes"/>
+       <property name="src.generated" value="${dirs.build}/generated"/>
+       <property name="jardir" value="${dirs.build}/jars"/>
+       <property name="projectdir" value="${dirs.base}/Core"/>
+       <property name="jidlflags" 
+                 value="-I${projectdir} -ir -d ${src.generated}"/>
+       <mkdir dir="${dirs.build}"/>
+       <mkdir dir="${src.generated}"/>
+       <mkdir dir="${classdir}"/>
+       <mkdir dir="${jardir}"/>
+   </target> 
+
+   <!-- check for Java 2 -->
+   <target name="javatest">
+	<available classname="java.lang.ref.WeakReference"
+	property="java2" />	
+   </target>
+
+   <!-- all -->
+
+   <target name="all" depends="init,idlcompile" />
+
+   <target name="idlcompile" depends="idl" if="java2">
+        <echo message="Compiling with JDK 1.2 or 1.3"/>
+        <javac srcdir="${src.generated}"
+               destdir="${classdir}"
+               bootclasspath="${classdir}:${jacorb.lib}/jacorb.jar:${java.home}/lib/rt.jar"
+               includes="STDC/**"
+        />
+   </target>
+
+   <target name="idl" depends="init">
+           <java classname="org.jacorb.idl.parser"
+                 fork="yes"
+                 classpath="${jacorb.lib}/idl.jar;${java.class.path}">
+                 <arg line="${jidlflags}"/>
+                 <arg file="${projectdir}/Command.idl"/>
+                 <arg file="${projectdir}/Control.idl"/>
+                 <arg file="${projectdir}/Trader/Trader.idl"/>
+           </java>
+   </target>
+
+  <!-- Clean up  -->
+  <target name="clean" depends="init">
+    <delete dir="${classdir}/STDC"/>
+    <delete dir="${src.generated}/STDC"/>
+  </target>
+
+  <!-- Really Clean up  -->
+  <target name="realclean" depends="clean"/>
+
+</project>

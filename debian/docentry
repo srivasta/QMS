@@ -1,0 +1,9 @@
+Document: qms-doc
+Title: QoS Metric Service
+Author: various
+Abstract:  
+Section: Apps/Programming
+
+Format: HTML
+Index: /usr/share/doc/qms-doc/index.html
+Files: /usr/share/doc/qms-doc/*.html

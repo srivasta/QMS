@@ -1,0 +1,224 @@
+//                              -*- Mode: Idl -*-
+// Trader.idl ---
+// Author           : Manoj Srivastava ( srivasta@glaurung.stdc.com )
+// Created On       : Sun Feb  4 21:35:54 2001
+// Created On Node  : glaurung.stdc.com
+// Last Modified By : Manoj Srivastava
+// Last Modified On : Wed Oct 24 12:30:12 2001
+// Last Machine Used: glaurung.stdc.com
+// Update Count     : 15
+// Status           : Unknown, Use with caution!
+// HISTORY          :
+// Description      :
+//
+//
+
+#ifndef TRADER_IDL
+#define TRADER_IDL
+
+
+/** @defgroup Trader QMS Trader - Underpinnings of the QMS publish/subscribe services
+ *  @ingroup Services
+ *
+ *  One of the major facilities provided by QMS is the ability of
+ *  clients to query the system for sources of QoS metrics and
+ *  data. The trader:
+ *    - is the guts of the publish/subscribe capability of QMS
+ *    - allows QMS citizens to publish their capabilities
+ *    - allows QMS clients to locate capability providers
+ *
+ * The desired Trader features include:
+ *     - State of the environment maintained across invocations
+ *     - Repository of provider/capability associations
+ *     - Flexible query mechanism
+ *     - Provide object reference to command interface of providers
+ *     - Provide unique supplier ID, event channel ID, event type ID
+ *       at supplier registration time
+ *     - Provide list of supplier ID?s, event channel ID, event type
+ *       ID at client request
+ *
+ *  On a simplified level, this is how the publish/subscribe facility
+ *  shall work:
+ *    - On startup all QMS citizens shall (perhaps after a
+ *      local resource discovery phase), call the trading service with an
+ *      XML document detailing the capabilities that it provides, as well
+ *      as an CORBA object reference for the QMS_Command interface. At
+ *      this point, the trading service returns a unique supplier ID
+ *      number, as well as an event channel name. The policies and
+ *      algorithms for determining the event channel name (which
+ *      should depend on the capabilities provided, and the load on
+ *      the event channel) shall be determined later.
+ *    - QMS clients can then ask the trading service for sources of
+ *      data. If such a provider has registered  itself with the
+ *      trader, the trader shall return a set of suppliers ID's, event
+ *      channel names, event types, and object references. The client
+ *      can then go down the list, using the @em ping member function
+ *      of the object to ensure the object is still alive, and connect
+ *      to the corresponding event channel, filtering based on the
+ *      supplier ID and event type.
+ *
+ * The critical part of this scheme is the naming scheme used for
+ * classifying and identifying the data sought for and
+ * provided. Tentatively, we are looking towards the efforts of the
+ * Enterprise Management Group and CIM for a standards based solution
+ * to this issue. Please look at @ref QMSUniqueName for details of the
+   current work around.
+ *
+ *
+ * The QMS Trader provides the all knowing directory service that is
+ * essential for the QMS environment to be operational. There are several
+ * components to the QMS Trader. The QMS_Trader_ECInfo gives each publisher
+ * in the QMS environment a SupplierID. All QMS citizens that publish data in
+ * the QMS environment contact the QMS_Trader_ECInfo to obtain a SupplierID.
+ * Note that there are two basic kinds of QMS clients. There are the clients
+ * that subscribe to a stream of data and just consume it - passive clients.
+ * There are also clients that actively send out requests for data that
+ * conform to the request message specification that the probe defines in the
+ * ProbeSchema.xsd. These clients that publish requests are - active clients.
+ * Active clients are also required to obtain SupplierID's from the
+ * QMS_Trader_ECInfo.
+ *
+ * The QMS_Trader_ECInfo allows provides information to the QMS citizens that
+ * is related to the data stream that they are providing. For every
+ * QMSUniqueName/Category in the QMS environment, the QMS_Trader_ECInfo
+ * maintains a record of the Event Channels and the corresponding Event
+ * Types. For example, for the HelloWorld Sensor that publishes a datastream
+ * for the QMSUniqueName/Category "HelloWorldProbe", the QMS_Trader_ECInfo
+ * could have the following information.
+ *
+ *   - Sensors that publish HelloWorldProbe data publish it on the following
+ *     Event Channels - QMS_D_DAT1 and QMS_D_DAT2 with the event_type 10001.
+ *   - Sensors that publish HelloWorldProbe data receive requests for their
+ *     data on the following Event Channels - QMS_D_REQ1, QMS_D_REQ2 and
+ *     QMS_D_REQ3 with the event_type 120005.
+ *   - Sensors that publish HelloWorldProbe data make announcements regarding
+ *     their YellowPages Offers on the following Event Channel - QMS_D_ANN1
+ *     with event_type 25000.
+ *
+ * The scalability advantages of providing the multiple event channels for
+ * use by the provider of the HelloWorldProbe data are immediately obvious.
+ *
+ * A Sensor that is activated in the QMS environment, goes about its
+ * business, by first obtaining a SupplierID, obtaining all the Event Channel
+ * information from the QMS_Trader_ECInfo and then registering a YellowPages
+ * Offer with the Trading Service under the ServiceType
+ * "STDC_QMS_CITIZEN_YPOFFER" along with all the details regarding the data
+ * stream. These are the offers that the QMS Clients will query to figure out
+ * who to talk to and how when using QMS.
+ *
+ */
+
+/** @file Trader.idl
+ *  @ingroup Trader
+ *  @brief The Additional set of interfaces provided by the QMS Trader service
+ *
+ */
+
+#include "Command.idl"
+
+
+module STDC
+{
+  module QMS
+  {
+    module Citizen
+    {
+
+      /*
+       * Information about the ECRegistry interface.
+       * ===========================================
+       *
+       * This is an interface used by QMS citizens using the CORBA event
+       * channels to publish/consume data. Clients are not expected to use
+       * this interface directly, but are expected to use the data
+       * provided in the offer created by the data source
+       *
+       *  These interfaces are the additional interfaces provided by the QMS
+       *  trading service in addition to t6he interfaces provided in common
+       *  by all QMS citizens. These interfaces are divided into two
+       *  categories, namely, one for QMS citizens and data providers to
+       *  publish their capabilities on line,
+       *
+       *
+       * Information about the getSupplierID method.
+       * ===========================================
+       *
+       * This interface is used by QMS citizens that are data providers
+       * for the rest of the infrasrtucture. Each Citizen gets a unique
+       * supplier ID. In future versions the description provided shall be
+       * saved along with the assigned supplier ID, and perhaps queries
+       * shall be allowed against the data.
+       *
+       * Specifically, QMS citizens use this interface to learn, for a
+       * particular data type (QMS_UNIQ_NAME), which set of event channels
+       * the announcements (presence of a new data source, and the
+       * termination of the data source) are to be sent, on what channels
+       * should the data source be listening for a request, and where the
+       * published data is posted.
+       */
+      interface QMS_Trader_ECInfo :  Command
+      {
+
+	/// We return data in response to the queries as a sequence of
+	/// evenchannel names and even ID's corresponding to the
+	/// QMS_UNIQ_NAME named in the request.
+	struct ECInfo
+	{
+	  string EventChannelName;
+	  long EventId;
+	};
+
+	// Handy type defs
+	typedef sequence<ECInfo> AnnounceSeq;
+	typedef sequence<ECInfo> DataSeq;
+	typedef sequence<ECInfo> RequestSeq;
+
+	/**
+	 *  @return A sequence of pairs of event channel names and event IDs
+	 *  @param qms_unique_name The data type for which information is sought
+	 *
+	 *  This returns a sequence of event channel names on which the
+	 *  announcements are broadcast.
+	 */
+	AnnounceSeq getAnnounceChannels(in string qms_unique_name);
+
+	/**
+	 *  @return A sequence of pairs of event channel names and event IDs
+	 *  @param qms_unique_name The data type for which information is sought
+	 *
+	 *  This returns a sequence of event channel names on which the
+	 *  requests are broadcast.
+	 */
+	DataSeq getDataChannels(in string qms_unique_name);
+
+	/**
+	 *  @return A sequence of pairs of event channel names and event IDs
+	 *  @param qms_unique_name The data type for which information is sought
+	 *
+	 *  This returns a sequence of event channel names on which the
+	 *  data/results are broadcast.
+	 */
+	RequestSeq getRequestChannels(in string qms_unique_name);
+
+	/*
+	 * @param description A string prviding a description of the requestor
+	 * @return A supplier ID
+	 *
+	 * This interface, for the moment, only supports a single method,
+	 * wherein a Citizen may ask for a supplier ID, providing a
+	 * description in return.  The description may be any string
+	 whatsoever, and is not used operationally in QMS.
+	*/
+
+	unsigned long  getSupplierID (in string description);
+
+      };
+
+    };
+
+  };
+};
+
+
+
+#endif // QMS_TRADER_IDL

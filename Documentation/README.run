@@ -1,0 +1,126 @@
+/** @page README.run Running QMS
+ *
+ *  <PRE>
+ *  Copyright (C) 2001 System/Technology Development Corporation
+ *  This file is part of QoS Metric Services
+ * 
+ *  This program is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU General Public License as
+ *  published by the Free Software Foundation; either version 2 of the
+ *  License, or (at your option) any later version.
+ * 
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  General Public License for more details.
+ * 
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ *  02111-1307 USA
+ * 
+ *  You may contact System/Technology Development Corporation at
+ * 
+ *      System/Technology Development Corporation
+ *      Suite 500, Center for Innovative Technology,
+ *      2214 Rock Hill Road,
+ *      Herndon, VA 20170    
+ *      (703) 476-0687
+ *  </PRE>
+
+
+
+    To use QMS, perform the following sequence of steps.
+
+    Start up the various CORBA services including the Naming Service,
+    Event Service and the Trading Service.
+    
+        - Set the ACE_ROOT environment variable to the root of your ACE/TAO
+          installation.
+        - Run "Utilities/Scripts/corba_svc start". This will start multiple
+          copies of the Event Channel with the default names in addition to 
+          the Naming Service and the Trading Service.
+    
+    Start the additional QMS Trader components.
+    
+        - Edit Core/Trader/Trader.config to reflect your installation. 
+          The format specifies the Event Channel Name, the event type and 
+          whether that is the "announce", "data" or "request" channel for every
+          QMSUniqueName/Category.
+        - Follow the instructions in the @ref README.Trader file found in the 
+          directory Core/Trader to start the QMS Trader components. The output
+          will reflect the QMSUniqueName/Category entries already
+          defined in the environment. All new entries will be
+          dynamically allocated by the QMS Trader.
+        - Verify that the information in the QMS Trader is accurate by 
+          running ListOffers utility for the EC_INFO Service Type as
+          described in the Core/Trader/README file. Also run
+          ListOffers to verify the YP Offer registered by the
+          QMS_Trader_ECInfo citizen. 
+    
+    Now that the QMS infrastructure is operational, the rest of the
+    QMS functionality can be exercised by activing a set of Sensors
+    with their corresponding probes to supply data. Subsequently
+    activate the client programs in the test subdirectories to query
+    the Sensors, or activate the Simple_Logger plugin to record data.
+
+    Read the documentation on each Sensor for instructions on how to
+    activate and test the appropriate Sensors/Probes and their
+    specialized functionality.
+
+    As a general rule however, here is a description of what you would
+    need to do to activate a Sensor and its probes.
+
+	 - Pick the sensor that you are going to use. The Generic
+           Sensor is the most flexible Sensor and possibly what you
+           need.
+	 - Pick the probes that you wish the Sensor to have the
+           ability to activate. For example, the Linux_Perf_Mon probe
+           which will give you system level information on a Linux
+           host.
+	 - Edit the Sensor's configuration file to have the right
+           information reflected in it. The Sensor directory already
+           has a sample configuration file in it.
+	 - If the Sensor has external probes, then it also needs a
+           Capability file that describes the probes. You can
+           construct a capability file by concatenating all the sample
+           capability file fragments that exist in the probe
+           directories. Only use the file fragments for the probes
+           that you want. Edit the capability files so that they truly
+           reflect your environment. Note that this capability file
+           name should be the one you refer to while editing the
+           Config file in the previous step.
+	 - Make sure that all the XML schema file and the XSL
+           transform files that are relevant for the Sensor and all
+           the probes are available in the Sensor's operating
+           directory. At the very minimum, you need QMSSchema.xsd and
+           QMSMessage.xsl. Note that since the C++ version of Xerces
+           does not support the complete XML Schema implementation,
+           you should use QMSSchemaReduced.xsd instead, until this
+           limitation in Xerces is fixed.
+         - Start the Sensor with the argument that points to the
+           configuration file.
+	    - ./Generic_Sensor -f genericSensorConfig.xml
+	 - If all goes well, the Sensor will parse its configuration
+           files and register with the Trader. You can verify the
+           Probe offers in the Trader using the ListOffers tool.
+	 - If the Sensor fails to start, verify the following.
+	   - The CORBA Name Service, Trader Service and the Event
+             Channels with the names you are using are up and running.
+	   - The QMS Trader is up and running with the right seed
+             information in Trader.config.
+	   - There are no XML parse errors in your Configuration and
+             Capability files. Use the standard Xerces tools to
+             verify that the XML files are well-formed and valid.
+	   - All the schema files needed exist in the Sensor's
+             operating directory.
+	   - Check all of the above again, because at this point we
+             don't know what else to tell you, because it should work.
+	 - If at any point the Sensor crashes after making valid
+           offers in the QMS Trader and you notice strange behaviour
+           for subsequent instances of the Sensor, restart the QMS
+           Trader and the CORBA Trading Service. This should bring you
+           back to a pristine QMS environment.
+
+
+** @ref index **/

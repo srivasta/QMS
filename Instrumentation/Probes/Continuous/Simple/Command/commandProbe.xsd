@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- *****************************************************************
+ *** Copyright (c) 2001, System/Technology Development Corporation .
+ ***                
+ *** Filename:      commandProbe.xsd
+ *** Version:       1.0
+ *** Description:   Schema Description for the Command Probe
+ ***                
+ *** Author:        Amarendranath Vadlamudi <nath@vedam>
+ *** Created at:    Thu Dec 13 23:44:09 2001
+ *** Modified by:   Amarendranath Vadlamudi <nath@vedam>
+ *** Modified at:   Thu Dec 27 16:22:09 2001
+ *** Status:        Experimental, do not distribute.
+ *** Update count:  12
+ ***************************************************************** -->
+
+  <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://www.stdc.com/2001/QMS/Probes/Continuous/CommandProbe"
+    targetNamespace="http://www.stdc.com/2001/QMS/Probes/Continuous/CommandProbe"
+    elementFormDefault="qualified"
+    version="$Id: commandProbe.xsd,v 1.3 2001/12/27 21:26:09 nath Exp $" >
+  
+
+  <xsd:complexType name="probeControlType">
+    <xsd:annotation> 
+      <xsd:documentation>
+	The Generic Exec probe supports a set of control strings that
+	allows the requestor to control the function of the probe. The
+	supported actions are "start", and "stop". It is expected that
+	most commands will exit after their job is done. However, jobs
+	that don't exit will be sent a kill -TERM and subsequently a
+	kill -KILL if necessary on receiving a stop request.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="action">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+	    <xsd:enumeration value="start"/>
+            <xsd:enumeration value="stop"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="probeCommandType">
+    <xsd:annotation>
+      <xsd:documentation>
+	The Command Probe receives a set of arguments that need to be
+	passed to the Command execution environment. These are
+	specified in the request that is sent.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="arg0" type="xsd:string"/>
+      <xsd:element name="arg" type="xsd:string" minOccurs="0" maxOccurs="20"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="probeResponseType">
+    <xsd:annotation>
+      <xsd:documentation>The Command Probe is designed to be a probe
+      that can readily be used to execute operating system
+      commands. We classify some standard known formats - plotData and
+      columnData, all else goes in text which has type xsd:any.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="dataid" type="xsd:nonNegativeInteger"/>
+      <xsd:element name="response">
+	<xsd:complexType>
+	  <xsd:choice>
+	    <xsd:element name="plotData" type="plotDataType"/>
+	    <xsd:element name="columnData" type="columnDataType"/>
+	    <xsd:element name="textData" type="textDataType"/>
+	  </xsd:choice>
+	</xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+    <xsd:complexType name="plotDataType">
+    <xsd:annotation>
+      <xsd:documentation>
+        When this Command probe is activated, it sends back a stream of
+        plottable data. This data is plottable and so has a numeric
+        value. And it may also have units defined with it.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="numericData" type="xsd:decimal"/>
+      <xsd:element name="units" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+    <xsd:complexType name="columnDataType">
+    <xsd:annotation>
+      <xsd:documentation>
+        When this Command probe is activated, it may send back a stream of
+        text data that is easily represented in columns. Process
+        data is one such data stream with two columns.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="title">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="column" type="xsd:string" maxOccurs="20"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="row" maxOccurs="unbounded">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="column" type="xsd:string" maxOccurs="20"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="textDataType">
+    <xsd:annotation>
+      <xsd:documentation>
+        When this Command probe is activated, it may send back a stream of
+        textual data that is best represented as a paragraph with
+        interpretation and form best left to the viewers.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="message" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="commandProbe">
+    <xsd:complexType>
+      <xsd:choice>
+	<xsd:element name="probeRequest">
+	  <xsd:annotation>
+	    <xsd:documentation>
+	      If the probeRequest element is empty, then the request
+	      is essentially changing the minRepetitions or the
+	      minRepeatInterval parameters for the active request.
+	      </xsd:documentation>
+	  </xsd:annotation>
+	  <xsd:complexType>
+	    <xsd:choice>
+	      <xsd:element name="probeCommand" type="probeCommandType"/>
+	      <xsd:element name="probeControl" type="probeControlType"/>
+	    </xsd:choice>
+	  </xsd:complexType>
+	</xsd:element>
+        <xsd:element name="probeData" maxOccurs="unbounded" 
+          type="probeResponseType"/>
+      </xsd:choice>
+    </xsd:complexType>
+  </xsd:element>
+
+</xsd:schema>
+

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--******************************************************************
+ * Copyright (c) 2001, System/Technology Development Corporation .
+ *                
+ * Filename:      remosSensorCapability.xml
+ * Version:       1.0
+ * Description:   Capability Fragments that describe the probes to the Sensor
+ *                
+ * Author:        Amarendranath Vadlamudi <amar.vadlamudi@stdc.com>
+ * Created at:    Wed Oct 24 19:49:37 2001
+ * Modified by:   Amarendranath Vadlamudi <amar.vadlamudi@stdc.com>
+ * Modified at:   Wed Oct 24 20:01:58 2001
+ * Status:        Experimental, do not distribute.
+ * Update count:  4
+ ******************************************************************-->
+
+<sensorCapability xmlns="http://www.stdc.com/2001/QMSSchema"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:qms="http://www.stdc.com/2001/QMSSchema"
+  xsi:schemaLocation="http://www.stdc.com/2001/QMSSchema
+  QMSSchema.xsd">
+
+  <!-- This is the capability fragment introduced by the installation
+  of the Remos Flow Probe. -->
+  <Probe>
+    <probeType>continuous</probeType>
+    <dataReusable>false</dataReusable>
+    <QMSUniqueName>
+      <category>Remos_Flow</category>
+    </QMSUniqueName>
+    <probeSchema>remosProbes.xsd</probeSchema>
+    <schemaVersion>1.0</schemaVersion>
+    <Offer>
+      <variable>
+	<name>network</name>
+	<value>10.0.0.0/255.255.255.0</value>
+	<searchable/>
+	<maptoProperty>1</maptoProperty>
+      </variable>
+      <variable>
+	<name>Collector_Port</name>
+	<value>8001</value>
+      </variable>
+      <variable>
+	<name>Collector_Host</name>
+	<value>63.104.123.229</value>
+      </variable>
+      <variable>
+	<name>Description</name>
+	<value>Provides network data from Remos as a series of flows
+	  that describe available bandwidth</value>
+      </variable>
+      <variable>
+	<name>Function</name>
+	<value>Serve as a tutorial for QMS Developers</value>
+      </variable>
+      <variable>
+	<name>Author</name>
+	<value>Shivakumar Patil (S/TDC QMS team></value>
+      </variable>
+    </Offer>      
+    <Invoke>
+    <probeExecutable>./Remos_Flow_Probe</probeExecutable>
+      <probeXSLTFile>remosProbes.xsl</probeXSLTFile>
+      <xslParameters>
+	<variable>
+	  <name>collectorport</name>
+	  <value>8001</value>
+	</variable>
+	<variable>
+	  <name>collectorhost</name>
+	  <value>'63.104.123.229'</value>
+	</variable>
+      </xslParameters>
+    </Invoke>
+  </Probe>
+
+  <!-- This is the capability fragment introduced by the installation
+  of the Remos Graph Probe -->
+  <Probe>
+    <probeType>continuous</probeType>
+    <dataReusable>false</dataReusable>
+    <QMSUniqueName>
+      <category>Remos_Graph</category>
+    </QMSUniqueName>
+    <probeSchema>remosProbes.xsd</probeSchema>
+    <schemaVersion>1.0</schemaVersion>
+    <Offer>
+      <variable>
+	<name>network</name>
+	<value>10.0.0.0/255.255.255.0</value>
+	<searchable/>
+	<maptoProperty>1</maptoProperty>
+      </variable>
+      <variable>
+	<name>Collector_Port</name>
+	<value>8001</value>
+      </variable>
+      <variable>
+	<name>Collector_Host</name>
+	<value>63.104.123.229</value>
+      </variable>
+      <variable>
+	<name>Description</name> 
+	<value>Provides network data from Remos as a series of graphs
+	that describe available bandwidth on each link in the logical
+	topology of the network.
+	</value>
+      </variable>
+      <variable>
+	<name>Function</name>
+	<value>Serve as a tutorial for QMS Developers</value>
+      </variable>
+      <variable>
+	<name>Author</name>
+	<value>Shivakumar Patil (S/TDC QMS team></value>
+      </variable>
+    </Offer>      
+    <Invoke>
+    <probeExecutable>./Remos_Graph_Probe</probeExecutable>
+      <probeXSLTFile>remosProbes.xsl</probeXSLTFile>
+      <xslParameters>
+	<variable>
+	  <name>collectorport</name>
+	  <value>8001</value>
+	</variable>
+	<variable>
+	  <name>collectorhost</name>
+	  <value>'63.104.123.229'</value>
+	</variable>
+      </xslParameters>
+    </Invoke>
+  </Probe>
+</sensorCapability>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--******************************************************************
+ * Copyright (c) 2001, System/Technology Development Corporation .
+ *                
+ * Filename:      remosSensorConfig.xml 
+ * Version:       1.0
+ * Description:   Configuration File for the Remos Sensor
+ *                
+ * Author:        Amarendranath Vadlamudi <amar.vadlamudi@stdc.com>
+ * Created at:    Tue Oct 23 10:05:05 2001
+ * Modified by:   Amarendranath Vadlamudi <amar.vadlamudi@stdc.com>
+ * Modified at:   Wed Oct 24 19:44:39 2001
+ * Status:        Experimental, do not distribute.
+ * Update count:  6
+ ******************************************************************-->
+
+<sensorConfiguration xmlns="http://www.stdc.com/2001/QMSSchema"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:qms="http://www.stdc.com/2001/QMSSchema"
+  xsi:schemaLocation="http://www.stdc.com/2001/QMSSchema
+  QMSSchema.xsd">
+  
+  <!-- This is the CORBA interface that the Remos Sensor instance
+  provides with the Command and Control interface.
+  We describe that we have a ping() method available.-->
+
+  <QMSSchema/>
+  <QMSUniqueName>
+    <category>RemosSensor</category>
+  </QMSUniqueName>
+  <interfaceVersion>1.0</interfaceVersion>
+  <interfaceDescription>
+    QMS Command and Control Citizen Interface
+  </interfaceDescription>
+  <Offer>
+    <variable>
+      <name>ping</name>
+      <value>boolean</value>
+      <searchable/>
+      <maptoProperty>1</maptoProperty>
+    </variable>
+    <variable>
+      <name>flowProbe</name>
+      <value>installed</value>
+      <searchable/>
+      <maptoProperty>2</maptoProperty>
+    </variable>
+    <variable>
+      <name>graphProbe</name>
+      <value>installed</value>
+      <searchable/>
+      <maptoProperty>3</maptoProperty>
+    </variable>
+    <variable>
+      <name>predictionProbe</name>
+      <value>not installed</value>
+      <searchable/>
+      <maptoProperty>4</maptoProperty>
+    </variable>
+    <variable> 
+      <name>Function</name>
+      <value>Serve as tutorial for QMS developers</value>
+    </variable>
+    <variable> 
+      <name>Authors</name>
+      <value>The S/TDC QMS Team</value>
+    </variable>
+  </Offer>	
+  <Instance>
+    <variable> 
+      <name>Capability File Location</name>
+      <value>remosSensorCapability.xml</value>
+    </variable>
+  </Instance>
+</sensorConfiguration>
+

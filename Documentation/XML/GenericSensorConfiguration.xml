@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--******************************************************************
+ * Copyright (c) 2001, System/Technology Development Corporation.
+ *                
+ * Filename:      GenericSensorConfiguration.xml
+ * Version:       
+ * Description:   Sample Configuration File for the Generic Sensor
+ *                
+ * Author:        Amarendranath Vadlamudi <amar.vadlamudi@stdc.com>
+ * Created at:    Tue Oct  9 14:00:27 2001
+ * Modified by:   Amarendranath Vadlamudi <amar.vadlamudi@stdc.com>
+ * Modified at:   Wed Oct 24 18:30:09 2001
+ * Status:        Experimental, do not distribute.
+ * Update count:  1
+ ******************************************************************-->
+
+<sensorConfiguration xmlns="http://www.stdc.com/2001/QMSSchema"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:qms="http://www.stdc.com/2001/QMSSchema"
+  xsi:schemaLocation="http://www.stdc.com/2001/QMSSchema
+  QMSSchema.xsd">
+  
+  <QMSSchema/>
+  <QMSUniqueName>
+    <category>QMSGenericSensor</category>
+  </QMSUniqueName>
+  <interfaceVersion>1.01</interfaceVersion>
+  <interfaceDescription>
+    A QMS Citizen Command and Control Interface
+  </interfaceDescription>
+  <Offer>
+    <variable>
+      <name>sleep</name>
+      <value>boolean</value>
+      <searchable/>
+      <maptoProperty>1</maptoProperty>
+    </variable>
+    <variable>
+	<name>restartDaemon</name>
+      <value>char*</value>
+    </variable>
+    <variable>
+      <name>organization</name>
+      <value>S/TDC</value>
+    </variable>
+  </Offer>	
+  <Instance>
+    <variable>
+      <name>Capability File Location</name>
+      <value>/usr/local/qms/Capability.xml</value>
+    </variable>
+  </Instance>
+  </sensorConfiguration>
+

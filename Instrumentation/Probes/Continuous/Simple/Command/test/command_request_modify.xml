@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- *****************************************************************
+ *** Copyright (c) 2001, System/Technology Development Corporation .
+ ***                
+ *** Filename:      command_request_modify.xml
+ *** Version:       1.0
+ *** Description:   Sample XML File - Modify request to CommandProbe
+ ***                
+ *** Author:        Amarendranath Vadlamudi <amar.vadlamudi@stdc.com>
+ *** Created at:    Sat Dec  1 13:33:23 2001
+ *** Modified by:   Amarendranath Vadlamudi <nath@vedam>
+ *** Modified at:   Fri Dec 14 03:33:01 2001
+ *** Status:        Experimental, do not distribute.
+ *** Update count:  5
+ ***************************************************************** -->
+
+<!-- This is a sample XML file that is useful to test any parser that -->
+<!-- uses the commandProbe.xsd schema defined for the Command -->
+<!-- Continuous Probe -->
+
+  <commandProbe 
+    xmlns="http://www.stdc.com/2001/QMS/Probes/Continuous/CommandProbe"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation=
+    "http://www.stdc.com/2001/QMS/Probes/Continuous/CommandProbe 
+    commandProbe.xsd">
+    
+    <!-- The Command Probe accepts a request to start and stop
+    it. Obviously some commands will exit right away and so will the
+    probe. Others may hang around for a while waiting for a stop. -->
+    
+  <probeRequest>
+    <probeControl>
+      <action>stop</action>
+    </probeControl>
+  </probeRequest>
+  
+  </commandProbe>           

@@ -1,0 +1,52 @@
+2000-12-10  Manoj Srivastava  <manoj.srivastava@stdc.com>
+
+	* bench_send.cpp, bench_recv.spp, bench_xml.cpp: new benchmark code.
+
+2000-12-07  Manoj Srivastava  <manoj.srivastava@stdc.com>
+
+	* QMS_Remos_Msg.cpp (insert): 1.8 Use finer grained time stamps --
+		  microseconds where possible, or milliseconds otherwise. 
+
+2000-11-30  Manoj Srivastava  <manoj.srivastava@stdc.com>
+
+	* QMS_Remos_Msg.cpp (insert): Fix the month value in the time
+		  stamp we output. 
+
+2000-11-17  Manoj Srivastava  <manoj.srivastava@stdc.com>
+
+	* test_remos.cpp (my_cb_func): 1.6 Send two responses to a Desi
+		  query, instead of just one.
+
+	* QMS_Remos_Msg.cpp (insert): 1.7 In sending the query, the link
+		  type and the data type contents had 
+		  been flipped. Corrected. Also, no longer specify the
+		  encoding in the XML version, and correct the DOCUMENT
+		  type epcification
+
+2000-11-08  Manoj Srivastava  <manoj.srivastava@stdc.com>
+
+	* test_desi.cpp (my_cb_func): 1.3 Added option void *
+		  argument pointers to the call back function, to allow
+		  the call back function to access to relatively
+		  stable data
+
+	* test_remos.cpp (my_cb_func): 1.4 ditto
+
+	* QMS_Remos_Msg.h (class QMS_Remos_Msg): 1.3 Add persistent and
+		  monotonically increasing sequence numbers
+
+	* QMS_Remos_Msg.cpp (insert): 1.5 ditto
+
+2000-11-07  Manoj Srivastava  <manoj.srivastava@stdc.com>
+
+	* QMS_Remos_Msg.cpp: 1.3  fixed a bug in the ato[if] code in the
+		  extract functions where the terminating nul was being
+		  inserted in the wrong place
+
+2000-11-01  Manoj Srivastava  <manoj.srivastava@stdc.com>
+
+	* test_remos.cpp, test_desi.cpp, test_msg.cpp: 1.1  convert to
+		  using the new debug macros
+
+	* QMS_Remos_Msg.h: Added comments
+

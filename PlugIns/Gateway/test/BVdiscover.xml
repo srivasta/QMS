@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- *****************************************************************
+ *** Copyright (c) 2001, System/Technology Development Corporation .
+ ***                
+ *** Filename:      BVdiscover.xml
+ *** Version:       1.0
+ *** Description:   BVT to BVGateway Discover request
+ ***                
+ *** Author:        Amarendranath Vadlamudi <nath@vedam>
+ *** Created at:    Sun Dec  9 17:48:18 2001
+ *** Modified by:   Amarendranath Vadlamudi <nath@vedam>
+ *** Modified at:   Sun Dec  9 23:36:53 2001
+ *** Status:        Experimental, do not distribute.
+ *** Update count:  24
+ ***************************************************************** -->
+
+<discover xmlns="http://www.stdc.com/2001/QMS/Plugins/BVGateway"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:qms="http://www.stdc.com/2001/QMSSchema"
+  xsi:schemaLocation=
+  "http://www.stdc.com/2001/QMS/Plugins/BVGateway BVGateway.xsd"> 
+
+  <request>
+    <BVTlistenAddress>
+      <host>10.0.0.1</host>
+      <port>4001</port>
+    </BVTlistenAddress>
+    <resource>
+      <QMSUniqueName>
+	<qms:category>QMS_CPU</qms:category>
+      </QMSUniqueName>
+      <QMSUniqueName>
+	<qms:category>HelloWorldProbe</qms:category>
+      </QMSUniqueName>
+    </resource>
+  </request>
+</discover>
+

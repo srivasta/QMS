@@ -1,0 +1,715 @@
+/** @page README.install Installing QMS 
+ *
+ *  <PRE>
+ *  Copyright (C) 2001 System/Technology Development Corporation
+ *  This file is part of QoS Metric Services
+ * 
+ *  This program is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU General Public License as
+ *  published by the Free Software Foundation; either version 2 of the
+ *  License, or (at your option) any later version.
+ * 
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  General Public License for more details.
+ * 
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ *  02111-1307 USA
+ * 
+ *  You may contact System/Technology Development Corporation at
+ * 
+ *      System/Technology Development Corporation
+ *      Suite 500, Center for Innovative Technology,
+ *      2214 Rock Hill Road,
+ *      Herndon, VA 20170    
+ *      (703) 476-0687
+ *  </PRE>
+
+    Since you have obtained the QMS source code, you will now have to
+    build and install the software appropriately in order to use it. 
+    The sections below describe the process.
+
+    @ref SystemRequirements
+
+    @ref LinuxInstall
+ 
+    @ref WindowsInstall
+
+    @ref LinuxBuildDetails
+    
+ 
+ **//**
+ @page SystemRequirements System Requirements
+
+    QMS has dependencies on several packages that are commonly used in
+    distributed systems development. All of them are readily available
+    in both source code and binary form. Please visit the appropriate
+    web site to obtain the software and build it for your platform.
+
+    @subsection RequiredOS Operating Systems
+
+    -# Redhat Linux 6.2 . A version of the Linux operating system that
+       can be obtained from http://www.redhat.com/.
+    -# Microsoft Windows NT Workstation 4.0 (SP6a). The Windows NT operating
+       system from Microsoft Corporation with the Service Pack 6a
+       installed. This OS can be obtained at your favorite retail
+       computer store.
+
+    @subsection RequiredSW Additional Software Packages
+
+    -# ACE - The Adaptive Communication Environment (version
+       5.1.19). ACE can be obtained from
+       http://www.cs.wustl.edu/~schmidt/ACE.html.
+    -# TAO - The ACE ORB (version 1.1.19). TAO is a realtime CORBA ORB
+       used in the ACE environment and can be obtained from
+       http://www.cs.wustl.edu/~schmidt/TAO.html
+    -# Xerces C++ - A validating C++ XML Parser (version 1.5.1). It can be
+       obtained from http://xml.apache.org/xerces-c. Note that
+       Xerces-C v1.5.1 does not implement the complete XML Schema
+       Recommendation from the W3C. However, the instructions below
+       provide instructions to compensate for the lack of this
+       ability. 
+    -# Xalan C++ - An XSLT processor in C++ (version 1.2). It is used
+       for transforming XML documents into HTML, text, or other XML
+       document types. It can be obtained from http://xml.apache.org/xalan-c.
+    -# Doxygen (version 1.2.10). A document generation system that
+       generates documentation directly from the comments in the
+       source code. This package is used to generate the QMS
+       documentation and is not necessary for running QMS. It can be
+       obtained from http://www.doxygen.org/.
+    -# Graphviz (version 1.7.5-7). A set of tools to draw graphs. Used
+       by Doxygen to generated graphical views of the class
+       hierarchies in QMS. Used to generate documentation and is not
+       necessary for running QMS. It can be obtained from
+       http://www.research.att.com/sw/tools/graphviz.
+
+    QMS has been tested with the above mentioned versions of the
+    software and is known to work on the above indicated
+    platforms. Support will be improved across multiple platforms and
+    versions of software as necessary. Your results may vary if you
+    use systems or software other than those indicated above.
+
+
+ ** @ref README.install **//**
+ @page LinuxInstall QMS on Linux
+
+ @subsection LinuxMakeIntroduction The Makefiles at Work
+
+    The build system used for QMS is an attempt to simplify individual
+    Makefiles, and to shield them from platform and site dependencies,
+    and to provide a single point where sitewide options maybe
+    set. The goal is that one may go to the S/TDC source tree,
+    irrespective of the product or the particular platform one is on,
+    and type the same command (make build, make install, etc) and have
+    the product compile and be installed in the proper place for that
+    particular platform and site. A second goal is to simplify writing
+    Makfiles for each product by taking out the common/and or mundane
+    tasks into the common configuration sites. This also ensures some
+    consistency in the way that source code for various products is
+    compiled.
+
+    When the makefile fragment project.tmpl is included in a makefile,
+    the following sequence of events happen. First the fragment
+    determines which architecture it is being run on, and then loads
+    the fragment project.defaults which provides the basic default
+    values for various variables, and sets the values of any variable
+    not defined in the top level makefile to the default value. It
+    then loads a vendor specific fragment, which may choose to
+    override some of the default variables to settings valid for that
+    machine-vendor-os combination.  After this, a site specific
+    makefile fragment is loaded which modifies the default variable
+    settings for the whole site. After this, if defined, a project
+    specific makefile fragment is loaded. Finally, fragments which
+    define implicit rules and targets are loaded. (see
+    .../Config/project.tmpl for details)
+
+    Please look at @ref README.background for a gentle introduction to 
+    the concepts intrinsic to the QMS framework.
+
+
+ @subsection LinuxBuild Building QMS on Linux
+
+    Given that ease of use is a goal of the build system, building QMS
+    is as simple as the following two steps.  The first step ensures
+    that the build directory exists, and creates the dir structure
+    under the build directory that parallels the sources for the
+    current architecture, and the second step actually does the build.
+    
+      - % make NO_DEPENDS=1
+      - % make build
+
+    Quick configuration tip: Inspect Config/qms.preconf and set the
+    location of ACE and TAO root that is suitable for your
+    site. Second, inspect Config/project.defaults to ensure that it
+    looks correct (especially the locations of Xalan and Xerces). 
+
+    Note that the default binary versions of Xalan and Xerces that you
+    download from www.apache.org have the relevant files in the lib
+    and include directories of the root directory of the
+    installation. The QMS Makefiles use -lxalan-c and -lxerces-c as
+    part of their link arguments and so will be looking for the files
+    named libxalan-c.so and libxerces-c.so. This will prevent explicit
+    Makefile dependencies on specific versions of these libraries.
+    The default installations of Xerces and Xalan will not have these
+    files. So please make symbolic links to these files with a command
+    similar to the following:
+
+    - ln -s /opt/xalan/lib/libxalan-c1_2.so /opt/xalan/lib/libxalan-c.so
+    - ln -s /opt/xerces/lib/libxerces-c1_5_1.so /opt/xalan/lib/libxerces-c.so
+
+
+ ** @ref README.install **//**
+ @page WindowsInstall QMS on Windows NT
+
+  @subsection WindowsMakeIntroduction Using the Microsoft Visual C++ Workspace
+  
+    The QMS Workspace (QMS.dsw) under QMS directory contains the
+    Microsoft VC++ project files needed to build the QMS library,
+    Sensors, QMS Trader and test examples.  The Probes workspace
+    (Probes.dsw) in the directory QMS/Instrumentation  contains project
+    files for all the probes that work under Windows NT 4.0 .
+
+   @subsection WindowsBuild Building QMS on Windows NT 
+    
+    Ensure that you have all the software specified in the
+    @ref SystemRequirements section of the QMS documentation. QMS has been
+    tested with the specified versions of the software on Microsoft
+    Windows NT 4.0 with Service Pack 6a. 
+
+    Setup the following environment variables in your Windows NT
+    environment. This is usually done by right-clicking on the "My
+    Computer" icon on your desktop and selecting the "Properties"
+    menu item. Use the "Environment" tab in the window that pops up
+    and set these variables in the User environment.
+
+    - Set the variable ACE_ROOT to the location of the directory
+      ACE_wrappers in your installation of the ACE+TAO distribution.
+    - Set the variable QMS_ROOT to the location of the directory QMS
+      in your installation of the QMS distribution.
+    - Set the variable XALANCROOT to the location of the directory
+      xml-xalan\c in your installation of the Xalan distribution.
+    - Set the variable XERCESCROOT to the location of the directory
+      xml-xerces\c in your installation of the Xerces distribution.
+ 
+    Note that after setting these variables you may have to logout and
+    log back in for them to take effect in your environment. Verify
+    that they are set accurately, by starting a Command Prompt and
+    typing "set" at the prompt. This will display all the environment
+    variables that are set currently.
+
+    Next start the Microsoft VC++ IDE and edit the following variables.
+ 
+    - Include the following directory paths QMS\Core and
+      Desiderata\include in the "include files" drop down under
+      Directories option of MSVC++ IDE. The Desiderata\include is needed
+      only if you are building the Network Broker executable (NB.dsp)
+      and the Desi_Remos dll (Desi_Remos.dsp).
+    - Include QMS\build\winnt, xml-xalan\c\Build\win32\VC6\Debug and
+      xml-xerces\c\lib directory paths in the "library files" drop
+      down under Directories option of MSVC++ IDE .
+
+    Now open QMS.dsw and build the QMS.lib library using QMS.dsp. This
+    will library is essential to building the rest of QMS.  Go ahead
+    and build the rest of the project files that are included in the
+    workspace to generate the test programs, the various Sensors and
+    the QMS Trader .
+
+    Finally, open the workspace Probes.dsw under QMS\Instrumentation
+    directory and build the various NT probes that are available for
+    the Windows NT platform.
+
+    If you are building the Desiderata Network Broker, first build the
+    Desi_Remos dll using Desi_Remos project file (Desi_Remos.dsp).
+        
+
+ ** @ref README.install **//**
+ @page LinuxBuildDetails The QMS Build System on Linux
+
+    We describe here the details of managing the build system that uses
+    POSIX make for building QMS. At this point, the auto configuration
+    aspects of the build system are not fully implemented, and one
+    needs to manually create and massage Config/$VENDORCONFIG for each
+    new platform that QMS is built on. In the near future, a Configure
+    script shall be provided to automate this process.
+
+
+    The build actually proceeds in a number of sequential steps, which
+    may be invoked manually if desired. Each stage proceeds in a depth
+    first fashion.  Since autogenerated files are produced in early
+    stages, and libraries are creatred before binaries are linked,
+    this reduces the dependencies between various subdirectories of a
+    project. The steps involved are:
+
+   -# build_sources          This step ensures that all the source
+                             files needed for the rest of the build
+                             are actually present. It runs lex,
+                             yacc/bison, and idl compilers as needed
+                             to create all the source  files under the
+                             build tree 
+   -# build_objects	     This step creates the object (.o) files
+                             required by the steps that follow.
+   -# build_shared_objects   Closely related to the previous step,
+                             this creates all the object files
+                             required by shared libraries, putting
+                             them in a separate dir, and passing in
+                             any special flags required for creating
+                             shared objects
+   -# build_archives         This step creates any simple libraries
+                             specified in the Makefile
+   -# build_shared_archives  This step takes the shared object files
+                             created in step (iii), and creates a
+                             shared library from them, passing in the
+                             requisite command line invocation to the
+                             linker.
+   -# build_cbin             This step builds all the C binaries
+                             specified in the Makefile
+   -# build_c++bin           This step builds all the C++ binaries
+                             specified in the Makefile
+   -# documentation          Finally, this step build the
+                             documentation by invoking doxygen.
+
+ @section LinuxInstallDetails Using the Makefiles to install QMS
+
+    Once the build is done using the procedure above, it is possible
+    to automatically install the build on the system.  At this point,
+    the install targets in the various subdirectories have not been
+    tested.  Currently, QMS binaries are run in situ in the build
+    tree; however, the intent is that when shipped QMS should be
+    installable with a simple make install
+
+    In a similar fashion to the build process, the install process
+    also proceeds in stages, and these are, in turn
+
+    INSTALL_idl INSTALL_include INSTALL_lib INSTALL_bin INSTALL_script
+    INSTALL_data INSTALL_state INSTALL_etc INSTALL_man[1-8ln]
+    INSTALL_doc and INSTALL_nls
+
+    These should be self evident as to what is installed in each step.
+
+
+ @section MakefileNotes Notes for Makefile writers
+
+    In order to utilize the full power of this tool, and to simplify
+    your makefile, certain conventions have to be followed. You have
+    to put the following line AFTER all your variable declarations in
+    your Makefile:
+
+    include  $(CONFIG_TOP)/Config/project.tmpl
+
+    where $(CONFIG_TOP) is defined to be the top of the S/TDC source
+    tree on your installation. For QMS, CONFIG_TOP is defined to be
+    the TOP of the QMS source tree, or SRCTOP.  This value may be
+    specified in the Makefile, as a command line argument to make, or
+    as an environment variable.
+
+    Next, you should specify the source files in the directory in the
+    variable $(SRC), and this means _all_ the source files (including
+    the Makefile, idl files, man pages, etc), in order to use the
+    predefined targets depend, build, build_sources, build_objects,
+    build_archives, build_cbin, build_c++bin, and checkoutall.
+
+    If you are building any binaries, you should also specify the them
+    as either CPROGRAMS or C++PROGRAMS. Any libraries, similarily,
+    should be listed in LIBRARIES and SHARED_LIBRARIES. Additionally,
+    for each such binary and library, you have to specify the
+    dependencies, in the form binary_BIN or library.a variables.
+
+    For installation files in the directory, you should list the files
+    to be installed in the variables idl_INSTALL, include_INSTALL,
+    lib_INSTALL, bin_INSTALL, etc_INSTALL, man_INSTALL, and
+    doc_INSTALL for installing various categories of the installed
+    objects.
+
+ @section MakefileSynopsis Synopsis of a Makefile 
+
+    The following variables have no defaults: SRC, CPROGRAMS,
+    C++PROGRAMS, idl_INSTALL, include_INSTALL, lib_INSTALL,
+    bin_INSTALL, etc_INSTALL, man_INSTALL, and doc_INSTALL.
+
+ @section MakefileCustomization  Customization of the Makefile
+
+    There are a number or variables which have default values, but
+    maybe overridden by the Makefile. This utility defines the default
+    values for a variable in variables of the form DEFAULT_variable,
+    and if and only if the corresponding variable has not been defined
+    in the Makefile, sets variable = $(DEFAULT_variable). If you need
+    to add anything to the default value of a variable (for example,
+    adding an extra cpp flag), you may use the following form:
+
+    DEFAULT_variable += added value.
+
+    but it is recommended that you do not totally override the
+    DEFAULT_variable. If you need to discard the system defaults, you
+    may define the variable totally by saying variable = newvalue.
+
+    In addition, idl, cpp, and cflags maybe specified on a per file
+    basis by defining a variable of the form filename.o_CPPFLAGS, etc,
+    if you need to change these flags for just a few files.
+
+    Also, you may specify a full path name in the variable PROJECTCONF
+    which should point to a project specific makefile fragment that is
+    loaded last, and maybe used to override the system and site
+    defaults on a per project basis.
+
+ @section MakefileExample Example of a QMS Makefile
+
+    ***************************************************************
+    *************** Include an example Makefile here, with comments
+    ***************************************************************
+
+ @section MakefileVariables Variable
+
+    This is a list of the variables currently defined by this utility
+
+        -#  AR
+        -#  ARCHITECTURE
+        -#  ARCHIVES
+        -#  ARFLAGS
+        -#  AUTO_CFLGS
+        -#  AUTO_CPP_FLGS
+        -#  BIN_INSTALL_MODE
+        -#  C++
+        -#  C++BINARIES
+        -#  C++CPPFLAGS
+        -#  C++CPPINCFLAGS
+        -#  C++DEBUG
+        -#  C++FILES
+        -#  C++FLAGS
+        -#  C++IDL_FLAGS
+        -#  C++INCPATHS
+        -#  C++LDFLAGS
+        -#  C++LIBPATH
+        -#  C++LIBS
+        -#  C++OPTS
+        -#  C++PP
+        -#  C++WARNS
+        -#  C++_IDLFILES
+        -#  CAUX_CFLGS
+        -#  CAUX_CPP_FLGS
+        -#  CBINARIES
+        -#  CC
+        -#  CDEBUG
+        -#  CFILES
+        -#  CHMOD
+        -#  CI
+        -#  CIDL_FLAGS
+        -#  CO
+        -#  CONFIGURE_C++CPPFLAGS
+        -#  CONFIGURE_C++FLAGS
+        -#  CONFIGURE_C++LIBS
+        -#  CONFIGURE_C++PP
+        -#  CONFIGURE_CC
+        -#  CONFIGURE_CFLAGS
+        -#  CONFIGURE_CIDLFLAGS
+        -#  CONFIGURE_CPLUSLDFLAGS
+        -#  CONFIGURE_CPLUSPLUS
+        -#  CONFIGURE_CPLUSWARNS
+        -#  CONFIGURE_CPP
+        -#  CONFIGURE_CWARNS
+        -#  CONFIGURE_IDL
+        -#  CONFIGURE_INSTALL
+        -#  CONFIGURE_LDFLAGS
+        -#  CONFIGURE_LD_DEBUGFLG
+        -#  CONFIGURE_LEX
+        -#  CONFIGURE_LEXFLAGS
+        -#  CONFIGURE_LIBFLEX
+        -#  CONFIGURE_LIBS
+        -#  CONFIGURE_LIBYACC
+        -#  CONFIGURE_OPTIMIZE
+        -#  CONFIGURE_RANLIB
+        -#  CONFIGURE_USE_GNU
+        -#  CONFIGURE_XINCLUDE
+        -#  CONFIGURE_XLIBPATH
+        -#  CONFIGURE_YACC
+        -#  CONFIGURE_YACCFLAGS
+        -#  COPTS
+        -#  CP
+        -#  CPP
+        -#  CPPINCFLAGS
+        -#  CSTUB_CFLGS
+        -#  CSTUB_CPP_FLGS
+        -#  CWARNS
+        -#  DEFAULT_ACE_ROOT
+        -#  DEFAULT_AR
+        -#  DEFAULT_ARCHITECTURE
+        -#  DEFAULT_AUTO_CFLGS
+        -#  DEFAULT_BIN_INSTALL_MODE
+        -#  DEFAULT_C++
+        -#  DEFAULT_C++CPPFLAGS
+        -#  DEFAULT_C++CPPINCFLAGS
+        -#  DEFAULT_C++FLAGS
+        -#  DEFAULT_C++IDL_FLAGS
+        -#  DEFAULT_C++INCPATHS
+        -#  DEFAULT_C++LDFLAGS
+        -#  DEFAULT_C++LIBS
+        -#  DEFAULT_C++PP
+        -#  DEFAULT_C++WARNS
+        -#  DEFAULT_C++_IDLFILES+
+        -#  DEFAULT_CC
+        -#  DEFAULT_CFLAGS
+        -#  DEFAULT_CHMOD
+        -#  DEFAULT_CI
+        -#  DEFAULT_CIDL_FLAGS
+        -#  DEFAULT_CO
+        -#  DEFAULT_COPTS
+        -#  DEFAULT_CP
+        -#  DEFAULT_CPP
+        -#  DEFAULT_CPPFLAGS
+        -#  DEFAULT_CPPINCFLAGS
+        -#  DEFAULT_CWARNS
+        -#  DEFAULT_ECHO_COM
+        -#  DEFAULT_EMACS
+        -#  DEFAULT_GUESSDIR
+        -#  DEFAULT_HOSTNAME_CONFIG
+        -#  DEFAULT_IDL
+        -#  DEFAULT_INCLUDELIBVPATH
+        -#  DEFAULT_INCLUDEVPATH
+        -#  DEFAULT_INSTALL
+        -#  DEFAULT_INSTALL_MODE
+        -#  DEFAULT_LDFLAGS
+        -#  DEFAULT_LD_DEBUGFLG
+        -#  DEFAULT_LD_LIBRARY_PATH
+        -#  DEFAULT_LEX
+        -#  DEFAULT_LEX_LIBS
+        -#  DEFAULT_LIBS
+        -#  DEFAULT_MACHINE
+        -#  DEFAULT_MAKECONFDIR
+        -#  DEFAULT_MAKEFILE
+        -#  DEFAULT_MKDIR
+        -#  DEFAULT_MKDIRHIER
+        -#  DEFAULT_MV
+        -#  DEFAULT_NORM_LEXFLAGS
+        -#  DEFAULT_OBJDIR
+        -#  DEFAULT_OBJECTS+
+        -#  DEFAULT_OBJTOP
+        -#  DEFAULT_PIC
+        -#  DEFAULT_RANLIB
+        -#  DEFAULT_RM
+        -#  DEFAULT_SHELL
+        -#  DEFAULT_SHLINK
+        -#  DEFAULT_SRCDIR
+        -#  DEFAULT_SYSTEM
+        -#  DEFAULT_TAO_ROOT
+        -#  DEFAULT_TOUCH
+        -#  DEFAULT_USE_GNU
+        -#  DEFAULT_VENDOR
+        -#  DEFAULT_VENDOR_CONFIG
+        -#  DEFAULT_XALANCROOT
+        -#  DEFAULT_XERCESCROOT
+        -#  DEFAULT_XINCLUDE
+        -#  DEFAULT_XLIBPATH
+        -#  DEFAULT_XLIBS
+        -#  DEFAULT_YACC
+        -#  DEFAULT_YACCFLAGS
+        -#  DEFAULT_YACC_LIBS
+        -#  DEFAULT_bin_INSTALL_MODE
+        -#  DEFAULT_bindir
+        -#  DEFAULT_data_INSTALL_MODE
+        -#  DEFAULT_datadir
+        -#  DEFAULT_doc_INSTALL_MODE
+        -#  DEFAULT_docdir
+        -#  DEFAULT_etc_INSTALL_MODE
+        -#  DEFAULT_etcdir
+        -#  DEFAULT_exec_prefix
+        -#  DEFAULT_idl_INSTALL_MODE
+        -#  DEFAULT_idldir
+        -#  DEFAULT_include_INSTALL_MODE
+        -#  DEFAULT_includedir
+        -#  DEFAULT_infodir
+        -#  DEFAULT_lib_INSTALL_MODE
+        -#  DEFAULT_libdir
+        -#  DEFAULT_libexecdir
+        -#  DEFAULT_lispdir
+        -#  DEFAULT_localstatedir
+        -#  DEFAULT_man1_INSTALL_MODE
+        -#  DEFAULT_man1dir
+        -#  DEFAULT_man2_INSTALL_MODE
+        -#  DEFAULT_man2dir
+        -#  DEFAULT_man3_INSTALL_MODE
+        -#  DEFAULT_man3dir
+        -#  DEFAULT_man4_INSTALL_MODE
+        -#  DEFAULT_man4dir
+        -#  DEFAULT_man5_INSTALL_MODE
+        -#  DEFAULT_man5dir
+        -#  DEFAULT_man6_INSTALL_MODE
+        -#  DEFAULT_man6dir
+        -#  DEFAULT_man7_INSTALL_MODE
+        -#  DEFAULT_man7dir
+        -#  DEFAULT_man8_INSTALL_MODE
+        -#  DEFAULT_man8dir
+        -#  DEFAULT_man_INSTALL_MODE
+        -#  DEFAULT_mandir
+        -#  DEFAULT_manext
+        -#  DEFAULT_manl_INSTALL_MODE
+        -#  DEFAULT_manldir
+        -#  DEFAULT_mann_INSTALL_MODE
+        -#  DEFAULT_manndir
+        -#  DEFAULT_mantop
+        -#  DEFAULT_nls_INSTALL_MODE
+        -#  DEFAULT_nlsdir
+        -#  DEFAULT_oldincludedir
+        -#  DEFAULT_prefix
+        -#  DEFAULT_sbindir
+        -#  DEFAULT_script_INSTALL_MODE
+        -#  DEFAULT_scriptdir
+        -#  DEFAULT_sharedstatedir
+        -#  DEFAULT_state_INSTALL_MODE
+        -#  DEFAULT_sysconfdir
+        -#  DEPFLAGS
+        -#  ECHO_COM
+        -#  EMACS
+        -#  FilesToClean
+        -#  GUESSDIR
+        -#  HAS_HOSTNAME_CONFIG
+        -#  HEADERS
+        -#  HOSTNAME_CONFIG
+        -#  IDL
+        -#  IDLFLAGS
+        -#  IDL_EXT
+        -#  IDL_EXT_MINUS
+        -#  IDL_FILES
+        -#  IDL_TARGETS
+        -#  INCLUDELIBVPATH
+        -#  INCLUDEVPATH
+        -#  INCPATHS
+        -#  INSTALL
+        -#  INSTALL_MODE
+        -#  LDFLAGS
+        -#  LD_DEBUGFLG
+        -#  LD_LIBRARY_PATH
+        -#  LEX
+        -#  LEXDEBUG
+        -#  LEXFILES
+        -#  LEXFLAGS
+        -#  LEX_LIBS
+        -#  LIBPATH
+        -#  LIBREASON
+        -#  LIBS
+        -#  LOADED_VENDOR_CONFIG
+        -#  MACHINE
+        -#  MAKECONFDIR
+        -#  MAKEFILE
+        -#  MKDIR
+        -#  MKDIRHIER
+        -#  MV
+        -#  NLSPATH
+        -#  NORM_LEXFLAGS
+        -#  OBJDIR
+        -#  OBJECTS
+        -#  OBJTOP
+        -#  PATH
+        -#  PIC
+        -#  RANLIB
+        -#  REASON
+        -#  RM
+        -#  SAUX_CFLGS
+        -#  SAUX_CPP_FLGS
+        -#  SHARED_ARCHIVES
+        -#  SHELL
+        -#  SHLINK
+        -#  SRCDIR
+        -#  SSTUB_CFLGS
+        -#  SSTUB_CPP_FLGS
+        -#  STDC_POST_CONFIG
+        -#  STDC_POST_DEFAULTS
+        -#  STDC_POST_VENDOR
+        -#  STDC_PRE_CONFIG
+        -#  STDC_PRE_DEFAULTS
+        -#  STDC_PRE_VENDOR
+        -#  SUBDIR_DIRS
+        -#  SYSTEM
+        -#  TMP
+        -#  TOUCH
+        -#  USE_GNU
+        -#  VENDOR
+        -#  VENDOR_CONFIG
+        -#  VPATH+
+        -#  XINCLUDE
+        -#  XLIBPATH
+        -#  XLIBS
+        -#  YACC
+        -#  YACCFILES
+        -#  YACCFLAGS
+        -#  YACC_LIBS
+        -#  bin_INSTALL_MODE
+        -#  bindir
+        -#  data_INSTALL_MODE
+        -#  datadir
+        -#  doc_INSTALL_MODE
+        -#  docdir
+        -#  etc_INSTALL_MODE
+        -#  etcdir
+        -#  exec_prefix
+        -#  idl_INSTALL_MODE
+        -#  idldir
+        -#  include_INSTALL_MODE
+        -#  includedir
+        -#  infodir
+        -#  lib_INSTALL_MODE
+        -#  libdir
+        -#  lispdir
+        -#  localstatedir
+        -#  man1_INSTALL_MODE
+        -#  man1dir
+        -#  man2_INSTALL_MODE
+        -#  man2dir
+        -#  man3_INSTALL_MODE
+        -#  man3dir
+        -#  man4_INSTALL_MODE
+        -#  man4dir
+        -#  man5_INSTALL_MODE
+        -#  man5dir
+        -#  man6_INSTALL_MODE
+        -#  man6dir
+        -#  man7_INSTALL_MODE
+        -#  man7dir
+        -#  man8_INSTALL_MODE
+        -#  man8dir
+        -#  man_INSTALL_MODE
+        -#  mandir
+        -#  manext
+        -#  manl_INSTALL_MODE
+        -#  manldir
+        -#  mann_INSTALL_MODE
+        -#  manndir
+        -#  mantop
+        -#  nls_INSTALL_MODE
+        -#  nlsdir
+        -#  oldincludedir
+        -#  prefix
+        -#  sbindir
+        -#  script_INSTALL_MODE
+        -#  scriptdir
+        -#  sharedstatedir
+        -#  state_INSTALL_MODE
+        -#  sysconfdir
+
+** @ref README.install **//**
+   @page QMSTeam The S/TDC QMS Team
+
+   QMS development was a primary effort of the team indicated below. However, 
+   this is in no way meant to belittle the contributions of many other 
+   participants in the form of ideas, discussions, pointers etc. They are
+   identified below as well.
+
+   - Shivakumar Patil (shivakumar.patil@stdc.com)
+   - Manoj Srivastava (manoj.srivastava@stdc.com)
+   - Amar Vadlamudi   (amar.vadlamudi@stdc.com)  
+
+   Contributors:
+   
+   - Arthur S. Robinson (art.robinson@stdc.com)
+   - Steven A Goldstein (steven.goldstein@stdc.com)
+   - Madhu Konety
+   - Bhanu Hosangadi (bhanu.hosangadi@stdc.com)
+   - David M. Lounsbury (d.lounsbury@opengroup.org)
+   - Douglas Wells (d.wells@opengroup.org)
+   - Lou Coker (lcoker@teknowledge.com)
+
+** @ref index **/
+
+
+

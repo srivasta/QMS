@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- *****************************************************************
+ *** Copyright (c) 2001, System/Technology Development Corporation .
+ ***                
+ *** Filename:      BVrsrc_res_pid.xml
+ *** Version:       1.0
+ *** Description:   Process ID response from BV Gateway
+ ***                
+ *** Author:        Amarendranath Vadlamudi <nath@vedam>
+ *** Created at:    Sun Dec  9 17:48:18 2001
+ *** Modified by:   Amarendranath Vadlamudi <nath@vedam>
+ *** Modified at:   Thu Dec 27 15:03:05 2001
+ *** Status:        Experimental, do not distribute.
+ *** Update count:  32
+ ***************************************************************** -->
+
+<resource xmlns="http://www.stdc.com/2001/QMS/Plugins/BVGateway"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:qms="http://www.stdc.com/2001/QMSSchema"
+  xsi:schemaLocation=
+  "http://www.stdc.com/2001/QMS/Plugins/BVGateway BVGateway.xsd"> 
+
+  <response>
+    <requestID>235</requestID>
+    <QMSUniqueName>
+      <category>QMS_Process_Watch</category>
+      <host>10.2.1.12</host>
+      <uuid>2455</uuid>
+    </QMSUniqueName>
+    <msgDate>2001-09-18</msgDate>
+    <msgTime>15:05:05-05:00</msgTime>
+    <qms:payload>
+      <commandProbe 
+        xmlns="http://www.stdc.com/2001/QMS/Probes/Continuous/CommandProbe"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation=
+        "http://www.stdc.com/2001/QMS/Probes/Continuous/CommandProbe 
+        commandProbe.xsd">
+        <probeData>
+          <dataid>0</dataid>
+          <response>
+	    <columnData>
+	      <title>
+		<column>Process Name</column>
+		<column>PID</column>
+		<column>PPID</column>
+	      </title>
+	      <row>
+		<column>rcommander.exe</column>
+		<column>225</column>
+		<column>1</column>
+	      </row>
+	      <row>
+		<column>nodecommandercommander.exe</column>
+		<column>226</column>
+		<column>1</column>
+	      </row>
+	      <row>
+		<column>rcommander.exe</column>
+		<column>332</column>
+		<column>2</column>
+	      </row>
+	      <row>
+		<column>nc_Process_Monitor.exe</column>
+		<column>345</column>
+		<column>332</column>
+	      </row>
+	    </columnData>
+	  </response>
+	</probeData>
+      </commandProbe>
+    </qms:payload>
+  </response>
+</resource>
+

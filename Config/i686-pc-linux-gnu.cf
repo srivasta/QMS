@@ -1,0 +1,78 @@
+############################ -*- Mode: Makefile -*- ###########################
+## i686-pc-linux-gnu.cf --- 
+## Author           : Manoj Srivastava ( srivasta@ember.stdc.com ) 
+## Created On       : Fri Aug 10 13:11:51 2001
+## Created On Node  : ember.stdc.com
+## Last Modified By : Manoj Srivastava
+## Last Modified On : Tue Nov 27 23:09:29 2001
+## Last Machine Used: glaurung.stdc.com
+## Update Count     : 19
+## Status           : Unknown, Use with caution!
+## HISTORY          : 
+## Description      : 
+## 
+###############################################################################
+
+ifdef STDC_PRE_DEFAULTS
+CONFIGURE_CPP = $(CC) -M
+CONFIGURE_C++PP = $(C++) -M
+
+CONFIGURE_CC = gcc
+CONFIGURE_CPLUSPLUS = g++
+ 
+CONFIGURE_C++FLAGS = $(IMPLICIT_TEMPLATES_FLAG) 
+CONFIGURE_CFLAGS = $(IMPLICIT_TEMPLATES_FLAG) 
+
+CONFIGURE_C++CPPFLAGS = $(CPPFLAGS)
+
+
+CONFIGURE_CPLUSWARNS = -W -Wall -Wpointer-arith -Wno-uninitialized 
+CONFIGURE_CWARNS = -W -Wall -Wpointer-arith -Wno-uninitialized 
+
+CONFIGURE_C++OPTIMIZE = -pipe -O2 -g
+CONFIGURE_OPTIMIZE = -pipe -O2 -g
+
+
+CONFIGURE_IDL = $(TAO_IDL)
+CONFIGURE_CIDLFLAGS = $(TAO_IDLFLAGS)
+CONFIGURE_CPLUSLDFLAGS = $(TAO_IDLFLAGS)
+
+
+CONFIGURE_LDFLAGS = 
+CONFIGURE_LD_DEBUGFLG = 
+
+CONFIGURE_LEX = flex
+CONFIGURE_LEXFLAGS = 
+CONFIGURE_LIBFLEX = 
+
+CONFIGURE_C++LIBS = 
+CONFIGURE_LIBS = 
+
+CONFIGURE_RANLIB = ranlib
+
+CONFIGURE_INSTALL = install
+
+CONFIGURE_USE_GNU = 
+
+CONFIGURE_XINCLUDE = 
+CONFIGURE_XLIBPATH = 
+
+CONFIGURE_YACC = byacc
+CONFIGURE_YACCFLAGS = 
+CONFIGURE_LIBYACC = 
+
+ifdef CONFIGURE_OVERRIDES
+## Ignore the Configured vars
+
+endif
+
+endif
+
+ifdef STDC_POST_DEFAULTS
+
+ifdef CONFIGURE_OVERRIDES
+## Ignore the Configured vars
+
+endif
+
+endif

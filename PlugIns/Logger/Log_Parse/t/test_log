@@ -1,0 +1,70 @@
+<QMSLOG> <SequenceNo>0</SequenceNo> <LoggerID> QMS_Logger </LoggerID> <LogDate> 11/10/00 </LogDate> <LogTime>15:59:43:905 </LogTime> <?xml version="1.0" encoding='us-ascii'?>
+<!DOCTYPE QMS_Event PUBLIC "-//STDC//QMS Event//EN//XML" "QMS_Event.dtd">
+<QMS_Event>
+  <SequenceNo>0</SequenceNo>
+  <SenderID>KENOBEE_N</SenderID>
+  <EventDate>10/10/2000</EventDate>
+  <EventTime>20:59:1939pm</EventTime>
+  <EventType>link</EventType>
+  <EventData>
+    <bandwidth_request linktype="Remos Bandwidth Query type link">
+        <requestid>0</requestid>
+        <hostname>skywalker_t.stdc.com</hostname>
+        <hostname>kenobee_t.stdc.com</hostname>
+        <hostname>c3po_t.stdc.com</hostname>
+        <refreshrate>2.450000</refreshrate>
+        <repeatcount>5</repeatcount>
+  </bandwidth_request>
+  </EventData>
+</QMS_Event>
+ </QMSLOG>
+<QMSLOG> <SequenceNo>1</SequenceNo> <LoggerID> QMS_Logger </LoggerID> <LogDate> 11/10/00 </LogDate> <LogTime>15:59:58:906 </LogTime> <?xml version="1.0" encoding='us-ascii'?>
+<!DOCTYPE QMS_Event PUBLIC "-//STDC//QMS Event//EN//XML" "QMS_Event.dtd">
+<QMS_Event>
+<SequenceNo>0</SequenceNo>
+<SenderID>skywalker_t.stdc.com</SenderID>
+<EventDate>10/10/2000</EventDate>
+<EventTime>20:59:1956pm</EventTime>
+<EventType>Remos Bandwidth data type link</EventType>
+  <EventData>
+    <bandwidth_data linktype="link">
+          <requestid>0</requestid>
+          <dataid>0</dataid>
+          <source>skywalker_t.stdc.com</source>
+          <destination>63.97.196.98</destination>
+          <latency>0.000000</latency>
+          <available>99992.152000</available>
+          <maximum>100000.000000</maximum>
+            <collectrate>2.450000</collectrate>
+    </bandwidth_data>
+  </EventData>
+</QMS_Event>
+ </QMSLOG>
+<QMSLOG> <SequenceNo>31</SequenceNo> <LoggerID> QMS_Logger </LoggerID> <LogDate> 11/10/00 </LogDate> <LogTime>16:00:28:929 </LogTime> <?xml version="1.0" encoding='us-ascii'?>
+<!DOCTYPE QMS_Event PUBLIC "-//STDC//QMS Event//EN//XML" "QMS_Event.dtd">
+<QMS_Event>
+  <SequenceNo>1</SequenceNo>
+  <SenderID>yoda_t</SenderID>
+  <EventDate>Fri Nov 10 16:00:28 2000</EventDate>
+  <EventTime>Fri Nov 10 16:00:28 2000</EventTime>
+  <EventType>DESI_APP_MESSAGE</EventType>
+  <EventData>
+  <desi_app_data>
+    <dataid>0</dataid>
+    <data_timestamp>Fri Nov 10 16:00:27 2000</data_timestamp>
+    <desi_app_message_info>
+      <sender>CP</sender>
+      <receiver>END_PATH</receiver>
+      <length>0</length>
+      <frequency>0</frequency>
+      <total>0</total>
+    </desi_app_message_info>
+    <desi_app_load>
+      <name>CP</name>
+      <data_size>0</data_size>
+      <iterations>0</iterations>
+    </desi_app_load>
+  </desi_app_data>
+  </EventData>
+</QMS_Event> 
+</QMSLOG>

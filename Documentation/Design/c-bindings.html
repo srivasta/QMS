@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!--                             -*- Mode: Sgml -*- 
+;; c-bindings.html -
+;; Author           : Manoj Srivastava ( srivasta@glaurung.stdc.com ) 
+;; Created On       : Wed Oct 11 01:56:55 2000
+;; Created On Node  : glaurung.stdc.com
+;; Last Modified By : Manoj Srivastava
+;; Last Modified On : Wed Oct 11 02:15:06 2000
+;; Last Machine Used: glaurung.stdc.com
+;; Update Count     : 1
+;; Status           : Unknown, Use with caution!
+;; HISTORY          : 
+;; Description      : 
+;; 
+ -->
+
+<html>
+  <head>
+    <title>C bindings</title>
+  </head>
+  <body>
+
+    <h1>C bindings</h1>
+
+    <p>
+      We'll
+      have to to use constructs like the following to package the
+      interface for C:
+    <hr>
+    <table width="95%" border="3" cellpadding="3" align="center">
+      <tbody>
+	<tr>
+	  <td>
+	    <pre>
+<strong>class</strong> <font color="#2040a0">QMS_Remos_Api</font>
+<font color="4444FF"><strong>{</strong></font>
+
+<strong>public</strong><font color="4444FF">:</font>
+  <font color="#2040a0">QMS_Remos_Api</font> <font color="4444FF">(</font><strong>int</strong> <font color="#2040a0">argc</font>, <strong>char</strong> <font color="4444FF">*</font><font color="4444FF">*</font><font color="#2040a0">argv</font><font color="4444FF">)</font><font color="4444FF">;</font>
+  <strong>int</strong> <font color="#2040a0">register_callback</font> <font color="4444FF">(</font><strong>int</strong> <font color="4444FF">(</font><font color="4444FF">*</font><font color="#2040a0">callback</font><font color="4444FF">)</font><font color="4444FF">(</font>blah<font color="4444FF">)</font><font color="4444FF">)</font><font color="4444FF">;</font>
+  <font color="#440000">// ...</font>
+<font color="4444FF"><strong>}</strong></font><font color="4444FF">;</font>
+
+<strong>extern "C" <font color="4444FF"><strong>{</strong></font>     <font color="#440000">//Map QMS_Remos_Api into C Callable functions </font>
+  <strong>int</strong> <font color="#2040a0"> QMS_Remos_Api_register_callback <font color="4444FF">(</font><strong><strong>QMS_Remos_Api *</strong> p, 
+                                       <font color="4444FF">(</font><strong>int</strong> <font color="4444FF">(</font><font color="4444FF">*</font><font color="4444FF">)</font><font color="4444FF">(</font>blah<font color="4444FF">)</font><font color="4444FF">)</font><font color="#2040a0">callback</font> <font color="4444FF">)
+                                         {</font><font color="#2040a0"> p-&gt;register_callback<font color="4444FF">(</font><font color="224488">callback</font><font color="4444FF">)</font><font color="4444FF">;</font><font color="4444FF">}</font>
+<font color="4444FF"><strong>};</strong></font>
+	</pre>
+
+	      </td>
+	    </tr>
+	  </tbody>
+	</table>
+	<hr>
+	The C program would declare these functions in a header file
+	like so:
+	<hr>
+	<table width="95%" border="3" cellpadding="3" align="center">
+	  <tbody>
+	    <tr>
+	      <td>
+		<pre>
+<font color="#440000">// C header file QMS_Remos_Api_c.h
+<strong>extern</strong>  <strong>int</strong> <font color="#2040a0"> QMS_Remos_Api_register_callback <font color="4444FF">(</font><strong><strong>QMS_Remos_Api *</strong> p, 
+                                              <font color="4444FF">(</font><strong>int</strong> <font color="4444FF">(</font><font color="4444FF">*</font><font color="4444FF">)</font><font color="4444FF">(</font>blah<font color="4444FF">)</font><font color="4444FF">)</font><font color="#2040a0">callback</font> <font color="4444FF">)<font color="4444FF">;</font>
+		</pre>
+	      </td>
+	    </tr>
+	  </tbody>
+	</table>
+	<hr>
+	All this is untested so far, but thus  Stroustroup spake ...
+  </p>
+
+  </body>
+</html>

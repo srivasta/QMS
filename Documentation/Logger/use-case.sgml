@@ -1,0 +1,2774 @@
+<!DOCTYPE Book PUBLIC "-//OASIS//DTD DocBook V4.1//EN"
+   "dtd/docbook-4.1/docbook.dtd">
+<!-- jade -d /usr/lib/sgml/stylesheets/dbtohtml.dsl -t sgml myfile.sgml >   
+       myfile.html  -->
+<!-- db2html myfile.sgml -->
+<book id="logger-design-doc">
+  <bookinfo>
+    <date>2000/11/22</date>
+    <title>QMS Logger Design Document</title>
+    <authorgroup>
+      <author>
+	<firstname>Manoj</firstname>
+	<surname>Srivastava</surname>
+	<affiliation>
+	  <orgname>System/Technology Development Corporation</orgname>
+	</affiliation>
+      </author>
+    </authorgroup>
+  </bookinfo>
+  <toc></toc>
+  <chapter id="chap-goals">
+    <title>Goals and Requirements</title>
+    <itemizedlist id="requirements">
+      <listitem>
+	<simpara>
+	  The Logger should be able to log events pushed on to to the
+	  CORBA event channel
+	</simpara>
+      </listitem>
+      <listitem>
+	<simpara>
+	  One should be able to create multiple independent logs using
+	  the logger, each log being associated with a separate storage
+	  back-end, and an ability to filter the recorded events by event
+	  type and supplier id
+	</simpara>
+      </listitem>
+      <listitem>
+	<simpara>
+	  One should be able to modify attributes for each log,
+	  including security policies, back-ends, and filters
+	</simpara>
+      </listitem>
+      <listitem>
+	<simpara>
+	  The Logger must be a well behaved citizen in the QMS toolkit
+	</simpara>
+      </listitem>
+      <listitem>
+	<simpara>
+	  The logger must be able to report performance metrics and other
+	  statistics 
+	</simpara>
+      </listitem>
+      <listitem>
+	<simpara>
+	  The logger should be a managed QMS component, and present a
+	  management interface that allows, at a minimum, start, stop,
+	  pause, and resume commands
+	</simpara>
+      </listitem>
+    </itemizedlist>
+  </chapter>
+  <chapter id="use-cases">
+    <title>Use Cases</title>
+    <para>This chapter details several use cases, logically grouped by
+      interaction types. </para>
+    <sect1 id="use-case-dia">
+       <title>Diagrams</title>
+      <figure id="use-case-diagram">
+	<title>Logger use case diagram</title>
+	<mediaobject>
+	  <imageobject> 
+	    <imagedata fileref="LoggerUseCaseDiagram.png" format="png"
+		       width="800" align="center"> 
+	  </imageobject> 
+	</mediaobject>
+      </figure>
+    </sect1>
+    <sect1 id="qms-use-cases">
+      <title>QMS Framework related Use Cases</title>
+      <para>
+	These use cases are related to the fact that the
+	<productname>Logger</productname> is a component of an over
+	lying <productname>QMS</productname> framework. These use
+	cases require authorization as a QMS administrator.
+      </para>
+      
+      <sect2 id="pause-qms-use-case">
+	<title>Pause QMS Use case</title>
+	<para>
+	  This use case is normally invoked by the QMS
+	  administrator to pause all QMS components; and as a QMS
+	  component, the Logger has to comply.
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: Ready, Listening, Paused</simpara>
+	    </note>
+	    If the state is already paused, then no action is taken
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		User sends in a QMS pause request
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is returned
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If authorization succeeds, the Pause Logger use case is used
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    Paused (All current Logs are paused as well)
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      <sect2 id="resume-qms-use-case">
+	<title>Resume QMS Use case</title>
+	<para>
+	  This use case is normally invoked by the QMS administrator
+	  to resume a previously paused QMS infrastructure. 
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: Paused</simpara>
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		User sends in a QMS resume request
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is returned
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If authorization succeeds, the Resume Logger use case is
+		used
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    If there are current logs, the end state is listening
+	    Or else, the end state is Ready
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      <sect2 id="stop-qms-use-case">
+	<title>Stop QMS  Use case</title>
+	<para>
+	  This use case is normally invoked by the QMS administrator
+	  to stop all QMS components
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: Ready, Listening, or
+		Paused</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		User sends in a QMS Stop request
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is returned
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If authorization succeeds, the Stop Logger use case is
+		used
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The end state is: Stopped.
+	  </para>
+	</sect3>
+      </sect2>
+
+    </sect1>
+
+    <sect1 id="logger-use-cases">
+      <title>General Logger associated Use Cases</title>
+
+      <para>
+	These use cases are related to activities that pertain to
+	the logger as a whole, as opposed to a specific log. These use
+	cases require authorization as a Logger administrator
+      </para>
+
+      
+      <sect2>
+	<title>Start Logger Use case</title>
+	<para>
+	  This use case  is normally invoked by the Logger
+	  administrator to start the logger.
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: Initial</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The administrator starts a wrapper program that reads
+		in and parses command line and configuration options,
+		and starts the logger
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		Create objects, and set default values
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		Set default security policy
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is: Ready
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      <sect2>
+	<title>Pause Logger Use case</title>
+	<para>
+	  This use case is normally invoked by the Logger
+	  administrator to pause the logger (and all the logs
+	  currently extant). This can also be invoked by the Pause QMS
+	  use case invoked by a QMS Administrator. Pausing means that
+	  no log items are flushed out to any back-end, though events
+	  are still consumed from the event channel. Any new logs
+	  started start up in the paused state. This means we need to
+	  have a means of storing incoming events; perhaps a priority
+	  queue.
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: Ready, Listening</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The user sends in a pause logger command, or there was
+		a QMS pause request that came in. The QMS pause
+		request would have been authorized before. 
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is returned (the
+		QMS Pause request is deemed to be authorized)
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If authorization succeeds, then if we have active
+		logs, we iterate the pause command over all logs
+		(using the iterate over logs use case)
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		The state is set to paused
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is: Paused
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      <sect2>
+	<title>Resume Logger Use case</title>
+	<para>
+	  This use case is normally invoked by the Logger
+	  administrator to resume a paused logger. 
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: Paused</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The user sends in a Resume logger command, or there was
+		a QMS Resume request that came in. The QMS Resume
+		request would have been authorized before. 
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is returned (the
+		QMS Resume request is deemed to be authorized)
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If authorization succeeds, then
+		if there are any logs, we iterate the resume log
+		command over all logs (using the iterate over logs use
+		case) 
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there are logs present, the end state is set to listening,
+		or else the end state is set to Ready
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is: If there are logs present, the end state
+	    is set to Listening, else the end state is set to Ready
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      <sect2>
+	<title>Stop Logger Use case</title>
+	<para>
+	  This use case is normally invoked by the Logger
+	  administrator to stop the logger (and all the logs
+	  currently extant). This can also be invoked by the Stop QMS
+	  use case invoked by a QMS Administrator. Stopping means that
+	  all log items are flushed, and the back-ends are stopped too
+	  
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: Ready, Listening, Paused</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The user sends in a stop logger command, or there was
+		a QMS pause request that came in. The QMS stop
+		request would have been authorized before.
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is returned (the
+		QMS Stop request is deemed to be authorized)
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If authorization succeeds, then if we have logs, we
+		iterate the stop command over all logs (using the
+		iterate over logs use case)
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, we name a note of it and continue
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is: Stopped, and this is the final state
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      <sect2>
+	<title>Disconnect from Event Channel Use case</title>
+	<para>
+	  This use case is normally invoked by the Logger
+	  administrator to disconnect the Logger from the event
+	  channel. This can be treated as a more advanced throttling
+	  than the paused state, since in the paused state we still
+	  consume events, we just do not log them.
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: Paused</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The user sends in a disconnect from event channel command
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If the user is not authorized, an error status is
+		returned. 
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If we are not in a paused state, an error status is
+		returned. 
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If we have logs, we iterate over the logs, closing all
+		consumer interfaces
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is: Disconnected
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      <sect2>
+	<title>Reconnect to Event Channel Use case</title>
+	<para>
+	  This use case is normally invoked by the Logger
+	  administrator to reconnect the Logger from the event
+	  channel. 
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: Disconnected</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The user sends in a reconnect to event channel request
+	      </simpara>
+	    </listitem>	 
+	    <listitem>
+	      <simpara>
+		If the user is not authorized, an error status is returned
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If we are not disconnected from the event channel, an
+		error status is returned
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If we have logs, we iterate over the logs, reopening
+		all consumer interfaces
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is: Paused
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      <sect2>
+	<title>Get Logger Attributes Use case</title>
+	<para>
+	  This use case is normally invoked by the Logger
+	  administrator to get the current set of attributes associated wit
+	  the logger
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: Ready, Listening, Paused,
+	      Disconnected</simpara>  
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The user sends in a get attributes request
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If the  user is not authorized, an error status is generated
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If authorization succeeds, the attributes are reported
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is the same as the start state: this use case does
+	    not result is the same as the start state
+	  </para>
+	</sect3>
+      </sect2>
+
+            
+      <sect2>
+	<title>Change Logger Attributes Use case</title>
+	<para>
+	  This use case is normally invoked by the Logger
+	  administrator to change attributes for the logger. This is
+	  used to set or change default values and policies for the
+	  logger. 
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: Ready, Listening, Paused,
+	      Disconnected</simpara>  
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The user sends in a change attributes request
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If the  user is not authorized, an error status is generated
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If authorization succeeds, the attribute is changed
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is the same as the start state: this use case does
+	    not result is the same as the start state
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      <sect2>
+	<title>Get Logger Security Policy Use case</title>
+	<para>
+	  This use case is normally invoked by the Logger administrator to
+	  get the current security policy for the logger.
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states:Ready, Listening, Paused,
+	      Disconnected</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The user sends in a get security policy request
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If the  user is not authorized, an error status is generated
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If authorization succeeds, the attributes are reported
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is the same start state: this use case does not
+	    result is the same as the start state
+	  </para>
+	</sect3>
+      </sect2>
+      
+      <sect2>
+	<title>Change Logger Security Policy Use case</title>
+	<para>
+	  This use case is normally invoked by the Logger
+	  administrator to change the security policy  for the logger. This
+	  is treated differently from changing other attributes because
+	  special care may need to be taken to handle authorization and
+	  authentication. 
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states:Ready, Listening, Paused,
+	      Disconnected</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The user sends in a change security policy request
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If the  user is not authorized, an error status is generated
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If authorization succeeds, the attribute is changed
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is the same start state: this use case does not
+	    result is the same as the start state
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      <sect2>
+	<title>Logger stats Use case</title>
+	<para>
+	  This use case is used to dump some or all of the statistics and
+	  performance metrics maintained by the Logger
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: Any</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The user sends in a dump stats request
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If the user is not authorized, an error status is raised
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If authorization succeeds, the requested data is
+		returned. If we have logs, we may need to iterate over the
+		logs gathering stats.
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is the same as the starting state.
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      <sect2>
+	<title>Iterate Over Logs Use case</title>
+	<para>
+	  This use case is used to run a function (either a well known
+	  method, of a function passed in as an argument over a select group
+	  of logs (defaulting to all current logs)
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: Listening, Paused, Disconnected</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The user sends in an iterate over logs request, along with
+		the action to perform (either builtin functions, or a
+		pointer to a function), and a list of log handles (null
+		means iterate over all logs). One  may get a list of log
+		handles from the find matching logs use case.
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is returned 
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If authorization succeeds, then we loop over the list of log
+		handles (looping over all logs by default), and perform the
+		action requested.
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is the same as the starting state: this use case
+	    does not change the Logger state.
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      <sect2>
+	<title>Find Matching Logs Use case</title>
+	<para>
+	  This use case is used to get a list of log handles for any logs
+	  that match the search criteria provided. 
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: Listening, Paused, Disconnected</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The user sends in a match logs command, providing a search
+		criteria 
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is returned
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If authorization succeeds, then
+		if there are any logs, we iterate over all log met
+		information, and for all matches, add the handle to a list
+		of handles
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		Return the list of logs
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is the same as the starting state: this use case
+	    does not change the Logger state.
+	  </para>
+	</sect3>
+      </sect2>
+
+
+
+    </sect1>
+
+    <sect1 id="log-use-cases">
+      <title>Log Specific Use Cases</title>
+
+      <para>
+	These use cases are related to operations performed on
+	individual Logs created under the purview of the logger.
+	These use cases may require authorization; that depends on the
+	security policies in effect.
+      </para>
+
+      
+      <sect2>
+	<title>Start New Log Use case</title>
+	<para>
+	  This use case is used to start a new Log. The user specifies a
+	  combination of event types and sender ids, and a back-end (along
+	  with the required back-end attributes) to log the matching events
+	  to. 
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Logger Starting states: Ready, Listening. The Log is
+		in state initial</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The user sends in a start new log command, specifying
+		filtering and back-end parameters
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is returned
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		A new back-end is created
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		A consumer is created with the filtering parameters, and a
+		thread is started to listen to the event channel
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is: Logger and this new Log are both in state
+	    listening 
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      <sect2>
+	<title>Pause Log Use case</title>
+	<para>
+	  This use case is used to pause the log in question. The events
+	  meant to be logged are still being consumed, they shall merely not
+	  be flushed to the back-end
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: Listening</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The user sends in a pause log request, or it is sent in by
+		the logger
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is returned. The
+		authorization may be delegated
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If authorization succeeds, then a flag is set that shall
+		prevent any further flushes to the back-end.
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is: Paused (the Logger is not affected)
+	  </para>
+	</sect3>
+      </sect2>
+      
+      <sect2>
+	<title>Resume Log(ing) Use case</title>
+	<para>
+	  This use case is used to pause the log in question. Flusshing to
+	  the back-end is re-enabled
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: Log Paused</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The user sends in a resume log request, or it is sent in by
+		the logger
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is returned
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If authorization succeeds, then flushes to the back-end are
+		enabled 
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is listening
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      <sect2>
+	<title>Stop Log Use case</title>
+	<para>
+	  This use case is used to stop the logging and close the log
+	  backend 
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: Paused or Listening</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The user sends in a stop log request
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is returned
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If authorization succeeds, then the disconnect log from EC
+		use case is called
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		All pending logs are flushed to the
+		backend
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		Finally the backend is closed
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is stopped. This is the final state for the
+	    log. If this is the last existing log for the logger, the logger
+	    goes into the ready state
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      <sect2>
+	<title>get Log filtering rules Use case</title>
+	<para>
+	  This use case is used to change the filtering rules
+	  for this log (one may add or remove event types or suppliers from
+	  the filtering rules)
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: Listening, Paused</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The user sends in a request to get the filtering rules
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is returned
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If authorization succeeds, the current set of filtering
+		rules are returned
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is the same as the starting state was
+	  </para>
+	</sect3>
+      </sect2>
+            
+      <sect2>
+	<title>Change Log filtering rules Use case</title>
+	<para>
+	  This use case is used to change the filtering rules
+	  for this log (one may add or remove event types or suppliers from
+	  the filtering rules)
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: Listening, Paused</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The user sends in a request to change the filtering rules
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is returned
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		The disconnect log from event channel use case is called
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		The QOS object is recreated from the new list of filter
+		parameters 
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		The reconnect log to event channel use case is called
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is the same as the starting state was
+	  </para>
+	</sect3>
+      </sect2>
+      
+      
+      <sect2>
+	<title>Get Log Attributes Use case</title>
+	<para>
+	  This use case is used to get the attributes for this log
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: Listening, Paused, Disconnected</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The user sends in a request to get the attributes
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is returned
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If authorization succeeds, then the attributes are reported
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is the same as the starting state was
+	  </para>
+	</sect3>
+      </sect2>
+
+                  
+      
+      <sect2>
+	<title>Change Log Attributes Use case</title>
+	<para>
+	  This use case is used to change the attributes for this log
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: Listening, Paused, Disconnected</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The user sends in a request to change the attributes
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is returned
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If authorization succeeds, then the attributes are changed
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is the same as the starting state was
+	  </para>
+	</sect3>
+      </sect2>
+
+            
+      <sect2>
+	<title>Get Log Security Policy Use case</title>
+	<para>
+	  This use case is used to change the security policy for this log
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: Listening, Paused, Disconnected</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The user sends in a request to get the Security Policy
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is returned
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If authorization succeeds, then the security policy is
+		reported back
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is the same as the starting state was
+	  </para>
+	</sect3>
+      </sect2>
+
+            
+      <sect2>
+	<title>Change Log Security Policy Use case</title>
+	<para>
+	  This use case is used to change the security policy for this log
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: Listening, Paused, Disconnected</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The user sends in a request to change the Security Policy
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is returned
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If authorization succeeds, then the security policy is changed
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is the same as the starting state was
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      
+      <sect2>
+	<title>Change Log Back-end Use case</title>
+	<para>
+	  This use case is used to change the back-end used for logging
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: paused, disconnected</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The user sends in a request to change the Backend
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is returned
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		The back-end is closed, and a exit request is sent to the
+		backend 
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		Using the parameters given ib this call, a create back-end
+		use case is used
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is:
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      <sect2>
+	<title>Log Stats Use case</title>
+	<para>
+	 This use case is used to dump some or all of the statistics and
+	  performance metrics maintained for this Log
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: Listening, Paused, Disconnected</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The user sends in a dump stats request
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is returned
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If authorization succeeds, the requested data is
+		returned. 
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is the same as the starting state.
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      <sect2>
+	<title>Truncate Log Use case</title>
+	<para>
+	  This use case is used to truncate the log, discarding all data
+	  that has been accumulated (presumably after the data has been
+	  preserved by other means)
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: Paused</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The user sends in a Truncate Log  request
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is returned
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If authorization succeeds, the erase back-end use case is used
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is still paused
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      <sect2>
+	<title>Disconnect Log from EC  Use case</title>
+	<para>
+	  This use case is used to disconnect the Log from the event
+	  channel, and to stop consuming events
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: Listening, Paused</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The user sends in a disconnect from event channel request
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is returned
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If authorization succeeds, then the consumer(s) associated
+		with this Log are disconnected from the event channel (note
+		if more than one logs are being served by a consumer
+		process, some kind of reference count shall be decremented)
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is Disconnected
+	  </para>
+	</sect3>
+      </sect2>
+
+
+      
+      <sect2>
+	<title>Reconnect Log to EC Use case</title>
+	<para>
+	  This use case is used to reconnect the Log from the event
+	  channel, and to start consuming events again
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: Disconnected</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The user sends in a reconnect to event channel request
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is returned
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If authorization succeeds, then the consumer associated with
+		this log is reconnected to the event channel
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is either listening or paused, depending on the
+	    state before the log was disconnected
+	  </para>
+	</sect3>
+      </sect2>
+
+
+    </sect1>
+
+
+    <sect1 id="ec-use-cases">
+      <title>Event Channel related Use Cases</title>
+
+      <para>
+	These use cases are related to the interaction between the
+	Logger and the event channel. For the most part, these are
+	subsumed in the QMS API; and hence these use case details are rather
+	sketchy (we don't need the details)
+      </para>
+
+      
+      <sect2>
+	<title>Bind Use case</title>
+	<para>
+	  <!-- description -->
+	  Description
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: initial</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The user requests a biding to the vent channel
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is returned
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If authorization succeeds, then the name service is used to
+		get a binding to the QMS event channel, and admin object
+		handles are derived from the event channel
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is: Configured
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      <sect2>
+	<title>Disconnect Use case</title>
+	<para>
+	  This use case is used to release the resources created in the
+	  binding use case
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states:</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		Step One
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is returned
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If authorization succeeds, then the handles are destroyed
+		and the resources released
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is:
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      <sect2>
+	<title>Connect Consumer Use case</title>
+	<para>
+	  
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: ready</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		A QOS object is created for the consumer
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		A proxy supplier is created
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		An interface implementing the push method is registered, and
+		a thread is started to listen for events
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is: listening
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      <sect2>
+	<title>Consume Event Use case</title>
+	<para>
+	  <!-- description -->
+	  Description
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states:</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The push method is called by the event channel
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is the same as the starting state
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      <sect2>
+	<title>Disconnect Consumer Use case</title>
+	<para>
+	  <!-- description -->
+	  Description
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: listening</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The consumer is disconnected from the EC
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is:
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      <sect2>
+	<title>Connect Supplier Use case</title>
+	<para>
+	  <!-- description -->
+	  Description
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states:</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		A QOS object is created, and we register with the evnt
+		channel as a supplier. A proxy consumer object is created. 
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is connected
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      <sect2>
+	<title>Send Event Use case</title>
+	<para>
+	  <!-- description -->
+	  Description
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states:  connected</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The send event method is called with the event passed in 
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is connected
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      <sect2>
+	<title>Disconnect Supplier Use case</title>
+	<para>
+	  <!-- description -->
+	  Description
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states:</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The supplier consumer proxy is stopped. and the supplier
+		disconnected 
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is:
+	  </para>
+	</sect3>
+      </sect2>
+
+
+
+    </sect1>
+
+
+    <sect1 id="be-use-cases">
+      <title>Logger Back-end Related Use Cases</title>
+
+      <para>
+	These use cases are are related to operations performed on the
+	back-ends, and as yet are rather heavily biased towards the
+	File back-end
+      </para>
+
+      
+      <sect2>
+	<title>Create Back-end Use case</title>
+	<para>
+	  This is the use case to create a back-end
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: initial</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		A request to create a back-end is sent, along with the
+		necessary  parameters
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is returned
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		The back-end specific actions are taken to create the backend
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is ready
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      <sect2>
+	<title>Save Use case</title>
+	<para>
+	  This use case is used to save a log item to the back end. 
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: Ready</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		A log item is sent to be saved
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is returned
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		The item is written to the back end
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is:
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      <sect2>
+	<title>Erase Use case</title>
+	<para>
+	  This use case is used to erase (truncate) the backend, discarding
+	  all log items saved there. 
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: ready</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		A request is sent to erase/truncate the back-end 
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is returned
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		Back-end specific actions are taken to erase
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is: ready
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      <sect2>
+	<title>Copy Use case</title>
+	<para>
+	  This use case is used to copy the back-end storage to another
+	  location, using external back-end specific commands
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: ready</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		A request is sent to copy the back-end 
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is returned
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		Back-end specific actions are taken to copy the back-end
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is: ready
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      <sect2>
+	<title>Destroy Use case</title>
+	<para>
+	  This use case is used to destroy the back-end (the case above that
+	  erased the backend may leave an empty backend around; this method
+	  does not do so)
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: ready</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		A request is sent to destroy the back-end 
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is returned
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		Back-end specific actions are taken to destroy the back-end
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is: finished
+	  </para>
+	</sect3>
+      </sect2>
+      
+      <sect2>
+	<title>Get Back end Attributes Use case</title>
+	<para>
+	  This use case is normally invoked to get the current set of
+	  attributes associated with the Back end
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: Ready</simpara>  
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		A get attributes request is sent
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is generated
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If authorization succeeds, the attributes are reported
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is the same as the start state: this use case does
+	    not result is the same as the start state
+	  </para>
+	</sect3>
+      </sect2>
+
+            
+      <sect2>
+	<title>Change Back End Attributes Use case</title>
+	<para>
+	  This use case is normally invoked to change attributes for the
+	  Back End. This is used to set or change default values and
+	  policies.
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: Ready, Listening, Paused,
+	      Disconnected</simpara>  
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The user sends in a change attributes request
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If the  user is not authorized, an error status is generated
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If authorization succeeds, the attribute is changed
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is the same as the start state
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      <sect2>
+	<title>Close Use case</title>
+	<para>
+	  This use case is used to close the backend. This may invovle
+	  closing file descriptors, closing database connections, etc. 
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states:</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		A request is sent to close the back-end 
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is returned
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		Back-end specific actions are taken to close the back-end
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is: closed
+	  </para>
+	</sect3>
+      </sect2>
+      
+      <sect2>
+	<title>Exit Use case</title>
+	<para>
+	  This use case is used to release the resources allocaed by the code. 
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: closed</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		A request is sent to exit
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is returned
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		Resources are de-allocated
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is: closed
+	  </para>
+	</sect3>
+      </sect2>
+
+    </sect1>
+
+    <sect1 id="trader-use-cases">
+      <title>QMS Trader Related Use Cases</title>
+
+      <para>
+	These use cases are place holders for the QMS trader, and
+	shall probably be expanded as that component gets designed.
+      </para>
+
+      
+      <sect2>
+	<title>Register Use case</title>
+	<para>
+	  <!-- description -->
+	  Description
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: initial</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The registration object is created, filled, and sent to the
+		trader service
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is: registered
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      <sect2>
+	<title>Unregister Use case</title>
+	<para>
+	  This use case is use to unregister the service (say, before one
+	  exits, or something, or even every time one disconnects from the
+	  EC). 
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: registered</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		An unregister request is sent to the QMS trader (perhaps
+		using a handle returned by the register use case)
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is:
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      <sect2>
+	<title>Update registration Use case</title>
+	<para>
+	  This use case is use to update the registration information
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states: registered</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		Additional information is sent to the trader to
+		append/replace the initial information
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is:
+	  </para>
+	</sect3>
+      </sect2>
+
+      
+      <sect2>
+	<title>Dump Stats Use case</title>
+	<para>
+	  In this use case the trader asks us to report the statistics, and
+	  the statistics gathered are sent back
+	</para>
+	<sect3>
+	  <title>Pre Conditions</title>
+	  <para>
+	    <note>
+	      <simpara>Starting states:</simpara> 
+	    </note>
+	  </para>
+	</sect3>
+	<sect3>
+	  <title>Steps taken</title>
+	  <orderedlist>
+	    <listitem>
+	      <simpara>
+		The trader sends in a dump stats request
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If not authorized, an error status is returned
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If authorization succeeds, we use the Logger stats use case
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		The stats gathered are reported
+	      </simpara>
+	    </listitem>
+	    <listitem>
+	      <simpara>
+		If there is an error, the exception is re-raised
+	      </simpara>
+	    </listitem>
+	  </orderedlist>
+	</sect3>
+	<sect3>
+	  <title>End State</title>
+	  <para>
+	    The End State is:
+	  </para>
+	</sect3>
+      </sect2>
+
+
+    </sect1>
+    
+  </chapter>
+
+  <chapter id="activity-diagrams">
+    <title>Activity Diagrams</title>
+    <para>This chapter details the most common activity diagrams</para>
+
+    <sect1 id="logger-states">
+      <title>Logger States</title>
+      <figure id="logger-states-diagram">
+	<title>Logger States</title>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="Loggerstates.png" format="png"
+		       width="800" align="center">
+	  </imageobject>
+	</mediaobject>
+      </figure>
+    </sect1>
+
+    <sect1 id="log-states">
+      <title>Log States</title>
+      <figure id="log-states-diagram">
+	<title>Log States</title>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="Logstates.png" format="png"
+		       width="800" align="center">
+	  </imageobject>
+	</mediaobject>
+      </figure>
+    </sect1>
+
+    <sect1 id="trader-states">
+      <title>Trader States</title>
+      <figure id="trader-states-diagram">
+	<title>Trader States</title>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="RegisterrationStates.png" format="png"
+		       width="800" align="center">
+	  </imageobject>
+	</mediaobject>
+      </figure>
+    </sect1>
+  </chapter>
+
+  <chapter id="classes">
+    <title>Class hierarchy and relationships</title>
+    <para>
+      This chapter details the class hierarchy and relationships between
+      them. This chapter is divided into a number of divisions based on a
+      logical grouping of the classes. 
+    </para>
+
+    <sect1 id="class-dia">
+      <title>Logger Class Diagram</title>
+      <figure id="logger-class-diagram">
+	<title>Logger Class Diagram</title>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="LoggerUseCaseDiagram.png" format="png"
+		       width="800" align="center">
+	  </imageobject>
+	</mediaobject>
+      </figure>
+    </sect1>
+
+    <sect1  id="data-classes">
+      <title>Event and Data Classes</title>
+      <para>
+	The classes in this section are ones that encapsulate the data
+	payload, and provide methods for manipulating the containers, meta
+	information, and conversions between the various formats. 
+      </para>
+    </sect1>
+
+    <sect1 id="attribute-classes">
+      <title>Attributes And Configuration Classes</title>
+      <para>
+	The classes in this section implement attribute, configuration, and
+	security parameters. These provide a common look-and-feel for
+	setting and querying attributes.
+      </para>
+    </sect1>
+
+    <sect1 id="control-classes">
+      <title>Controllers and Coordinators</title>
+      <para>
+	The classes in this section are the movers and the shakers of the
+	Logger; they modify their behaviour based on the instances of the
+	classes in the previous setion, and they move objects of classes in
+	the <quote>Event and Data Classes</quote> group. 
+      </para>
+    </sect1>
+  </chapter>
+</book>
+

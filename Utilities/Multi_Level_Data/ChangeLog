@@ -1,0 +1,134 @@
+2001-05-03  Manoj Srivastava  <srivasta@debian.org>
+
+	* QMS_Type_list.h: 1.3 Added Documentaion 
+
+	* QMS_Nodes.h: 1.2 Added documentation about the file.
+	(get_write_lock): Added
+	(release_lock):  Added
+	(release_lock):  Added
+
+	* QMS_Nodes.cpp: 1.3 Added documentation about the file.
+	(get_write_lock): 1.3 Added
+	(release_lock): 1.3 Added
+	(release_lock): 1.3 Added
+
+	* QMS_MLD_Factory.h (Lock>): 1.2 Added documentation
+
+	* QMS_MLD_Containers.h: 1.3 Added documentation about the
+		  file. The virtual destructor now has a null
+		  implementation. Added the lock methods, get_write_lock,
+			  get_read_lock, release_lock.
+
+	* QMS_MLD_Containers.cpp: 1.3 Added documentation about the
+		  file. Removed the destructor; we need do nothihg special
+	          here. 
+		  (get_write_lock): 1.3 Added
+		  (get_read_lock): 1.3  Added
+		  (release_lock): 1.3 Added
+
+	* QMS_Linked_List_Iterators.h: 1.2 Added documentation about the
+		  file. Include QMS_Linked_List_Iterators.cpp
+
+	* QMS_Linked_List_Iterators.cpp: 1.3 Added documentation about the
+		  file.  Several minor cxhanges to fix bugs.
+		  (key): 1.3 Added new method.
+		  (done): 1.3 Fixed logic error
+
+	* QMS_Linked_List.h: 1.2 Added documentation about the
+		  file. Include the implementation file QMS_Linked_List.cpp
+
+	* QMS_Linked_List.cpp: 1.3 Added documentation about the file
+	(insert_element): 1.3 Add a sanity check in the element adding
+		method 
+
+	* Makefile:
+	Chaned from creating a library, and not having subdirectories,, to
+	being a nested dir _not_ producing a library.
+
+	* QMS_MLD.h:
+	New version, wit added documentation and a new MLD group.
+
+2001-04-29  Manoj Srivastava  <srivasta@debian.org>
+
+	* ChangeLog, QMS_Linked_List.cpp, QMS_Linked_List_Iterators.cpp,
+		  QMS_MLD_Containers.cpp, QMS_MLD_Containers.h,
+		  QMS_Nodes.cpp, QMS_Nodes.h, QMS_Type_list.h,
+		  test/testLinkedList.cpp: 
+	Added tracing, debuggin, and more doxygen documentation
+
+	* Makefile
+	Make the template instantiation another file, but not part of the
+	shared library
+
+	* ChangeLog: New
+
+2001-04-29  Manoj Srivastava  <srivasta@debian.org>
+
+	* instantiate.cpp:
+		First checkin of the template instantiation test file
+
+	* ChangeLog, QMS_Linked_List.cpp, QMS_Linked_List_Iterators.cpp,
+		  QMS_MLD_Containers.cpp, QMS_MLD_Containers.h,
+		  QMS_Nodes.cpp, QMS_Nodes.h, QMS_Type_list.h,
+		  testLinkedList.cpp: 
+	Added tracing, debugging, and more doxygen documentation
+
+	* Makefile: 1.4 Make the template instantiation another file, but
+		  not part of the shared library
+
+2001-04-27  Manoj Srivastava  <manoj.srivasta@stdc.com>
+
+	* QMS_MLD_Containers.cpp (size): 1.2 Added documentation
+
+	* QMS_Linked_List_Iterators.h (class
+		  QMS_Linked_List_Iterator_Base): 1.1 Don't export pure
+		  virtual functions on NT. Made the destructor a virtual
+			  function. 
+
+	* QMS_Debug.h: 1.11 Corrected the include file for tracing.
+
+	* QMS_MLD_Containers.h (class QMS_MLD_Containers): 1.1 Added
+		  friend class QMS_MLD_Factory. Made the destructor
+		  virtual. Made the delete nodes call protected.
+
+	* QMS_MLD_Factory.h (class QMS_MLD_Factory): 1.1 Added a virtual
+		  destructor 
+
+	* QMS_Type_list.h (class QMS_Sub_Type_Element): 1.1 Fixed the
+		  optional parameter for the constructor. 
+	  (class QMS_Sub_Type_Element): rename the prev and next
+	          pointers, since the ACE doucle linked list insists. Also
+		  fixed the prototype for the set member
+	                
+
+	* QMS_Nodes.cpp: 1.1 Add the return statement in dereference
+
+	* QMS_Linked_List.h: 1.1 Added freind classes.  Make delete_nodes
+		  a protected member. Made the destructor virtual, since
+		  we have virtual members
+
+	* QMS_Linked_List.cpp: 1.1 Add the return statement in dereference
+		  operator
+	(delete_nodes): 1.1 Also delete the key value separately
+
+	* Makefile (LSRC): 1.3 Added -lQMS_Utilities for the test binary
+
+2001-04-26  Manoj Srivastava  <manoj.srivasta@stdc.com>
+
+	* QMS_Linked_List.cpp, QMS_Linked_List.h, 
+	  QMS_Linked_List_Iterators.cpp, QMS_Linked_List_Iterators.h,
+	  QMS_MLD_Containers.cpp, QMS_MLD_Containers.h, QMS_MLD_Factory.h, 
+	  QMS_Nodes.cpp, QMS_Nodes.h, QMS_Type_list.h, testLinkedList.cpp: 
+	Initial upload of the multilevel data structure. Currrently, only
+		the double linked list is implemented, and the find
+		functionality has not yet been implemented here. 
+
+	* QMS_Debug.h: 1.10 Fixed doxygen section comments
+
+	* Makefile (SRC): 1.2 Added macros for BIN. SRC, LIB, and SHLIB
+		  for the multi level data structure and test program.
+		  Added to the diagostic output
+
+2000-11-29  Manoj Srivastava  <manoj.srivastava@stdc.com>
+
+	* utils/QMS_Debug.h: removed = signs in cpp defines. Typo

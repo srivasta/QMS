@@ -1,0 +1,134 @@
+/** @page README.hello_world An Example Sensor - Hello World
+ *  <PRE>
+ *  Copyright (C) 2001 System/Technology Development Corporation
+ *  This file is part of QoS Metrics Services (QMS)
+ * 
+ *  This program is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU General Public License as
+ *  published by the Free Software Foundation; either version 2 of the
+ *  License, or (at your option) any later version.
+ * 
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  General Public License for more details.
+ * 
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ *  02111-1307 USA
+ * 
+ *  You may contact System/Technology Development Corporation at
+ * 
+ *      System/Technology Development Corporation
+ *      Suite 500, Center for Innovative Technology,
+ *      2214 Rock Hill Road,
+ *      Herndon, VA 20170    
+ *      (703) 476-0687
+ *  </PRE>
+
+
+  If you have not done this already, it would be a good idea to read
+  the section on @ref QMSSensors in the documentation in 
+  @ref README.background before you proceed with the HelloWorld Sensor. 
+  Additionally, the section on @ref QMSProbes is also good reading.
+
+  @section HelloWorldOverview Overview of the HelloWorld Sensor
+
+  The Hello World servant is a reference implementation of a QMS
+  Sensor that provides an example of the interactions that a sensor
+  has with the rest of the distributed QMS infrastructure. It is a
+  simplified implementation, since this sensor deploys no external
+  probes, and has only a single, simple built in probe; hence only
+  one side of the interactions of a generic sensor are exposed here.
+  
+  Additionally, this sensor implementation demonstrates the utility
+  of validation of the messages that flow in the QMS infrastructure
+  by optionally providing a slightly flawed data message every 7
+  messages.
+  
+  Additionally, this implementation does not implement the full
+  synchronization mechanisms required for handling multiple,
+  simultaneous modifiable requests; in this implementation, pausing,
+  resuming, and stopping any request pauses, resumes, and stops all
+  requests currently active.
+
+  @subsection HelloWorldFunction Functionality
+
+  The HelloWorld Sensor has been defined to essentially return a
+  "salutation" string of the form "Hello John Doe" in response to a
+  request which sends it the name "John Doe". To support this
+  interaction, the HelloWorld Sensor defines a request message and its
+  corresponding response message in its schema file "helloWorld.xsd".
+  Any client desiring to communicate with the HelloWorld Sensor must
+  use the defined schema to communicate with the Sensor.
+
+  The Sensor also supports the minrepeatInterval and the
+  minRepetitions parameters defined in the QMS Message Schema. So the
+  client can command the Sensor to send responses to its request for a
+  specified number of repetitions at a specified
+  interval. Additionally, the Sensor also supports the ability for the
+  client to pause the flow of data and to resume and terminate the
+  flow of data.
+
+  The client in the test directory sends a request with the name "John
+  Doe" to the HelloWorld Sensor with the specification that the
+  response be sent out 20 times at an interval of 1
+  second. Additionally, the client has also been written to send out a
+  "pause", "resume" and "stop" message in that order.
+
+  In order to demonstrate the message validation that occurs at either
+  of the communication, the client also generates two incorrect
+  requests which never get through to the Sensor. The Sensor also
+  generates an incorrect response for every seventh response. This
+  erroneous behaviour in both the Sensor and the client can be turned
+  off with the #define INTRODUCE_ERROR in the Makefile.
+ 
+ @section Running_Hello_World Running the HelloWorld sensor
+
+
+      -# If you haven't already, please read the @ref README.install  file and
+         build QMS.
+      -# Ensure that you are in the correct working directory
+          - % cd Instrumentation/Sensors/Hello_World
+      -# Before running this sensor, you need to take a few preparatory
+         steps. First, you need to have a copy of the reduced QMS XML
+         schema file in the current directory in order for the parser to
+         parse the incoming requests. You can get this file from the
+         ${QMS_TOP}/Core/XML/ directory.
+          - % cp ../../../Core/XML/QMSSchemaReduced.xsd QMSSchema.xsd
+          - A Schema file that describes the payload of the XML requests 
+            that the sensor needs to parse is already present in this 
+            directory with the name "helloWorld.xsd".
+          - Next, we need a sensor configuration file, and one is already
+            provided in this directory called helloWorldConfig.xml.
+      -# This step is not really required, but it makes navigation a lot
+         easier. Here we create a symbolic link to the object dir.
+          - % ln -s ../../../build/i586-pc-linux-gnu/Instrumentation/Sensors/Hello_World objdir
+      -# We are almost ready to run the Hello World sensor. However, before
+         doing so, you need to read the section of the documentation in 
+         @ref README.run. The main @ref README file has a 
+         pointer to it. Before continuing, you also should have started
+         various CORBA services including the Naming Service, Event Service
+         and the Trading Service, as detailed in that file. You also must
+         have a QMS Trader service running, also as described.
+      -# Make sure your LD_LIBRARY_PATH is set to contain the path names of
+         the ACE, TAO, and Xerces libraries.
+         - % LD_LIBRARY_PATH=$ACE_ROOT:$TAO_ROOT:$XERCESCROOT/lib:$XALANROOT/c/lib
+         - % export LD_LIBRARY_PATH
+         After that, we are ready to run the hello world sensor.
+         - % ./objdir/hello_world -f helloWorldConfig.xml
+      -# Next, we need to start running the client. The process is similar:
+         We again create a symbolic link to the objdir:
+         - % cd test
+         - % ln -s ../../../../build/i586-pc-linux-gnu/Instrumentation/Sensors/Hello_World/test objdir
+      -# Ensure that the LD_LIBRARY_PATH is set correctly in this session
+         as well.
+      -# Then we start the hello world sample client as shown below. Note that
+         this is done from the same working directory as the Sensor because
+         the client also needs access to the QMSSchema.xsd and the 
+         Sensor XML schema in helloWorld.xsd.
+         - % ./objdir/hello_world_client
+ 
+
+** @ref index **/
