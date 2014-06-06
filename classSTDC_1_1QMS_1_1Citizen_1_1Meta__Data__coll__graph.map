@@ -1,0 +1,9 @@
+<map id="STDC::QMS::Citizen::Meta_Data" name="STDC::QMS::Citizen::Meta_Data">
+<area shape="rect" id="node2" href="$structSTDC_1_1QMS_1_1ProbeDefinitionType.html" title="STDC::QMS::ProbeDefinitionType" alt="" coords="1016,231,1240,265"/>
+<area shape="rect" id="node4" href="$structSTDC_1_1QMS_1_1mandatorySchemaOfferProperties.html" title="STDC::QMS::mandatorySchema\lOfferProperties" alt="" coords="665,126,881,181"/>
+<area shape="rect" id="node20" href="$structSTDC_1_1QMS_1_1sensorServiceType.html" title="STDC::QMS::sensorServiceType" alt="" coords="1017,121,1239,154"/>
+<area shape="rect" id="node8" href="$structSTDC_1_1QMS_1_1genericSensorProbeProperties.html" title="STDC::QMS::genericSensor\lProbeProperties" alt="" coords="679,31,868,86"/>
+<area shape="rect" id="node11" href="$structSTDC_1_1QMS_1_1invocationType.html" title="STDC::QMS::invocationType" alt="" coords="445,294,640,327"/>
+<area shape="rect" id="node16" href="$structSTDC_1_1QMS_1_1uniqueNameType.html" title="STDC::QMS::uniqueNameType" alt="" coords="211,221,421,254"/>
+<area shape="rect" id="node14" href="$structSTDC_1_1QMS_1_1mandatoryServiceOfferProperties.html" title="STDC::QMS::mandatoryService\lOfferProperties" alt="" coords="667,210,880,265"/>
+</map>

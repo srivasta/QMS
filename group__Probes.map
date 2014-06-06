@@ -1,0 +1,5 @@
+<map id="QMS Probes &#45; Simple QoS metric probes deployed by the sensors" name="QMS Probes &#45; Simple QoS metric probes deployed by the sensors">
+<area shape="rect" id="node1" href="$group__OneShot.html" title="OneShot Probes" alt="" coords="461,5,581,38"/>
+<area shape="rect" id="node2" href="$group__Instrumentation.html" title="Instrumentation &#45; QoS\l intrumentation that\l uses QMS" alt="" coords="7,11,156,87"/>
+<area shape="rect" id="node3" href="$group__Continuous.html" title="Continuous Probes" alt="" coords="453,61,589,94"/>
+</map>

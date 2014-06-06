@@ -1,0 +1,5 @@
+<map id="hw_payload_data" name="hw_payload_data">
+<area shape="rect" id="node2" href="$structhelloWorld.html" title="intermediate level of the heirarchy of the payload " alt="" coords="92,257,177,290"/>
+<area shape="rect" id="node4" href="$structHello__World__Request.html" title="The guts of the message payload. " alt="" coords="5,153,157,186"/>
+<area shape="rect" id="node8" href="$structRequest.html" title="The guts of the message payload. " alt="" coords="181,153,253,186"/>
+</map>

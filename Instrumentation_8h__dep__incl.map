@@ -1,0 +1,38 @@
+<map id="Instrumentation.h" name="Instrumentation.h">
+<area shape="rect" id="node3" href="$Generic__Wrapper__Probe_8cpp.html" title="Contains implementation of DLL Interception Probe that delivers transparent instrumentation on Window..." alt="" coords="5,89,200,122"/>
+<area shape="rect" id="node5" href="$NT__Perf__Mon__getdata_8cpp.html" title="Contains implementation of a Probe that delivers NT Performance Monitor data. " alt="" coords="224,89,405,122"/>
+<area shape="rect" id="node7" href="$get__data__flow_8cpp.html" title="Contains implementation of a Probe that delivers Remos data. " alt="" coords="429,89,557,122"/>
+<area shape="rect" id="node9" href="$get__data__graph_8cpp.html" title="Contains implementation of a Probe that delivers Remos graph data. " alt="" coords="581,89,720,122"/>
+<area shape="rect" id="node11" href="$Linux__Perf__Mon__Probe_8cpp.html" title="Contains implementation of a Generic Continuos Probe. " alt="" coords="744,89,928,122"/>
+<area shape="rect" id="node13" href="$get__data__GCP_8h.html" title="Implementation of a one shot probe for Remos data. " alt="" coords="952,89,1072,122"/>
+<area shape="rect" id="node19" href="$Probe__Proxy__Remos_8h.html" title="A pure virtual superclass for proxies to probes. " alt="" coords="1096,89,1256,122"/>
+<area shape="rect" id="node48" href="$test__probe_8cpp.html" title="implementation of the client program " alt="" coords="1280,89,1387,122"/>
+<area shape="rect" id="node50" href="$Probe__Proxy_8h.html" title="A pure virtual superclass for proxies to probes. " alt="" coords="2077,89,2187,122"/>
+<area shape="rect" id="node15" href="$Generic__Continuous__Probe_8cpp.html" title="Contains implementation of a Generic Continuos Probe. " alt="" coords="777,171,921,226"/>
+<area shape="rect" id="node17" href="$get__data__GCP_8cpp.html" title="Contains implementation of get_data and xml_insert functions. " alt="" coords="945,182,1079,215"/>
+<area shape="rect" id="node21" href="$Meta__Data__Remos_8h.html" title="A class that contains meta data about probes. " alt="" coords="1103,182,1249,215"/>
+<area shape="rect" id="node35" href="$Pipe__Proxy__Remos_8h.html" title="A pure virtual class to interact with probes using simple pipes. " alt="" coords="1308,182,1457,215"/>
+<area shape="rect" id="node23" href="$Remos__Sensor__Impl_8h.html" title="A Generic Sensor Implementation. " alt="" coords="949,286,1104,319"/>
+<area shape="rect" id="node27" href="$Meta__Data__Remos_8cpp.html" title="Implentation of the Metadata object containing metadata about probes. " alt="" coords="1159,390,1321,423"/>
+<area shape="rect" id="node25" href="$CallBack__Remos_8cpp.html" title="This file specifies the action taken when requests are recieved. " alt="" coords="636,390,785,423"/>
+<area shape="rect" id="node29" href="$remos__sensor_8cpp.html" title="Driver for the Remos sensor. " alt="" coords="809,390,940,423"/>
+<area shape="rect" id="node31" href="$Remos__Sensor__Impl_8cpp.html" title="The implementation of the servant. " alt="" coords="964,390,1135,423"/>
+<area shape="rect" id="node37" href="$Continuous__Pipe__Proxy__Remos_8h.html" title="A concrete abstraction object for sophisticated probes using pipes. " alt="" coords="1368,275,1533,330"/>
+<area shape="rect" id="node42" href="$One__Shot__Pipe__Proxy__Remos_8h.html" title="A concrete abstraction object for simple probes using simple pipes. " alt="" coords="1557,275,1715,330"/>
+<area shape="rect" id="node46" href="$Pipe__Proxy__Remos_8cpp.html" title="An implementation for the functions for a probe using pipes. " alt="" coords="1179,286,1344,319"/>
+<area shape="rect" id="node39" href="$Continuous__Pipe__Proxy__Remos_8cpp.html" title="Implementation of a proxy for a continuous, pipe based probe. " alt="" coords="1368,379,1533,434"/>
+<area shape="rect" id="node44" href="$One__Shot__Pipe__Proxy__Remos_8cpp.html" title="Implementation of a one&#45;shot pipe proxy. " alt="" coords="1557,379,1715,434"/>
+<area shape="rect" id="node52" href="$Meta__Data_8h.html" title="A class that contains meta data about probes. " alt="" coords="2083,182,2181,215"/>
+<area shape="rect" id="node68" href="$Pipe__Proxy_8h.html" title="A pure virtual class to interact with probes using simple pipes. " alt="" coords="2320,182,2419,215"/>
+<area shape="rect" id="node54" href="$Generic__Sensor__Impl_8h.html" title="A concrete, example server. " alt="" coords="1993,286,2153,319"/>
+<area shape="rect" id="node62" href="$Meta__Data_8cpp.html" title="Implentation of the Metadata object containing metadata about probes. " alt="" coords="2224,390,2336,423"/>
+<area shape="rect" id="node56" href="$CallBack_8cpp.html" title="This file specifies the action taken when requests are recieved. " alt="" coords="1739,390,1840,423"/>
+<area shape="rect" id="node58" href="$generic__sensor_8cpp.html" title="Driver for the Generic sensor. " alt="" coords="1864,390,2003,423"/>
+<area shape="rect" id="node60" href="$Generic__Sensor__Impl_8cpp.html" title="The implementation of the servant. " alt="" coords="2027,390,2200,423"/>
+<area shape="rect" id="node64" href="$test__meta__data_8cpp.html" title="implementation of a test program " alt="" coords="2211,483,2349,517"/>
+<area shape="rect" id="node70" href="$Continuous__Pipe__Proxy_8h.html" title="A concrete abstraction object for sophisticated probes using pipes. " alt="" coords="2367,286,2540,319"/>
+<area shape="rect" id="node75" href="$One__Shot__Pipe__Proxy_8h.html" title="A concrete abstraction object for simple probes using simple pipes. " alt="" coords="2571,286,2736,319"/>
+<area shape="rect" id="node79" href="$Pipe__Proxy_8cpp.html" title="An implementation for the functions for a probe using pipes. " alt="" coords="2228,286,2343,319"/>
+<area shape="rect" id="node72" href="$Continuous__Pipe__Proxy_8cpp.html" title="Implementation of a proxy for a continuous, pipe based probe. " alt="" coords="2360,390,2547,423"/>
+<area shape="rect" id="node77" href="$One__Shot__Pipe__Proxy_8cpp.html" title="Implementation of a one&#45;shot pipe proxy. " alt="" coords="2571,390,2749,423"/>
+</map>

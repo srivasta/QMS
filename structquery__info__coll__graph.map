@@ -1,0 +1,19 @@
+<map id="query_info" name="query_info">
+<area shape="rect" id="node2" href="$classSTDC_1_1QMS_1_1Citizen_1_1Probe__Proxy__Remos.html" title="A pure virtual superclass for proxies to probes. " alt="" coords="1764,219,1919,274"/>
+<area shape="rect" id="node52" href="$structprobe__info.html" title="The information we store about each probe. " alt="" coords="2023,302,2105,335"/>
+<area shape="rect" id="node4" href="$classSTDC_1_1QMS_1_1Citizen_1_1Meta__Data__Remos.html" title="A container class of meta&#45;data about probes. " alt="" coords="1501,215,1645,270"/>
+<area shape="rect" id="node6" href="$structSTDC_1_1QMS_1_1ProbeDefinitionType.html" title="STDC::QMS::ProbeDefinitionType" alt="" coords="1160,359,1384,393"/>
+<area shape="rect" id="node32" href="$classSTDC_1_1QMS_1_1Citizen_1_1Meta__Data.html" title="A container class of meta&#45;data about probes. " alt="" coords="1501,361,1645,415"/>
+<area shape="rect" id="node8" href="$structSTDC_1_1QMS_1_1mandatorySchemaOfferProperties.html" title="STDC::QMS::mandatorySchema\lOfferProperties" alt="" coords="809,286,1025,341"/>
+<area shape="rect" id="node24" href="$structSTDC_1_1QMS_1_1sensorServiceType.html" title="STDC::QMS::sensorServiceType" alt="" coords="1161,230,1383,263"/>
+<area shape="rect" id="node12" href="$structSTDC_1_1QMS_1_1genericSensorProbeProperties.html" title="STDC::QMS::genericSensor\lProbeProperties" alt="" coords="823,205,1012,259"/>
+<area shape="rect" id="node15" href="$structSTDC_1_1QMS_1_1invocationType.html" title="STDC::QMS::invocationType" alt="" coords="589,363,784,397"/>
+<area shape="rect" id="node20" href="$structSTDC_1_1QMS_1_1uniqueNameType.html" title="STDC::QMS::uniqueNameType" alt="" coords="355,445,565,478"/>
+<area shape="rect" id="node30" href="$classSTDC_1_1QMS_1_1Citizen_1_1Probe__Proxy.html" title="A pure virtual superclass for proxies to probes. " alt="" coords="1769,358,1913,413"/>
+<area shape="rect" id="node38" href="$structSTDC_1_1QMS_1_1QMSMessage.html" title="STDC::QMS::QMSMessage" alt="" coords="823,637,1012,670"/>
+<area shape="rect" id="node40" href="$structSTDC_1_1QMS_1_1pubsubIDType.html" title="STDC::QMS::pubsubIDType" alt="" coords="367,602,553,635"/>
+<area shape="rect" id="node43" href="$structSTDC_1_1QMS_1_1sessionType.html" title="STDC::QMS::sessionType" alt="" coords="371,795,549,829"/>
+<area shape="rect" id="node18" href="$structSTDC_1_1QMS_1_1mandatoryServiceOfferProperties.html" title="STDC::QMS::mandatoryService\lOfferProperties" alt="" coords="811,433,1024,487"/>
+<area shape="rect" id="node46" href="$structSTDC_1_1QMS_1_1QoSParameters.html" title="STDC::QMS::QoSParameters" alt="" coords="5,821,205,854"/>
+<area shape="rect" id="node48" href="$structSTDC_1_1QMS_1_1minRepetitions.html" title="STDC::QMS::minRepetitions" alt="" coords="11,877,200,910"/>
+</map>

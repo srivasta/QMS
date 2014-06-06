@@ -1,0 +1,14 @@
+<map id="Probe_Proxy_Remos.h" name="Probe_Proxy_Remos.h">
+<area shape="rect" id="node3" href="$Meta__Data__Remos_8h.html" title="A class that contains meta data about probes. " alt="" coords="447,89,593,122"/>
+<area shape="rect" id="node17" href="$Pipe__Proxy__Remos_8h.html" title="A pure virtual class to interact with probes using simple pipes. " alt="" coords="685,89,835,122"/>
+<area shape="rect" id="node5" href="$Remos__Sensor__Impl_8h.html" title="A Generic Sensor Implementation. " alt="" coords="328,182,483,215"/>
+<area shape="rect" id="node9" href="$Meta__Data__Remos_8cpp.html" title="Implentation of the Metadata object containing metadata about probes. " alt="" coords="528,286,691,319"/>
+<area shape="rect" id="node7" href="$CallBack__Remos_8cpp.html" title="This file specifies the action taken when requests are recieved. " alt="" coords="200,286,349,319"/>
+<area shape="rect" id="node11" href="$remos__sensor_8cpp.html" title="Driver for the Remos sensor. " alt="" coords="373,286,504,319"/>
+<area shape="rect" id="node13" href="$Remos__Sensor__Impl_8cpp.html" title="The implementation of the servant. " alt="" coords="5,286,176,319"/>
+<area shape="rect" id="node19" href="$Continuous__Pipe__Proxy__Remos_8h.html" title="A concrete abstraction object for sophisticated probes using pipes. " alt="" coords="747,171,912,226"/>
+<area shape="rect" id="node24" href="$One__Shot__Pipe__Proxy__Remos_8h.html" title="A concrete abstraction object for simple probes using simple pipes. " alt="" coords="936,171,1093,226"/>
+<area shape="rect" id="node28" href="$Pipe__Proxy__Remos_8cpp.html" title="An implementation for the functions for a probe using pipes. " alt="" coords="557,182,723,215"/>
+<area shape="rect" id="node21" href="$Continuous__Pipe__Proxy__Remos_8cpp.html" title="Implementation of a proxy for a continuous, pipe based probe. " alt="" coords="747,275,912,330"/>
+<area shape="rect" id="node26" href="$One__Shot__Pipe__Proxy__Remos_8cpp.html" title="Implementation of a one&#45;shot pipe proxy. " alt="" coords="936,275,1093,330"/>
+</map>

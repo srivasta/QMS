@@ -1,0 +1,7 @@
+<map id="STDC::QMS::Citizen::Generic_Sensor_Impl" name="STDC::QMS::Citizen::Generic_Sensor_Impl">
+<area shape="rect" id="node4" href="$structSTDC_1_1QMS_1_1sensorConfiguration.html" title="STDC::QMS::sensorConfiguration" alt="" coords="1023,141,1244,174"/>
+<area shape="rect" id="node6" href="$structSTDC_1_1QMS_1_1mandatoryCorbaOfferProperties.html" title="STDC::QMS::mandatoryCorba\lOfferProperties" alt="" coords="468,191,671,246"/>
+<area shape="rect" id="node13" href="$structSTDC_1_1QMS_1_1uniqueNameType.html" title="STDC::QMS::uniqueNameType" alt="" coords="232,294,443,327"/>
+<area shape="rect" id="node11" href="$structSTDC_1_1QMS_1_1mandatoryServiceOfferProperties.html" title="STDC::QMS::mandatoryService\lOfferProperties" alt="" coords="696,269,909,323"/>
+<area shape="rect" id="node17" href="$classSTDC_1_1QMS_1_1CORBA__Handles.html" title="A convenience class for getting handles for CORBA objects. " alt="" coords="1031,197,1236,230"/>
+</map>

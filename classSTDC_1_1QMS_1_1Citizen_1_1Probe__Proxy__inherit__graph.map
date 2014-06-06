@@ -1,0 +1,5 @@
+<map id="STDC::QMS::Citizen::Probe_Proxy" name="STDC::QMS::Citizen::Probe_Proxy">
+<area shape="rect" id="node3" href="$classSTDC_1_1QMS_1_1Citizen_1_1Pipe__Proxy.html" title="A pure virtual class to interact with probes using simple pipes. " alt="" coords="113,110,257,165"/>
+<area shape="rect" id="node5" href="$classSTDC_1_1QMS_1_1Citizen_1_1Continuous__Pipe__Proxy.html" title="A concrete abstraction object for probes using simple pipes. " alt="" coords="5,214,176,269"/>
+<area shape="rect" id="node7" href="$classSTDC_1_1QMS_1_1Citizen_1_1One__Shot__Pipe__Proxy.html" title="A concrete abstraction object for probes using simple pipes. " alt="" coords="200,214,363,269"/>
+</map>

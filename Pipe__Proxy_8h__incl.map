@@ -1,0 +1,13 @@
+<map id="Pipe_Proxy.h" name="Pipe_Proxy.h">
+<area shape="rect" id="node3" href="$Debug_8h.html" title="Debugging Macros. " alt="" coords="2937,369,3009,402"/>
+<area shape="rect" id="node27" href="$Probe__Proxy_8h.html" title="A pure virtual superclass for proxies to probes. " alt="" coords="1862,89,1971,122"/>
+<area shape="rect" id="node133" href="$EC__Adapter_8h.html" title="Interface definition for the QMS API. " alt="" coords="1122,171,1223,205"/>
+<area shape="rect" id="node31" href="$Instrumentation_8h.html" title="Instrumentation &#45; QoS intrumentation that uses QMS. " alt="" coords="1790,171,1910,205"/>
+<area shape="rect" id="node33" href="$Meta__Data_8h.html" title="A class that contains meta data about probes. " alt="" coords="1934,171,2033,205"/>
+<area shape="rect" id="node51" href="$List__Data_8h.html" title="Contains a simple class that encapsulates event chanel information. " alt="" coords="2926,265,3014,298"/>
+<area shape="rect" id="node75" href="$CORBA__Handles_8h.html" title="A Convenience class to deal with CORBA handles. " alt="" coords="507,369,643,402"/>
+<area shape="rect" id="node89" href="$Push__Consumer_8h.html" title="Implentation of the Consumer object class. " alt="" coords="693,265,823,298"/>
+<area shape="rect" id="node104" href="$Push__Supplier_8h.html" title="Interface definition of the QMS Supplier class. " alt="" coords="1067,265,1182,298"/>
+<area shape="rect" id="node117" href="$Parse__XML_8h.html" title="A convenient interface to parsing QMS XML documents. " alt="" coords="2750,265,2851,298"/>
+<area shape="rect" id="node131" href="$Message__Format_8h.html" title="C++ representation of the payload data for the hello world probe. " alt="" coords="2537,265,2675,298"/>
+</map>

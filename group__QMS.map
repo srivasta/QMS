@@ -1,0 +1,7 @@
+<map id="QoS Metric Services" name="QoS Metric Services">
+<area shape="rect" id="node1" href="$group__Services.html" title="The Core services provided\l by QMS" alt="" coords="201,5,393,59"/>
+<area shape="rect" id="node2" href="$group__Utilities.html" title="Utilities &#45; Miscellaneous\l software utilities" alt="" coords="216,82,379,137"/>
+<area shape="rect" id="node3" href="$group__Instrumentation.html" title="Instrumentation &#45; QoS\l intrumentation that\l uses QMS" alt="" coords="223,159,372,235"/>
+<area shape="rect" id="node4" href="$group__Contrib.html" title="Third party software\l integrated with QMS" alt="" coords="224,258,371,313"/>
+<area shape="rect" id="node6" href="$group__Facilities.html" title="Plug ins and add&#45;on\l facilities provided\l with QMS" alt="" coords="225,335,369,411"/>
+</map>

@@ -1,0 +1,17 @@
+<map id="Meta_Data.cpp" name="Meta_Data.cpp">
+<area shape="rect" id="node21" href="$Meta__Data_8h.html" title="A class that contains meta data about probes. " alt="" coords="1256,171,1355,205"/>
+<area shape="rect" id="node117" href="$Generic__Sensor__Impl_8h.html" title="A concrete, example server. " alt="" coords="2329,89,2489,122"/>
+<area shape="rect" id="node151" href="$YP__Offer_8h.html" title="Convenience methods to create Service types used in CORBA Trading offers. " alt="" coords="2513,89,2596,122"/>
+<area shape="rect" id="node165" href="$Continuous__Pipe__Proxy_8h.html" title="A concrete abstraction object for sophisticated probes using pipes. " alt="" coords="827,89,1000,122"/>
+<area shape="rect" id="node39" href="$Debug_8h.html" title="Debugging Macros. " alt="" coords="1461,358,1533,391"/>
+<area shape="rect" id="node49" href="$List__Data_8h.html" title="Contains a simple class that encapsulates event chanel information. " alt="" coords="296,265,384,298"/>
+<area shape="rect" id="node58" href="$Probe__Proxy_8h.html" title="A pure virtual superclass for proxies to probes. " alt="" coords="509,265,619,298"/>
+<area shape="rect" id="node76" href="$CORBA__Handles_8h.html" title="A Convenience class to deal with CORBA handles. " alt="" coords="1963,358,2099,391"/>
+<area shape="rect" id="node83" href="$Push__Consumer_8h.html" title="Implentation of the Consumer object class. " alt="" coords="869,265,1000,298"/>
+<area shape="rect" id="node92" href="$Push__Supplier_8h.html" title="Interface definition of the QMS Supplier class. " alt="" coords="1317,265,1432,298"/>
+<area shape="rect" id="node101" href="$Parse__XML_8h.html" title="A convenient interface to parsing QMS XML documents. " alt="" coords="744,265,845,298"/>
+<area shape="rect" id="node115" href="$Message__Format_8h.html" title="C++ representation of the payload data for the hello world probe. " alt="" coords="1963,265,2101,298"/>
+<area shape="rect" id="node132" href="$Generic__SensorS_8h.html" title="Generic_SensorS.h" alt="" coords="2183,171,2321,205"/>
+<area shape="rect" id="node136" href="$QMS__Trader__ECInfo__Impl_8h.html" title="The interface definition of the QMS trader functionality. " alt="" coords="2384,265,2571,298"/>
+<area shape="rect" id="node167" href="$Pipe__Proxy_8h.html" title="A pure virtual class to interact with probes using simple pipes. " alt="" coords="864,171,963,205"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="Instrumentation &#45; QoS intrumentation that uses QMS" name="Instrumentation &#45; QoS intrumentation that uses QMS">
+<area shape="rect" id="node2" href="$group__Probes.html" title="QMS Probes &#45; Simple\l QoS metric probes deployed\l by the sensors" alt="" coords="401,5,599,81"/>
+<area shape="rect" id="node3" href="$group__Sensors.html" title="QMS Sensors &#45; QoS metrics\l gatherers and data supplier" alt="" coords="404,103,596,158"/>
+<area shape="rect" id="node4" href="$group__QMS.html" title="QoS Metric Services" alt="" coords="5,70,152,103"/>
+</map>

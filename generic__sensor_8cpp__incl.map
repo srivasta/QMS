@@ -1,0 +1,12 @@
+<map id="generic_sensor.cpp" name="generic_sensor.cpp">
+<area shape="rect" id="node25" href="$Debug_8h.html" title="Debugging Macros. " alt="" coords="2884,369,2956,402"/>
+<area shape="rect" id="node48" href="$CORBA__Handles_8h.html" title="A Convenience class to deal with CORBA handles. " alt="" coords="1725,369,1861,402"/>
+<area shape="rect" id="node65" href="$Push__Consumer_8h.html" title="Implentation of the Consumer object class. " alt="" coords="627,265,757,298"/>
+<area shape="rect" id="node80" href="$Push__Supplier_8h.html" title="Interface definition of the QMS Supplier class. " alt="" coords="1059,265,1173,298"/>
+<area shape="rect" id="node93" href="$Generic__Sensor__Impl_8h.html" title="A concrete, example server. " alt="" coords="1988,89,2148,122"/>
+<area shape="rect" id="node112" href="$Generic__SensorS_8h.html" title="Generic_SensorS.h" alt="" coords="2251,171,2389,205"/>
+<area shape="rect" id="node116" href="$Parse__XML_8h.html" title="A convenient interface to parsing QMS XML documents. " alt="" coords="933,265,1035,298"/>
+<area shape="rect" id="node123" href="$QMS__Trader__ECInfo__Impl_8h.html" title="The interface definition of the QMS trader functionality. " alt="" coords="2040,171,2227,205"/>
+<area shape="rect" id="node132" href="$Meta__Data_8h.html" title="A class that contains meta data about probes. " alt="" coords="1415,171,1513,205"/>
+<area shape="rect" id="node151" href="$Message__Format_8h.html" title="C++ representation of the payload data for the hello world probe. " alt="" coords="2408,265,2547,298"/>
+</map>

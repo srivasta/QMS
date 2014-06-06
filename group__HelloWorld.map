@@ -1,0 +1,5 @@
+<map id="Hello&#45;World sensor &#45; an example sensor implementation" name="Hello&#45;World sensor &#45; an example sensor implementation">
+<area shape="rect" id="node1" href="$group__RemosSensor.html" title="Remos Sensor &#45; a hybrid\l sensor implementation" alt="" coords="587,5,757,59"/>
+<area shape="rect" id="node2" href="$group__GenericSensor.html" title="Generic sensor &#45; an\l example sensor implementation\l with external probes" alt="" coords="564,82,780,158"/>
+<area shape="rect" id="node3" href="$group__Sensors.html" title="QMS Sensors &#45; QoS metrics\l gatherers and data supplier" alt="" coords="5,49,197,103"/>
+</map>

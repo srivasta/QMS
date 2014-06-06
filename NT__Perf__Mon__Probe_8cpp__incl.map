@@ -1,0 +1,6 @@
+<map id="NT_Perf_Mon_Probe.cpp" name="NT_Perf_Mon_Probe.cpp">
+<area shape="rect" id="node11" href="$Debug_8h.html" title="Debugging Macros. " alt="" coords="484,171,556,205"/>
+<area shape="rect" id="node33" href="$NT__Perf__Mon__Probe_8h.html" title="Contains implementation Probe that delivers NT performance data. " alt="" coords="620,89,777,122"/>
+<area shape="rect" id="node38" href="$NT__Perf__Mon__getdata_8h.html" title="Contains implementation of a Probe that delivers NT Performance Monitor data. " alt="" coords="801,89,969,122"/>
+<area shape="rect" id="node47" href="$Parse__Duration_8cpp.html" title="A convenient interface to parsing QMS XML durations. " alt="" coords="457,89,596,122"/>
+</map>

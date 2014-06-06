@@ -1,0 +1,15 @@
+<map id="Meta_Data.h" name="Meta_Data.h">
+<area shape="rect" id="node3" href="$Generic__Sensor__Impl_8h.html" title="A concrete, example server. " alt="" coords="300,89,460,122"/>
+<area shape="rect" id="node11" href="$Meta__Data_8cpp.html" title="Implentation of the Metadata object containing metadata about probes. " alt="" coords="449,337,561,370"/>
+<area shape="rect" id="node15" href="$Probe__Proxy_8h.html" title="A pure virtual superclass for proxies to probes. " alt="" coords="592,89,701,122"/>
+<area shape="rect" id="node5" href="$CallBack_8cpp.html" title="This file specifies the action taken when requests are recieved. " alt="" coords="5,171,107,205"/>
+<area shape="rect" id="node7" href="$generic__sensor_8cpp.html" title="Driver for the Generic sensor. " alt="" coords="131,171,269,205"/>
+<area shape="rect" id="node9" href="$Generic__Sensor__Impl_8cpp.html" title="The implementation of the servant. " alt="" coords="293,171,467,205"/>
+<area shape="rect" id="node13" href="$test__meta__data_8cpp.html" title="implementation of a test program " alt="" coords="436,419,575,453"/>
+<area shape="rect" id="node18" href="$Pipe__Proxy_8h.html" title="A pure virtual class to interact with probes using simple pipes. " alt="" coords="727,171,825,205"/>
+<area shape="rect" id="node20" href="$Continuous__Pipe__Proxy_8h.html" title="A concrete abstraction object for sophisticated probes using pipes. " alt="" coords="592,254,765,287"/>
+<area shape="rect" id="node25" href="$One__Shot__Pipe__Proxy_8h.html" title="A concrete abstraction object for simple probes using simple pipes. " alt="" coords="789,254,955,287"/>
+<area shape="rect" id="node29" href="$Pipe__Proxy_8cpp.html" title="An implementation for the functions for a probe using pipes. " alt="" coords="979,254,1093,287"/>
+<area shape="rect" id="node22" href="$Continuous__Pipe__Proxy_8cpp.html" title="Implementation of a proxy for a continuous, pipe based probe. " alt="" coords="585,337,772,370"/>
+<area shape="rect" id="node27" href="$One__Shot__Pipe__Proxy_8cpp.html" title="Implementation of a one&#45;shot pipe proxy. " alt="" coords="796,337,975,370"/>
+</map>

@@ -1,0 +1,18 @@
+<map id="EC_Adapter.h" name="EC_Adapter.h">
+<area shape="rect" id="node3" href="$Pipe__Proxy__Remos_8h.html" title="A pure virtual class to interact with probes using simple pipes. " alt="" coords="479,89,628,122"/>
+<area shape="rect" id="node17" href="$Pipe__Proxy_8h.html" title="A pure virtual class to interact with probes using simple pipes. " alt="" coords="885,89,984,122"/>
+<area shape="rect" id="node33" href="$EC__Adapter_8cpp.html" title="Implentation of the Event Channel Adapter class. " alt="" coords="1008,89,1125,122"/>
+<area shape="rect" id="node5" href="$Continuous__Pipe__Proxy__Remos_8h.html" title="A concrete abstraction object for sophisticated probes using pipes. " alt="" coords="192,171,357,226"/>
+<area shape="rect" id="node11" href="$One__Shot__Pipe__Proxy__Remos_8h.html" title="A concrete abstraction object for simple probes using simple pipes. " alt="" coords="381,171,539,226"/>
+<area shape="rect" id="node15" href="$Pipe__Proxy__Remos_8cpp.html" title="An implementation for the functions for a probe using pipes. " alt="" coords="563,182,728,215"/>
+<area shape="rect" id="node7" href="$Continuous__Pipe__Proxy__Remos_8cpp.html" title="Implementation of a proxy for a continuous, pipe based probe. " alt="" coords="5,275,171,330"/>
+<area shape="rect" id="node9" href="$Meta__Data__Remos_8cpp.html" title="Implentation of the Metadata object containing metadata about probes. " alt="" coords="195,286,357,319"/>
+<area shape="rect" id="node13" href="$One__Shot__Pipe__Proxy__Remos_8cpp.html" title="Implementation of a one&#45;shot pipe proxy. " alt="" coords="381,275,539,330"/>
+<area shape="rect" id="node19" href="$Continuous__Pipe__Proxy_8h.html" title="A concrete abstraction object for sophisticated probes using pipes. " alt="" coords="752,182,925,215"/>
+<area shape="rect" id="node27" href="$One__Shot__Pipe__Proxy_8h.html" title="A concrete abstraction object for simple probes using simple pipes. " alt="" coords="949,182,1115,215"/>
+<area shape="rect" id="node31" href="$Pipe__Proxy_8cpp.html" title="An implementation for the functions for a probe using pipes. " alt="" coords="1139,182,1253,215"/>
+<area shape="rect" id="node21" href="$Continuous__Pipe__Proxy_8cpp.html" title="Implementation of a proxy for a continuous, pipe based probe. " alt="" coords="584,286,771,319"/>
+<area shape="rect" id="node23" href="$Meta__Data_8cpp.html" title="Implentation of the Metadata object containing metadata about probes. " alt="" coords="795,286,907,319"/>
+<area shape="rect" id="node25" href="$test__meta__data_8cpp.html" title="implementation of a test program " alt="" coords="781,379,920,413"/>
+<area shape="rect" id="node29" href="$One__Shot__Pipe__Proxy_8cpp.html" title="Implementation of a one&#45;shot pipe proxy. " alt="" coords="943,286,1121,319"/>
+</map>

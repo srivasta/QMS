@@ -1,0 +1,5 @@
+<map id="STDC::QMS::sensorConfiguration" name="STDC::QMS::sensorConfiguration">
+<area shape="rect" id="node2" href="$structSTDC_1_1QMS_1_1mandatoryCorbaOfferProperties.html" title="STDC::QMS::mandatoryCorba\lOfferProperties" alt="" coords="468,41,671,95"/>
+<area shape="rect" id="node9" href="$structSTDC_1_1QMS_1_1uniqueNameType.html" title="STDC::QMS::uniqueNameType" alt="" coords="232,143,443,177"/>
+<area shape="rect" id="node7" href="$structSTDC_1_1QMS_1_1mandatoryServiceOfferProperties.html" title="STDC::QMS::mandatoryService\lOfferProperties" alt="" coords="696,118,909,173"/>
+</map>

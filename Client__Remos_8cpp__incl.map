@@ -1,0 +1,10 @@
+<map id="Client_Remos.cpp" name="Client_Remos.cpp">
+<area shape="rect" id="node3" href="$Client__Remos_8h.html" title="A Remos Client that sends the sensor through a test suite. " alt="" coords="1959,89,2073,122"/>
+<area shape="rect" id="node31" href="$CORBA__Handles_8h.html" title="A Convenience class to deal with CORBA handles. " alt="" coords="2412,369,2548,402"/>
+<area shape="rect" id="node51" href="$Push__Supplier_8h.html" title="Interface definition of the QMS Supplier class. " alt="" coords="1835,265,1949,298"/>
+<area shape="rect" id="node65" href="$Push__Consumer_8h.html" title="Implentation of the Consumer object class. " alt="" coords="1483,265,1613,298"/>
+<area shape="rect" id="node78" href="$YP__Offer_8h.html" title="Convenience methods to create Service types used in CORBA Trading offers. " alt="" coords="2233,171,2316,205"/>
+<area shape="rect" id="node90" href="$Debug_8h.html" title="Debugging Macros. " alt="" coords="329,369,401,402"/>
+<area shape="rect" id="node111" href="$Parse__XML_8h.html" title="A convenient interface to parsing QMS XML documents. " alt="" coords="716,265,817,298"/>
+<area shape="rect" id="node126" href="$Payload__Remos_8h.html" title="The server/probe specific parts of the client. " alt="" coords="941,171,1075,205"/>
+</map>

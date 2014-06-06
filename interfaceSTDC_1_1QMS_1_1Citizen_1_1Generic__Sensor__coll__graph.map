@@ -1,0 +1,4 @@
+<map id="STDC::QMS::Citizen::Generic_Sensor" name="STDC::QMS::Citizen::Generic_Sensor">
+<area shape="rect" id="node2" href="$interfaceSTDC_1_1QMS_1_1Citizen_1_1Command.html" title="STDC::QMS::Citizen\l::Command" alt="" coords="5,110,149,165"/>
+<area shape="rect" id="node4" href="$interfaceSTDC_1_1QMS_1_1Citizen_1_1Control.html" title="STDC::QMS::Citizen\l::Control" alt="" coords="5,6,149,61"/>
+</map>

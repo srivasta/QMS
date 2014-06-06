@@ -1,0 +1,10 @@
+<map id="Client.h" name="Client.h">
+<area shape="rect" id="node29" href="$CORBA__Handles_8h.html" title="A Convenience class to deal with CORBA handles. " alt="" coords="2445,286,2581,319"/>
+<area shape="rect" id="node49" href="$Push__Supplier_8h.html" title="Interface definition of the QMS Supplier class. " alt="" coords="1876,182,1991,215"/>
+<area shape="rect" id="node63" href="$Push__Consumer_8h.html" title="Implentation of the Consumer object class. " alt="" coords="1431,182,1561,215"/>
+<area shape="rect" id="node76" href="$YP__Offer_8h.html" title="Convenience methods to create Service types used in CORBA Trading offers. " alt="" coords="2496,89,2579,122"/>
+<area shape="rect" id="node84" href="$Generic__SensorC_8h.html" title="Generic_SensorC.h" alt="" coords="2267,89,2405,122"/>
+<area shape="rect" id="node91" href="$Debug_8h.html" title="Debugging Macros. " alt="" coords="312,286,384,319"/>
+<area shape="rect" id="node112" href="$Parse__XML_8h.html" title="A convenient interface to parsing QMS XML documents. " alt="" coords="688,182,789,215"/>
+<area shape="rect" id="node127" href="$Payload_8h.html" title="The server/probe specific parts of the client. " alt="" coords="785,89,868,122"/>
+</map>

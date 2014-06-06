@@ -1,0 +1,7 @@
+<map id="client_error_handler" name="client_error_handler">
+<area shape="rect" id="node7" href="$classTest__Client.html" title="A simple test suite to exercise a QMS sensor. " alt="" coords="504,342,595,375"/>
+<area shape="rect" id="node9" href="$classSTDC_1_1QMS_1_1Push__Consumer.html" title="STDC::QMS::Push_Consumer" alt="" coords="363,131,565,165"/>
+<area shape="rect" id="node23" href="$classTest__Receiver.html" title="A simple test suite to exercise a QMS sensor. " alt="" coords="177,342,287,375"/>
+<area shape="rect" id="node13" href="$classSTDC_1_1QMS_1_1CORBA__Handles.html" title="A convenience class for getting handles for CORBA objects. " alt="" coords="449,17,655,50"/>
+<area shape="rect" id="node17" href="$classSTDC_1_1QMS_1_1Push__Supplier.html" title="STDC::QMS::Push_Supplier" alt="" coords="724,131,911,165"/>
+</map>

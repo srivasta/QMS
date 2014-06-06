@@ -1,0 +1,15 @@
+<map id="One_Shot_Pipe_Proxy.cpp" name="One_Shot_Pipe_Proxy.cpp">
+<area shape="rect" id="node5" href="$Debug_8h.html" title="Debugging Macros. " alt="" coords="2861,534,2933,567"/>
+<area shape="rect" id="node28" href="$One__Shot__Pipe__Proxy_8h.html" title="A concrete abstraction object for simple probes using simple pipes. " alt="" coords="2884,89,3049,122"/>
+<area shape="rect" id="node35" href="$Pipe__Proxy_8h.html" title="A pure virtual class to interact with probes using simple pipes. " alt="" coords="2428,171,2526,205"/>
+<area shape="rect" id="node38" href="$Probe__Proxy_8h.html" title="A pure virtual superclass for proxies to probes. " alt="" coords="2021,254,2130,287"/>
+<area shape="rect" id="node138" href="$EC__Adapter_8h.html" title="Interface definition for the QMS API. " alt="" coords="914,337,1016,370"/>
+<area shape="rect" id="node41" href="$Instrumentation_8h.html" title="Instrumentation &#45; QoS intrumentation that uses QMS. " alt="" coords="1201,337,1321,370"/>
+<area shape="rect" id="node43" href="$Meta__Data_8h.html" title="A class that contains meta data about probes. " alt="" coords="2026,337,2125,370"/>
+<area shape="rect" id="node60" href="$List__Data_8h.html" title="Contains a simple class that encapsulates event chanel information. " alt="" coords="2340,430,2428,463"/>
+<area shape="rect" id="node84" href="$CORBA__Handles_8h.html" title="A Convenience class to deal with CORBA handles. " alt="" coords="598,534,734,567"/>
+<area shape="rect" id="node98" href="$Push__Consumer_8h.html" title="Implentation of the Consumer object class. " alt="" coords="705,430,836,463"/>
+<area shape="rect" id="node113" href="$Push__Supplier_8h.html" title="Interface definition of the QMS Supplier class. " alt="" coords="860,430,974,463"/>
+<area shape="rect" id="node126" href="$Parse__XML_8h.html" title="A convenient interface to parsing QMS XML documents. " alt="" coords="2113,430,2214,463"/>
+<area shape="rect" id="node136" href="$Message__Format_8h.html" title="C++ representation of the payload data for the hello world probe. " alt="" coords="1900,430,2038,463"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="STDC::QMS::QMSMessage" name="STDC::QMS::QMSMessage">
+<area shape="rect" id="node2" href="$structSTDC_1_1QMS_1_1pubsubIDType.html" title="STDC::QMS::pubsubIDType" alt="" coords="367,167,553,201"/>
+<area shape="rect" id="node6" href="$structSTDC_1_1QMS_1_1sessionType.html" title="STDC::QMS::sessionType" alt="" coords="577,167,756,201"/>
+<area shape="rect" id="node14" href="$structSTDC_1_1QMS_1_1uniqueNameType.html" title="STDC::QMS::uniqueNameType" alt="" coords="5,167,216,201"/>
+<area shape="rect" id="node9" href="$structSTDC_1_1QMS_1_1QoSParameters.html" title="STDC::QMS::QoSParameters" alt="" coords="539,6,739,39"/>
+<area shape="rect" id="node11" href="$structSTDC_1_1QMS_1_1minRepetitions.html" title="STDC::QMS::minRepetitions" alt="" coords="763,6,952,39"/>
+</map>

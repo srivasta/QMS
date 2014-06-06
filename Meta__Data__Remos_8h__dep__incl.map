@@ -1,0 +1,14 @@
+<map id="Meta_Data_Remos.h" name="Meta_Data_Remos.h">
+<area shape="rect" id="node3" href="$Remos__Sensor__Impl_8h.html" title="A Generic Sensor Implementation. " alt="" coords="217,89,372,122"/>
+<area shape="rect" id="node7" href="$Meta__Data__Remos_8cpp.html" title="Implentation of the Metadata object containing metadata about probes. " alt="" coords="443,369,605,402"/>
+<area shape="rect" id="node13" href="$Probe__Proxy__Remos_8h.html" title="A pure virtual superclass for proxies to probes. " alt="" coords="629,89,789,122"/>
+<area shape="rect" id="node5" href="$CallBack__Remos_8cpp.html" title="This file specifies the action taken when requests are recieved. " alt="" coords="5,171,155,205"/>
+<area shape="rect" id="node9" href="$remos__sensor_8cpp.html" title="Driver for the Remos sensor. " alt="" coords="229,171,360,205"/>
+<area shape="rect" id="node11" href="$Remos__Sensor__Impl_8cpp.html" title="The implementation of the servant. " alt="" coords="384,171,555,205"/>
+<area shape="rect" id="node16" href="$Pipe__Proxy__Remos_8h.html" title="A pure virtual class to interact with probes using simple pipes. " alt="" coords="731,171,880,205"/>
+<area shape="rect" id="node18" href="$Continuous__Pipe__Proxy__Remos_8h.html" title="A concrete abstraction object for sophisticated probes using pipes. " alt="" coords="629,254,795,309"/>
+<area shape="rect" id="node23" href="$One__Shot__Pipe__Proxy__Remos_8h.html" title="A concrete abstraction object for simple probes using simple pipes. " alt="" coords="819,254,976,309"/>
+<area shape="rect" id="node27" href="$Pipe__Proxy__Remos_8cpp.html" title="An implementation for the functions for a probe using pipes. " alt="" coords="1000,265,1165,298"/>
+<area shape="rect" id="node20" href="$Continuous__Pipe__Proxy__Remos_8cpp.html" title="Implementation of a proxy for a continuous, pipe based probe. " alt="" coords="629,358,795,413"/>
+<area shape="rect" id="node25" href="$One__Shot__Pipe__Proxy__Remos_8cpp.html" title="Implementation of a one&#45;shot pipe proxy. " alt="" coords="819,358,976,413"/>
+</map>

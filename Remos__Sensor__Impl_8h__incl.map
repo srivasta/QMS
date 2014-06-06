@@ -1,0 +1,8 @@
+<map id="Remos_Sensor_Impl.h" name="Remos_Sensor_Impl.h">
+<area shape="rect" id="node23" href="$Debug_8h.html" title="Debugging Macros. " alt="" coords="1923,286,1995,319"/>
+<area shape="rect" id="node48" href="$CORBA__Handles_8h.html" title="A Convenience class to deal with CORBA handles. " alt="" coords="552,182,688,215"/>
+<area shape="rect" id="node64" href="$Parse__XML_8h.html" title="A convenient interface to parsing QMS XML documents. " alt="" coords="2388,182,2489,215"/>
+<area shape="rect" id="node101" href="$QMS__Trader__ECInfo__Impl_8h.html" title="The interface definition of the QMS trader functionality. " alt="" coords="784,89,971,122"/>
+<area shape="rect" id="node113" href="$Meta__Data__Remos_8h.html" title="A class that contains meta data about probes. " alt="" coords="1553,89,1700,122"/>
+<area shape="rect" id="node130" href="$Message__Format__Remos_8h.html" title="C++ representation of the payload data for the hello world probe. " alt="" coords="2513,182,2700,215"/>
+</map>

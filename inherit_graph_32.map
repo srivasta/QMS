@@ -1,0 +1,6 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classSTDC_1_1QMS_1_1Citizen_1_1Probe__Proxy__Remos.html" title="A pure virtual superclass for proxies to probes. " alt="" coords="7,43,161,98"/>
+<area shape="rect" id="node3" href="$classSTDC_1_1QMS_1_1Citizen_1_1Pipe__Proxy__Remos.html" title="A pure virtual class to interact with probes using simple pipes. " alt="" coords="211,43,357,98"/>
+<area shape="rect" id="node5" href="$classSTDC_1_1QMS_1_1Citizen_1_1Continuous__Pipe__Proxy__Remos.html" title="A concrete abstraction object for probes using simple pipes. " alt="" coords="405,5,627,59"/>
+<area shape="rect" id="node7" href="$classSTDC_1_1QMS_1_1Citizen_1_1One__Shot__Pipe__Proxy__Remos.html" title="A concrete abstraction object for probes using simple pipes. " alt="" coords="409,82,623,137"/>
+</map>

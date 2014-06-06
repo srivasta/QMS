@@ -1,0 +1,8 @@
+<map id="Parse_Duration.cpp" name="Parse_Duration.cpp">
+<area shape="rect" id="node3" href="$NT__Perf__Mon__Probe_8cpp.html" title="Contains implementation of a Windows NT System Monitor Probe. " alt="" coords="5,99,176,133"/>
+<area shape="rect" id="node5" href="$Remos__Flow__Probe_8cpp.html" title="Contains implementation of a Remos Probe that delivers flow data. " alt="" coords="200,99,368,133"/>
+<area shape="rect" id="node7" href="$Remos__Graph__Probe_8cpp.html" title="Contains implementation of a Remos Graph Probe. " alt="" coords="392,99,568,133"/>
+<area shape="rect" id="node9" href="$Linux__Perf__Mon__Probe_8cpp.html" title="Contains implementation of a Generic Continuos Probe. " alt="" coords="592,99,776,133"/>
+<area shape="rect" id="node11" href="$Generic__Continuous__Probe_8cpp.html" title="Contains implementation of a Generic Continuos Probe. " alt="" coords="800,89,944,143"/>
+<area shape="rect" id="node13" href="$test__duration_8cpp.html" title="test_duration.cpp" alt="" coords="968,99,1091,133"/>
+</map>

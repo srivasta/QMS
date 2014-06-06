@@ -1,0 +1,29 @@
+<map id="YP_Offer.h" name="YP_Offer.h">
+<area shape="rect" id="node3" href="$ListOffers_8h.html" title="Lists the offers pertaining to a service type. " alt="" coords="13,89,99,122"/>
+<area shape="rect" id="node7" href="$QMS__Trader__ECInfo__Impl_8cpp.html" title="Implementation of ECInfo class and it&#39;s methods. " alt="" coords="123,89,323,122"/>
+<area shape="rect" id="node9" href="$Hello__World__Impl_8cpp.html" title="The implementation of the servant. " alt="" coords="347,89,496,122"/>
+<area shape="rect" id="node11" href="$Meta__Data__HW_8cpp.html" title="Implentation of the Metadata object containing metadata about probes. " alt="" coords="520,89,659,122"/>
+<area shape="rect" id="node13" href="$Client__HW_8h.html" title="A Hello World Client that send the sensor through a test suite. " alt="" coords="683,89,776,122"/>
+<area shape="rect" id="node17" href="$hello__world__client_8cpp.html" title="implementation of the client program " alt="" coords="724,171,876,205"/>
+<area shape="rect" id="node20" href="$Meta__Data__Remos_8cpp.html" title="Implentation of the Metadata object containing metadata about probes. " alt="" coords="851,89,1013,122"/>
+<area shape="rect" id="node22" href="$Remos__Sensor__Impl_8cpp.html" title="The implementation of the servant. " alt="" coords="1037,89,1208,122"/>
+<area shape="rect" id="node24" href="$Client__Remos_8h.html" title="A Remos Client that sends the sensor through a test suite. " alt="" coords="1232,89,1347,122"/>
+<area shape="rect" id="node30" href="$remos__client_8cpp.html" title="implementation of the client program " alt="" coords="1241,171,1364,205"/>
+<area shape="rect" id="node33" href="$Generic__Sensor__Impl_8cpp.html" title="The implementation of the servant. " alt="" coords="1421,89,1595,122"/>
+<area shape="rect" id="node35" href="$Meta__Data_8cpp.html" title="Implentation of the Metadata object containing metadata about probes. " alt="" coords="1619,89,1731,122"/>
+<area shape="rect" id="node39" href="$Client_8h.html" title="A Generic Client that sends the sensor through a test suite. " alt="" coords="1755,89,1821,122"/>
+<area shape="rect" id="node45" href="$generic__client_8cpp.html" title="implementation of the client program " alt="" coords="1833,171,1961,205"/>
+<area shape="rect" id="node48" href="$Receiver_8h.html" title="A Generic Client that just listens. " alt="" coords="1955,89,2040,122"/>
+<area shape="rect" id="node52" href="$receiver__client_8cpp.html" title="implementation of the client program " alt="" coords="2108,171,2241,205"/>
+<area shape="rect" id="node55" href="$Simple__Logger_8h.html" title="A Simple Logger that logs information on all the Event Channels. " alt="" coords="2115,89,2237,122"/>
+<area shape="rect" id="node59" href="$YP__Offer_8cpp.html" title="Convenience methods to create Service types used in CORBA Trading offers. " alt="" coords="2261,89,2360,122"/>
+<area shape="rect" id="node5" href="$ListOffers_8cpp.html" title="Lists the offers pertaining to a service type. " alt="" coords="5,171,107,205"/>
+<area shape="rect" id="node15" href="$Client__HW_8cpp.html" title="A Hello World Client that send the sensor through a test suite. " alt="" coords="593,171,700,205"/>
+<area shape="rect" id="node26" href="$Benchmark__Remos_8cpp.html" title="A Client that send the sensor through a test suite. " alt="" coords="900,171,1063,205"/>
+<area shape="rect" id="node28" href="$Client__Remos_8cpp.html" title="A Remos Client that sends the sensor through a test suite. " alt="" coords="1087,171,1217,205"/>
+<area shape="rect" id="node37" href="$test__meta__data_8cpp.html" title="implementation of a test program " alt="" coords="1388,171,1527,205"/>
+<area shape="rect" id="node41" href="$Benchmark__Client_8cpp.html" title="A Client that send the sensor through a test suite. " alt="" coords="1551,171,1705,205"/>
+<area shape="rect" id="node43" href="$Client_8cpp.html" title="A Generic Client that sends the sensor through a test suite. " alt="" coords="1729,171,1809,205"/>
+<area shape="rect" id="node50" href="$Receiver_8cpp.html" title="A Generic Client that just listens. " alt="" coords="1985,171,2084,205"/>
+<area shape="rect" id="node57" href="$Simple__Logger_8cpp.html" title="A Simple Logger that logs information on all the Event Channels. " alt="" coords="2265,171,2401,205"/>
+</map>

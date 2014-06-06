@@ -1,0 +1,51 @@
+<map id="CORBA_Handles.h" name="CORBA_Handles.h">
+<area shape="rect" id="node3" href="$ListOffers_8h.html" title="Lists the offers pertaining to a service type. " alt="" coords="927,171,1013,205"/>
+<area shape="rect" id="node7" href="$QMS__Trader__ECInfo__Impl_8h.html" title="The interface definition of the QMS trader functionality. " alt="" coords="305,171,491,205"/>
+<area shape="rect" id="node13" href="$Hello__World__Impl_8h.html" title="A concrete, example server. " alt="" coords="522,254,658,287"/>
+<area shape="rect" id="node17" href="$hello__world_8cpp.html" title="Driver for the hello world sensor. " alt="" coords="1506,337,1621,370"/>
+<area shape="rect" id="node24" href="$Remos__Sensor__Impl_8h.html" title="A Generic Sensor Implementation. " alt="" coords="682,254,837,287"/>
+<area shape="rect" id="node30" href="$remos__sensor_8cpp.html" title="Driver for the Remos sensor. " alt="" coords="2629,337,2759,370"/>
+<area shape="rect" id="node35" href="$Generic__Sensor__Impl_8h.html" title="A concrete, example server. " alt="" coords="1189,254,1349,287"/>
+<area shape="rect" id="node39" href="$generic__sensor_8cpp.html" title="Driver for the Generic sensor. " alt="" coords="2977,337,3115,370"/>
+<area shape="rect" id="node47" href="$Meta__Data__HW_8h.html" title="A class that contains meta data about probes. " alt="" coords="2295,171,2421,205"/>
+<area shape="rect" id="node52" href="$Client__HW_8h.html" title="A Hello World Client that send the sensor through a test suite. " alt="" coords="2887,171,2981,205"/>
+<area shape="rect" id="node56" href="$hello__world__client_8cpp.html" title="implementation of the client program " alt="" coords="3061,254,3213,287"/>
+<area shape="rect" id="node60" href="$Meta__Data__Remos_8h.html" title="A class that contains meta data about probes. " alt="" coords="3207,171,3354,205"/>
+<area shape="rect" id="node70" href="$Client__Remos_8h.html" title="A Remos Client that sends the sensor through a test suite. " alt="" coords="2698,171,2813,205"/>
+<area shape="rect" id="node76" href="$remos__client_8cpp.html" title="implementation of the client program " alt="" coords="2341,254,2463,287"/>
+<area shape="rect" id="node80" href="$Meta__Data_8h.html" title="A class that contains meta data about probes. " alt="" coords="3486,171,3585,205"/>
+<area shape="rect" id="node90" href="$Client_8h.html" title="A Generic Client that sends the sensor through a test suite. " alt="" coords="2103,171,2170,205"/>
+<area shape="rect" id="node96" href="$generic__client_8cpp.html" title="implementation of the client program " alt="" coords="2087,254,2215,287"/>
+<area shape="rect" id="node99" href="$Receiver_8h.html" title="A Generic Client that just listens. " alt="" coords="1421,171,1506,205"/>
+<area shape="rect" id="node103" href="$receiver__client_8cpp.html" title="implementation of the client program " alt="" coords="1423,254,1557,287"/>
+<area shape="rect" id="node106" href="$CORBA__Handles_8cpp.html" title="Convenience object to stash CORBA handles and references. " alt="" coords="3374,89,3523,122"/>
+<area shape="rect" id="node108" href="$YP__Offer_8h.html" title="Convenience methods to create Service types used in CORBA Trading offers. " alt="" coords="1553,89,1635,122"/>
+<area shape="rect" id="node130" href="$EC__Adapter_8h.html" title="Interface definition for the QMS API. " alt="" coords="3783,171,3885,205"/>
+<area shape="rect" id="node134" href="$Push__Consumer_8h.html" title="Implentation of the Consumer object class. " alt="" coords="2494,89,2625,122"/>
+<area shape="rect" id="node152" href="$Push__Supplier_8h.html" title="Interface definition of the QMS Supplier class. " alt="" coords="3037,89,3151,122"/>
+<area shape="rect" id="node167" href="$test__CORBA__Handles_8cpp.html" title="test_CORBA_Handles.cpp" alt="" coords="4010,89,4189,122"/>
+<area shape="rect" id="node5" href="$ListOffers_8cpp.html" title="Lists the offers pertaining to a service type. " alt="" coords="911,254,1013,287"/>
+<area shape="rect" id="node9" href="$QMS__Trader__ECInfo_8h.html" title="Starts the QMS_Trader_ECInfo CORBA object for accepting requests. " alt="" coords="69,254,223,287"/>
+<area shape="rect" id="node11" href="$QMS__Trader__ECInfo__Impl_8cpp.html" title="Implementation of ECInfo class and it&#39;s methods. " alt="" coords="298,254,498,287"/>
+<area shape="rect" id="node19" href="$Hello__World__Impl_8cpp.html" title="The implementation of the servant. " alt="" coords="327,337,477,370"/>
+<area shape="rect" id="node32" href="$Remos__Sensor__Impl_8cpp.html" title="The implementation of the servant. " alt="" coords="653,337,823,370"/>
+<area shape="rect" id="node41" href="$Generic__Sensor__Impl_8cpp.html" title="The implementation of the servant. " alt="" coords="1021,337,1194,370"/>
+<area shape="rect" id="node15" href="$CallBack__HW_8cpp.html" title="This file specifies the action taken when requests are recieved. " alt="" coords="501,337,629,370"/>
+<area shape="rect" id="node21" href="$Meta__Data__HW_8cpp.html" title="Implentation of the Metadata object containing metadata about probes. " alt="" coords="1343,337,1482,370"/>
+<area shape="rect" id="node26" href="$CallBack__Remos_8cpp.html" title="This file specifies the action taken when requests are recieved. " alt="" coords="847,337,997,370"/>
+<area shape="rect" id="node28" href="$Meta__Data__Remos_8cpp.html" title="Implentation of the Metadata object containing metadata about probes. " alt="" coords="1645,337,1807,370"/>
+<area shape="rect" id="node37" href="$CallBack_8cpp.html" title="This file specifies the action taken when requests are recieved. " alt="" coords="1218,337,1319,370"/>
+<area shape="rect" id="node43" href="$Meta__Data_8cpp.html" title="Implentation of the Metadata object containing metadata about probes. " alt="" coords="1831,337,1943,370"/>
+<area shape="rect" id="node54" href="$Client__HW_8cpp.html" title="A Hello World Client that send the sensor through a test suite. " alt="" coords="2930,254,3037,287"/>
+<area shape="rect" id="node63" href="$Probe__Proxy__Remos_8h.html" title="A pure virtual superclass for proxies to probes. " alt="" coords="3338,254,3498,287"/>
+<area shape="rect" id="node66" href="$Pipe__Proxy__Remos_8h.html" title="A pure virtual class to interact with probes using simple pipes. " alt="" coords="3434,337,3583,370"/>
+<area shape="rect" id="node72" href="$Benchmark__Remos_8cpp.html" title="A Client that send the sensor through a test suite. " alt="" coords="2589,254,2751,287"/>
+<area shape="rect" id="node74" href="$Client__Remos_8cpp.html" title="A Remos Client that sends the sensor through a test suite. " alt="" coords="2775,254,2906,287"/>
+<area shape="rect" id="node83" href="$Probe__Proxy_8h.html" title="A pure virtual superclass for proxies to probes. " alt="" coords="3573,254,3682,287"/>
+<area shape="rect" id="node86" href="$Pipe__Proxy_8h.html" title="A pure virtual class to interact with probes using simple pipes. " alt="" coords="3699,337,3798,370"/>
+<area shape="rect" id="node92" href="$Benchmark__Client_8cpp.html" title="A Client that send the sensor through a test suite. " alt="" coords="1909,254,2063,287"/>
+<area shape="rect" id="node94" href="$Client_8cpp.html" title="A Generic Client that sends the sensor through a test suite. " alt="" coords="1805,254,1885,287"/>
+<area shape="rect" id="node101" href="$Receiver_8cpp.html" title="A Generic Client that just listens. " alt="" coords="1581,254,1679,287"/>
+<area shape="rect" id="node126" href="$Simple__Logger_8h.html" title="A Simple Logger that logs information on all the Event Channels. " alt="" coords="1906,171,2029,205"/>
+<area shape="rect" id="node128" href="$YP__Offer_8cpp.html" title="Convenience methods to create Service types used in CORBA Trading offers. " alt="" coords="1631,171,1730,205"/>
+</map>

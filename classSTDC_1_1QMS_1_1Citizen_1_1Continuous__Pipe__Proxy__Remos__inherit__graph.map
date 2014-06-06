@@ -1,0 +1,4 @@
+<map id="STDC::QMS::Citizen::Continuous_Pipe_Proxy_Remos" name="STDC::QMS::Citizen::Continuous_Pipe_Proxy_Remos">
+<area shape="rect" id="node2" href="$classSTDC_1_1QMS_1_1Citizen_1_1Pipe__Proxy__Remos.html" title="A pure virtual class to interact with probes using simple pipes. " alt="" coords="43,110,189,165"/>
+<area shape="rect" id="node4" href="$classSTDC_1_1QMS_1_1Citizen_1_1Probe__Proxy__Remos.html" title="A pure virtual superclass for proxies to probes. " alt="" coords="39,6,193,61"/>
+</map>

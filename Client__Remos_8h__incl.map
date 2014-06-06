@@ -1,0 +1,9 @@
+<map id="Client_Remos.h" name="Client_Remos.h">
+<area shape="rect" id="node29" href="$CORBA__Handles_8h.html" title="A Convenience class to deal with CORBA handles. " alt="" coords="2477,286,2613,319"/>
+<area shape="rect" id="node49" href="$Push__Supplier_8h.html" title="Interface definition of the QMS Supplier class. " alt="" coords="1913,182,2028,215"/>
+<area shape="rect" id="node63" href="$Push__Consumer_8h.html" title="Implentation of the Consumer object class. " alt="" coords="1592,182,1723,215"/>
+<area shape="rect" id="node76" href="$YP__Offer_8h.html" title="Convenience methods to create Service types used in CORBA Trading offers. " alt="" coords="2271,89,2353,122"/>
+<area shape="rect" id="node88" href="$Debug_8h.html" title="Debugging Macros. " alt="" coords="312,286,384,319"/>
+<area shape="rect" id="node109" href="$Parse__XML_8h.html" title="A convenient interface to parsing QMS XML documents. " alt="" coords="771,182,872,215"/>
+<area shape="rect" id="node126" href="$Payload__Remos_8h.html" title="The server/probe specific parts of the client. " alt="" coords="871,89,1004,122"/>
+</map>

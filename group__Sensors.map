@@ -1,0 +1,6 @@
+<map id="QMS Sensors &#45; QoS metrics gatherers and data supplier" name="QMS Sensors &#45; QoS metrics gatherers and data supplier">
+<area shape="rect" id="node1" href="$group__RemosSensor.html" title="Remos Sensor &#45; a hybrid\l sensor implementation" alt="" coords="469,5,640,59"/>
+<area shape="rect" id="node2" href="$group__GenericSensor.html" title="Generic sensor &#45; an\l example sensor implementation\l with external probes" alt="" coords="447,82,663,158"/>
+<area shape="rect" id="node3" href="$group__Instrumentation.html" title="Instrumentation &#45; QoS\l intrumentation that\l uses QMS" alt="" coords="7,82,156,158"/>
+<area shape="rect" id="node5" href="$group__HelloWorld.html" title="Hello&#45;World sensor\l &#45; an example sensor\l implementation" alt="" coords="480,181,629,257"/>
+</map>

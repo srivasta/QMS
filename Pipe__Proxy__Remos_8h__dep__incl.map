@@ -1,0 +1,8 @@
+<map id="Pipe_Proxy_Remos.h" name="Pipe_Proxy_Remos.h">
+<area shape="rect" id="node3" href="$Continuous__Pipe__Proxy__Remos_8h.html" title="A concrete abstraction object for sophisticated probes using pipes. " alt="" coords="192,89,357,143"/>
+<area shape="rect" id="node9" href="$One__Shot__Pipe__Proxy__Remos_8h.html" title="A concrete abstraction object for simple probes using simple pipes. " alt="" coords="381,89,539,143"/>
+<area shape="rect" id="node13" href="$Pipe__Proxy__Remos_8cpp.html" title="An implementation for the functions for a probe using pipes. " alt="" coords="563,99,728,133"/>
+<area shape="rect" id="node5" href="$Continuous__Pipe__Proxy__Remos_8cpp.html" title="Implementation of a proxy for a continuous, pipe based probe. " alt="" coords="5,193,171,247"/>
+<area shape="rect" id="node7" href="$Meta__Data__Remos_8cpp.html" title="Implentation of the Metadata object containing metadata about probes. " alt="" coords="195,203,357,237"/>
+<area shape="rect" id="node11" href="$One__Shot__Pipe__Proxy__Remos_8cpp.html" title="Implementation of a one&#45;shot pipe proxy. " alt="" coords="381,193,539,247"/>
+</map>

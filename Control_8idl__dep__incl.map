@@ -1,0 +1,7 @@
+<map id="Control.idl" name="Control.idl">
+<area shape="rect" id="node3" href="$Command_8idl.html" title="The set of interfaces a QMS citizen must support. " alt="" coords="184,89,285,122"/>
+<area shape="rect" id="node5" href="$Trader_8idl.html" title="The Additional set of interfaces provided by the QMS Trader service. " alt="" coords="5,171,83,205"/>
+<area shape="rect" id="node7" href="$Hello__World_8idl.html" title="The implementation of a Sensor interface. " alt="" coords="107,171,219,205"/>
+<area shape="rect" id="node9" href="$Remos__Sensor_8idl.html" title="The implementation of a Sensor interface. " alt="" coords="243,171,373,205"/>
+<area shape="rect" id="node11" href="$Generic__Sensor_8idl.html" title="The implementation of a Sensor interface. " alt="" coords="397,171,533,205"/>
+</map>

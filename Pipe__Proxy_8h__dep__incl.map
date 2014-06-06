@@ -1,0 +1,9 @@
+<map id="Pipe_Proxy.h" name="Pipe_Proxy.h">
+<area shape="rect" id="node3" href="$Continuous__Pipe__Proxy_8h.html" title="A concrete abstraction object for sophisticated probes using pipes. " alt="" coords="173,89,347,122"/>
+<area shape="rect" id="node11" href="$One__Shot__Pipe__Proxy_8h.html" title="A concrete abstraction object for simple probes using simple pipes. " alt="" coords="371,89,536,122"/>
+<area shape="rect" id="node15" href="$Pipe__Proxy_8cpp.html" title="An implementation for the functions for a probe using pipes. " alt="" coords="560,89,675,122"/>
+<area shape="rect" id="node5" href="$Continuous__Pipe__Proxy_8cpp.html" title="Implementation of a proxy for a continuous, pipe based probe. " alt="" coords="5,171,192,205"/>
+<area shape="rect" id="node7" href="$Meta__Data_8cpp.html" title="Implentation of the Metadata object containing metadata about probes. " alt="" coords="216,171,328,205"/>
+<area shape="rect" id="node9" href="$test__meta__data_8cpp.html" title="implementation of a test program " alt="" coords="203,254,341,287"/>
+<area shape="rect" id="node13" href="$One__Shot__Pipe__Proxy_8cpp.html" title="Implementation of a one&#45;shot pipe proxy. " alt="" coords="364,171,543,205"/>
+</map>

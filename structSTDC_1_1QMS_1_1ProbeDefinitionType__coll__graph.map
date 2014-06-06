@@ -1,0 +1,7 @@
+<map id="STDC::QMS::ProbeDefinitionType" name="STDC::QMS::ProbeDefinitionType">
+<area shape="rect" id="node2" href="$structSTDC_1_1QMS_1_1mandatorySchemaOfferProperties.html" title="STDC::QMS::mandatorySchema\lOfferProperties" alt="" coords="444,5,660,59"/>
+<area shape="rect" id="node6" href="$structSTDC_1_1QMS_1_1genericSensorProbeProperties.html" title="STDC::QMS::genericSensor\lProbeProperties" alt="" coords="457,69,647,123"/>
+<area shape="rect" id="node9" href="$structSTDC_1_1QMS_1_1invocationType.html" title="STDC::QMS::invocationType" alt="" coords="695,147,889,181"/>
+<area shape="rect" id="node14" href="$structSTDC_1_1QMS_1_1uniqueNameType.html" title="STDC::QMS::uniqueNameType" alt="" coords="208,229,419,262"/>
+<area shape="rect" id="node12" href="$structSTDC_1_1QMS_1_1mandatoryServiceOfferProperties.html" title="STDC::QMS::mandatoryService\lOfferProperties" alt="" coords="685,206,899,261"/>
+</map>

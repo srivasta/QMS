@@ -1,0 +1,5 @@
+<map id="The Core services provided by QMS" name="The Core services provided by QMS">
+<area shape="rect" id="node1" href="$group__COMMAND.html" title="The QMS Command and\l control Interface and\l adapter" alt="" coords="456,5,629,81"/>
+<area shape="rect" id="node2" href="$group__Trader.html" title="QMS Trader &#45; Underpinnings\l of the QMS publish/subscribe\l services" alt="" coords="444,103,641,179"/>
+<area shape="rect" id="node4" href="$group__QMS.html" title="QoS Metric Services" alt="" coords="5,75,152,109"/>
+</map>

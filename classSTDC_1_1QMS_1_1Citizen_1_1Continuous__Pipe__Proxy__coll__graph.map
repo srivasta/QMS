@@ -1,0 +1,12 @@
+<map id="STDC::QMS::Citizen::Continuous_Pipe_Proxy" name="STDC::QMS::Citizen::Continuous_Pipe_Proxy">
+<area shape="rect" id="node2" href="$classSTDC_1_1QMS_1_1Citizen_1_1Pipe__Proxy.html" title="A pure virtual class to interact with probes using simple pipes. " alt="" coords="1813,345,1957,399"/>
+<area shape="rect" id="node4" href="$classSTDC_1_1QMS_1_1Citizen_1_1Probe__Proxy.html" title="A pure virtual superclass for proxies to probes. " alt="" coords="1619,345,1763,399"/>
+<area shape="rect" id="node6" href="$classSTDC_1_1QMS_1_1Citizen_1_1Meta__Data.html" title="A container class of meta&#45;data about probes. " alt="" coords="1357,202,1501,257"/>
+<area shape="rect" id="node8" href="$structSTDC_1_1QMS_1_1ProbeDefinitionType.html" title="STDC::QMS::ProbeDefinitionType" alt="" coords="1016,259,1240,293"/>
+<area shape="rect" id="node10" href="$structSTDC_1_1QMS_1_1mandatorySchemaOfferProperties.html" title="STDC::QMS::mandatorySchema\lOfferProperties" alt="" coords="665,185,881,239"/>
+<area shape="rect" id="node26" href="$structSTDC_1_1QMS_1_1sensorServiceType.html" title="STDC::QMS::sensorServiceType" alt="" coords="1017,179,1239,213"/>
+<area shape="rect" id="node14" href="$structSTDC_1_1QMS_1_1genericSensorProbeProperties.html" title="STDC::QMS::genericSensor\lProbeProperties" alt="" coords="679,93,868,147"/>
+<area shape="rect" id="node17" href="$structSTDC_1_1QMS_1_1invocationType.html" title="STDC::QMS::invocationType" alt="" coords="445,354,640,387"/>
+<area shape="rect" id="node22" href="$structSTDC_1_1QMS_1_1uniqueNameType.html" title="STDC::QMS::uniqueNameType" alt="" coords="211,279,421,313"/>
+<area shape="rect" id="node20" href="$structSTDC_1_1QMS_1_1mandatoryServiceOfferProperties.html" title="STDC::QMS::mandatoryService\lOfferProperties" alt="" coords="667,269,880,323"/>
+</map>

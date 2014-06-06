@@ -1,0 +1,10 @@
+<map id="pack_args" name="pack_args">
+<area shape="rect" id="node2" href="$classSTDC_1_1QMS_1_1Citizen_1_1Hello__World__Impl.html" title="An servant implementation of an minimalist QMS Sensor. " alt="" coords="1375,175,1519,230"/>
+<area shape="rect" id="node6" href="$structSTDC_1_1QMS_1_1sensorConfiguration.html" title="STDC::QMS::sensorConfiguration" alt="" coords="1023,238,1244,271"/>
+<area shape="rect" id="node22" href="$classSTDC_1_1QMS_1_1Citizen_1_1Remos__Sensor__Impl.html" title="An servant implementation of an minimalist QMS Sensor. " alt="" coords="1371,510,1523,565"/>
+<area shape="rect" id="node29" href="$classSTDC_1_1QMS_1_1Citizen_1_1Generic__Sensor__Impl.html" title="An servant implementation of an minimalist QMS Sensor. " alt="" coords="1368,375,1525,430"/>
+<area shape="rect" id="node8" href="$structSTDC_1_1QMS_1_1mandatoryCorbaOfferProperties.html" title="STDC::QMS::mandatoryCorba\lOfferProperties" alt="" coords="468,230,671,285"/>
+<area shape="rect" id="node15" href="$structSTDC_1_1QMS_1_1uniqueNameType.html" title="STDC::QMS::uniqueNameType" alt="" coords="232,331,443,365"/>
+<area shape="rect" id="node13" href="$structSTDC_1_1QMS_1_1mandatoryServiceOfferProperties.html" title="STDC::QMS::mandatoryService\lOfferProperties" alt="" coords="696,302,909,357"/>
+<area shape="rect" id="node19" href="$classSTDC_1_1QMS_1_1CORBA__Handles.html" title="A convenience class for getting handles for CORBA objects. " alt="" coords="1031,517,1236,550"/>
+</map>
